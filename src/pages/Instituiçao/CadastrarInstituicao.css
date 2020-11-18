@@ -1,0 +1,54 @@
+.columns-flex{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+.column-div-instituicao-cadastro div{
+    margin: 10px;
+    padding-top: 20px;
+}
+
+
+.input-styles-IT{
+    border-radius: 5px;
+    border: none;
+    border: 1px solid #0060EB;
+    padding: 10px 3px;
+    width: 300px;
+}
+
+.flex-button-IT{
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.styles-button-instituicao-env{
+    width: 250px;
+    height: 40px;
+    background: #00DA2E;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 10px 5px;
+}
+.styles-button-instituicao-cancel{
+    width: 250px;
+    height: 40px;
+    background: tomato;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 10px 5px;
+}
+
+@media (max-width: 350px){
+    .input-styles-IT{
+        width: 100%;
+    }
+    .column-div-instituicao-cadastro{
+        width: 100%;
+    }
+}
+   

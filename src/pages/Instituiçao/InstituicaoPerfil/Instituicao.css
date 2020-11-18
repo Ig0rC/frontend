@@ -1,0 +1,23 @@
+.perfil-instituicao-bg{
+    background: #0060EB;
+    border-top: 2px solid white;
+}
+
+.perfil-titulo{
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+.perfil-titulo h2{
+    color: white;
+}
+
+.perfil-dados-flex{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.flex-1{
+    
+}

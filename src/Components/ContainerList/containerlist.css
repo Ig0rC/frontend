@@ -1,0 +1,9 @@
+.container-list-all{
+    max-width: 1600px;
+    margin: 0 auto;
+    
+}
+.color-bg-pesq{
+    border-top: 3px solid black;
+    background: #0060EB;
+}

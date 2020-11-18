@@ -1,0 +1,93 @@
+.flex-list-all-bg{
+   
+    padding-top: 20px;
+    background: #0060EB;
+    margin-top: 0;
+  
+}
+.bg-footer{
+    background: #0060EB;
+    padding: 20px 0;
+}
+.flex-pesq-list-all{
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0px;
+    align-items: center !important;
+}
+.list-instituicao-all-bg{
+   height: 70.1vh;
+   background: white;
+}
+
+.pesquisa-aluno-list-all{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 500px;
+    padding: 10px 5px;
+}
+
+.titulo-aluno-list-all{
+    font-weight: 600;
+    font-size: 30px;
+    color: white;
+   
+}
+.tamanho-pesq-atributos{
+    height: 50%;
+}
+
+/* Próxima list */
+.next-aluno-list-all{
+    padding: 10px 30px;
+    background: tomato;
+    border-radius: 10px;
+}
+
+.perfil-aluno-list-all{
+    background: white;
+}
+.columns-titulos-instituicao{
+    display: flex;
+    justify-content: space-between;
+}
+.container-coluna-width-definido{
+    width: 15%;
+    text-align: center;
+   
+}
+
+.margin-list-instituicao{
+    margin: 5px !important;
+}
+
+/* Footer */
+
+.flex-visualizar-list{
+    display: flex;
+    margin: 5px;
+}
+
+.flex-next-prev-list{
+    display: flex;
+    justify-content: center;
+}
+
+.back-button-list-all{
+    padding: 10px 50px;
+    margin: 10px 5px;
+}
+.btn-list-color-voltar{
+    background: tomato;
+    border: 1px solid tomato;
+    color: white;
+    font-weight: 500;
+}
+.btn-list-color-proximo{
+    background: #05CAB6;
+    border: 1px solid #05CAB6;
+    color: black;
+    font-weight: 500;
+}

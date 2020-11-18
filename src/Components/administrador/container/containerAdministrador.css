@@ -1,0 +1,21 @@
+.container-administrador{
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 655px){
+    .container{
+        height: 100vh;
+        display: block;
+        margin-top: 20px;
+    }
+    
+}
+
+.titulo-styles-administrador{
+    text-align: center;
+}

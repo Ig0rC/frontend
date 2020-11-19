@@ -1,0 +1,33 @@
+.list-cursos-all-bg{
+    height: 82.5vh;
+    background: white;
+ }
+ 
+
+ .flex-visualizar-list{
+    display: flex;
+    margin: 5px;
+}
+
+.flex-next-prev-list{
+    display: flex;
+    justify-content: center;
+}
+
+.back-button-list-all{
+    padding: 10px 50px;
+    margin: 10px 5px;
+}
+.btn-list-color-voltar{
+    background: tomato;
+    border: 1px solid tomato;
+    color: white;
+    font-weight: 500;
+}
+.btn-list-color-proximo{
+    background: #05CAB6;
+    border: 1px solid #05CAB6;
+    color: black;
+    font-weight: 500;
+}
+ 

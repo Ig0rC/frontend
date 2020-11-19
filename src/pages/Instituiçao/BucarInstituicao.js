@@ -9,119 +9,137 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function BuscarInstituicoes() {
+    const [ i, setI] = useState(0);
     const [instituicao, setInstituicao] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage ] = useState()
+    const [teste, setTeste ] = useState([]);
 
     useEffect(() => {
 
         async function BuscarAll() {
-            const response = await api.get('/instituicao');
-            setInstituicao(response.data)
-
           
-
+             const response = await api.get(`/instituicao/${1}`)
+              
+            setInstituicao(response.data)
+            setTotalPage(response.headers.count);
+            console.log('ok')
         };
 
         BuscarAll();
-
+        
     }, [])
 
-    console.log(instituicao)
+
+    useEffect(() => {
+        let paginacao = totalPage / 5;
+        let Numeracao = totalPage %  5 === 0;
+        if(Numeracao === false){
+            let salve = paginacao + 1
+            paginacao = Math.round(salve)
+        } 
+        console.log(paginacao)
+        setI(paginacao)
+        console.log(paginacao)
+    }, [totalPage])
+
+    async function nextInstituicao(){
+        console.log(i, 'next')
+        if(page < i) {
+                let next = await page + 1;
+                setPage(next);
+                const response = await api.get(`/instituicao/${next}`)
+                setInstituicao(response.data)
+        }else if(page === i){
+            alert('Já Chegou no Final')
+        }
+    }
+    
+    async function PrevInstituicao(){
+       console.log(page)
+       if(page === 1){
+           return alert('inicio')
+       }else{
+           let prev = await page - 1;
+           setPage(prev);
+           const response = await api.get(`/instituicao/${prev}`)
+           setInstituicao(response.data)
+       }
+    }
+   
+
+
+
     return (
         <>
-            <Menu />
+        <Menu />
         <div class="flex-list-all-bg">
-            <div class="flex-pesq-list-all">
-                <div class="tamanho-pesq-atributos">
-                    <p class="titulo-aluno-list-all">Instituicoes</p>
-                </div>
-                <div class="tamanho-pesq-atributos">
-                    <input
-                        placeholder="Pesquisar"
-                        class="pesquisa-aluno-list-all" />
-                </div>
-                <div class="tamanho-pesq-atributos">
-                    <button class="back-button-list-all btn-list-color-proximo">
-                            Próximo
-                        </button>
-                </div>
-            </div>
-        </div>
-            <div class="list-instituicao-all-bg">
-
-
-                <div class="perfil-aluno-list-all">
-                    <div class="columns-titulos-instituicao">
-                        <div class="container-coluna-width-definido">
-                            <p>
-                                Código
-                            </p>
-                        </div>
-                        <div class="container-coluna-width-definido">
-                            <p>
-                                Nome
-                            </p>
-                        </div>
-                        <div class="container-coluna-width-definido">
-                            <p>
-                                Responsável
-                            </p>
-                        </div>
-                        <div class="container-coluna-width-definido">
-                            <p>
-                                Telefone
-                            </p>
-                        </div>
-                        <div class="container-coluna-width-definido">
-                            <p>
-                                Editar / Visualizar
-                            </p>
-                        </div>
+                    <div class="flex-pesq-list-all">
+                            <div class="tamanho-pesq-atributos">
+                                <p class="titulo-aluno-list-all">Curso</p>
+                            </div>
+                            <div class="tamanho-pesq-atributos">
+                                <input
+                                    placeholder="Pesquisar"
+                                    class="pesquisa-aluno-list-all" />
+                            </div>
+                            <div class="tamanho-pesq-atributos">
+                                <button class="back-button-list-all btn-list-color-proximo">
+                                        Próximo
+                                    </button>
+                            </div>
                     </div>
-                    {instituicao.map(instituicao => (
-                        <div key={instituicao.id} class="columns-titulos-instituicao">
-                            <div class="container-coluna-width-definido margin-list-instituicao">
-                                <p>
-                                    {instituicao.id_instituicao}
-                                </p>
-                            </div>
-                            <div class="container-coluna-width-definido margin-list-instituicao">
-                                <p>
-                                    {instituicao.nome}
-
-                                </p>
-                            </div>
-                            <div class="container-coluna-width-definido margin-list-instituicao">
-                                <p>
-                                    {instituicao.responsavel}
-                                </p>
-                            </div>
-                            <div class="container-coluna-width-definido margin-list-instituicao">
-                                <p>
-                                    {instituicao.unidade}
-                                </p>
-                            </div>
-                            <div class="container-coluna-width-definido">
-
-                                <FontAwesomeIcon icon={faEdit} color="#0060EB" />
-
-
-                            </div>
-                        </div>
-                    ))}
-
-                </div>
-            </div>
-            <div class="bg-footer">
+        </div>
+        <div class="list-instituicao-all-bg">
+        <table >
+                    <tr >
+                        <th scope="col">
+                            Código
+                        </th>
+                        <th scope="col">
+                            Nome
+                        </th>
+                        <th scope="col">
+                           Unidade
+                        </th>
+                        <th scope="col">
+                            Telefone
+                        </th>
+                        <th scope="col">
+                            Editar / Visualizar           
+                        </th>
+                    </tr>
+           
+                {instituicao.map(instituicao => (
+              
+                    <tr>
+                        <th >{instituicao.id_instituicao}</th>
+                        <td>{instituicao.nome}</td>
+                        <td>{instituicao.responsavel}</td>
+                        <td>{instituicao.unidade}</td>
+                        <td><FontAwesomeIcon icon={faEdit} color="#0060EB" /></td>
+                    </tr>
+       
+                ))} 
+                  </table> 
+        </div>
+       
+                  <div class="bg-footer">
                     
                     <div class="flex-next-prev-list">
-                        <button class="back-button-list-all btn-list-color-voltar">
+                        <button 
+                             onClick={() =>PrevInstituicao()}
+                            class="back-button-list-all btn-list-color-voltar">
                             Voltar
                         </button>
-                        <button class="back-button-list-all btn-list-color-proximo">
+                        <button onClick={() => nextInstituicao()}
+                        class="back-button-list-all btn-list-color-proximo">
                             Próximo
                         </button>
                     </div>
             </div>
+
+
 
         </>
     );

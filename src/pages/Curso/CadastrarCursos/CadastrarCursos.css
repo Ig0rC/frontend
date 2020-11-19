@@ -1,0 +1,49 @@
+.columns-flex-cadastrar-cursos{
+   text-align: center;
+}
+
+.titulo-styles-cadastrar-cursos{
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 5px;
+}
+
+.flex-button-cadastrar-cursos{
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.styles-button-cadastrar-cursos-env{
+    width: 250px;
+    height: 40px;
+    background: #00DA2E;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 10px 5px;
+}
+.styles-button-instituicao-cancel{
+    width: 250px;
+    height: 40px;
+    background: tomato;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 10px 5px;
+}
+
+@media (max-width: 350px){
+    .input-styles-IT{
+        width: 100%;
+    }
+    .column-div-instituicao-cadastro{
+        width: 100%;
+    }
+}
+   

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { Switch, Route} from 'react-router-dom';
 
 import InicialAluno from '../pages/InicialAluno';  
 import Login from '../pages/login';
@@ -8,9 +8,13 @@ import Instituicao from '../pages/Instituiçao/CadastrarInstituicao';
 import BuscarInstituicao from '../pages/Instituiçao/BucarInstituicao'
 import PerfilInstituicao from '../pages/Instituiçao/InstituicaoPerfil/InstituicaoPerfil.js'
 
+//cursos
+import BuscarCurso from '../pages/Curso/BuscarCursos/BuscarCurso.js';
+import CadastrarCursos from '../pages/Curso/CadastrarCursos/CadastrarCursos.js';
+
+
 function Routes (){
     return(   
-    <BrowserRouter>
         <Switch>
             <Route exact path='/' component={Cadastro} />
             <Route exact path='/login' component={Login} />
@@ -18,10 +22,11 @@ function Routes (){
             <Route exact path='/instituicao' component={Instituicao} />
             <Route exact path='/pesqinstituicao' component={BuscarInstituicao} />
             <Route exact path='/perfilinstituicao' component={PerfilInstituicao} />
+            <Route exact path='/pesquisacursos' component={BuscarCurso} />
+            <Route exact path='/cadastrarcursos' component={CadastrarCursos} />
 
         </Switch>
-    </BrowserRouter> )
- 
+  )
 }
 
 

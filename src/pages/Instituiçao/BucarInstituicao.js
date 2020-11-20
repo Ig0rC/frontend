@@ -12,24 +12,24 @@ export default function BuscarInstituicoes() {
     const [ i, setI] = useState(0);
     const [instituicao, setInstituicao] = useState([]);
     const [page, setPage] = useState(1);
-    const [totalPage, setTotalPage ] = useState()
+    const [totalPage, setTotalPage ] = useState();
     const [teste, setTeste ] = useState([]);
 
     useEffect(() => {
 
         async function BuscarAll() {
-          
-             const response = await api.get(`/instituicao/${1}`)
-              
+            
+            const response = await api.get(`/instituicao/${1}`)
             setInstituicao(response.data)
             setTotalPage(response.headers.count);
-            console.log('ok')
+        
+        
         };
 
         BuscarAll();
+   
         
-    }, [])
-
+    }, []);
 
     useEffect(() => {
         let paginacao = totalPage / 5;
@@ -38,11 +38,10 @@ export default function BuscarInstituicoes() {
             let salve = paginacao + 1
             paginacao = Math.round(salve)
         } 
-        console.log(paginacao)
         setI(paginacao)
-        console.log(paginacao)
-    }, [totalPage])
 
+    }, [totalPage])
+    console.log(instituicao)
     async function nextInstituicao(){
         console.log(i, 'next')
         if(page < i) {
@@ -97,30 +96,33 @@ export default function BuscarInstituicoes() {
                             Código
                         </th>
                         <th scope="col">
-                            Nome
+                            Nome Instituição 
                         </th>
                         <th scope="col">
                            Unidade
                         </th>
                         <th scope="col">
-                            Telefone
+                            Responsável
                         </th>
                         <th scope="col">
                             Editar / Visualizar           
                         </th>
                     </tr>
+
+
+                    {instituicao.map(instituicao =>(
+                        <tr>
+                            <th>{instituicao.id_instituicao}</th>
+                            <td>{instituicao.nome}</td>
+                            <td>{instituicao.unidade}</td>
+                            <td>{instituicao.responsavel}</td>
+                            <td><FontAwesomeIcon icon={faEdit} color="#0060EB" /></td>
+                        </tr>
+
+
+                    ))}
            
-                {instituicao.map(instituicao => (
-              
-                    <tr>
-                        <th >{instituicao.id_instituicao}</th>
-                        <td>{instituicao.nome}</td>
-                        <td>{instituicao.responsavel}</td>
-                        <td>{instituicao.unidade}</td>
-                        <td><FontAwesomeIcon icon={faEdit} color="#0060EB" /></td>
-                    </tr>
-       
-                ))} 
+
                   </table> 
         </div>
        

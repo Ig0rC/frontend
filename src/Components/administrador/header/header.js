@@ -1,9 +1,15 @@
-import React from 'react';
-import './headerMenu.css'
+import React, { useContext } from 'react';
+import './headerMenu.css';
+
+import { Context } from '../../../Context/AuthContext';
+
 
 
 
 export default function MenuAdm() {
+
+    const { logout } = useContext(Context);
+
       
     return (
         <>
@@ -117,7 +123,7 @@ export default function MenuAdm() {
                                     </ul>
                                 </li>
                                 <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Sair</span>
+                                    <a onClick={logout}> Sair</a>
                                 </li>
                             </ul>
                         </div>

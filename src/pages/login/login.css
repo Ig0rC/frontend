@@ -1,0 +1,217 @@
+
+
+
+.container-from-login {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-areas: ". . ." ". login ." ". . .";
+}
+
+.login {
+    grid-area: login;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-template-areas: "form logo";
+}
+
+.form {
+    box-shadow: 2px 2px 10px black;
+    border-top-left-radius: 1.5%;
+    border-bottom-left-radius: 1.5%;
+    background: white;
+    grid-area: form;
+    display: grid;
+    grid-template-rows: 1fr 1fr 0.2fr 0.2fr 0.2fr 0.5fr;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: ". titulo ." ". inputs ." ". botao ." ". senhareset ." ". cadastrar .";
+}
+
+.cadastrar {
+    grid-area: cadastrar;
+    justify-self: center;
+    align-self: center;
+}
+
+.senhareset {
+    grid-area: senhareset;
+    justify-self: center;
+    align-self: end;
+}
+
+.titulo {
+    grid-area: titulo;
+    text-align: center;
+    align-self: center;
+
+    
+}
+.cssTitulo{
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    white-space: nowrap;
+
+}
+
+.logo {
+    border-top-right-radius: 1.5%;
+    border-bottom-right-radius: 1.5%;
+    
+    box-shadow: 0px 0px 10px black;
+    grid-area: logo;
+    background:white;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: ". titulo_sejus .";
+}
+
+.inputs {
+    grid-area: inputs;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "email" "senha" "opcao";
+}
+
+.email {
+    grid-area: email;
+    align-self: e;
+}
+
+.senha {
+    grid-area: senha
+}
+
+.opcao {
+    grid-area: opcao;
+}
+
+.botao {
+    grid-area: botao;
+    justify-self: center;
+    align-self: end;
+}
+
+.titulo_sejus {
+    grid-area: titulo_sejus;
+    justify-self: center;
+    align-self: end;
+    font-size: 40px
+}
+
+.styleInput {
+    width: 100%;
+    padding: 12px 20px;
+    padding-right: 100px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #084C61;
+}
+
+.submit {
+    background: #084C61;
+    color: white;
+    padding: 10px;
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+}
+
+.imglogo{
+    max-width: 100%;
+  
+}
+
+.titulo_sejus{
+    justify-self: center;
+    align-self: center;
+}
+
+label{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+
+}
+
+
+
+/* Media Query */
+
+@media screen and (max-height: 750px) {
+    .container {
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: 1fr 4fr 1fr;
+        grid-template-areas: ". . ." ". login ." ". . .";
+    }
+    .login {
+        grid-area: login;
+        display: grid;
+        grid-template-columns: 4fr;
+        grid-template-areas: "form logo";
+    }
+    .logo{
+        display: none;
+    }
+    
+}
+
+@media (max-width: 1200px){
+    .container {
+        grid-template-columns: 0.2fr 4fr 0.2fr;
+        grid-template-rows: 1fr 4fr 1fr;
+    }
+   
+}
+
+@media (max-width: 700px){
+    .login {
+        grid-area: login;
+        display: grid;
+        grid-template-columns: 4fr;
+        grid-template-areas: "form";
+    }
+    .logo{
+        display: none;
+    }
+   
+}
+
+@media (max-width: 500px){
+    .login {
+        grid-area: login;
+        display: grid;
+        grid-template-columns: 4fr;
+        grid-template-areas: "form";
+    }
+    .logo{
+        display: none;
+    }
+    .container {
+        display: grid;
+        height: 100vh;
+        width: 100vw;
+        grid-template-columns:  4fr ;
+        grid-template-rows: 0fr 3fr 0fr;
+        grid-template-areas: ". . ." ". login ." ". . .";
+    }
+    html, body {
+        background: white;
+    }
+    .cssTitulo{
+        font-size: 30px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        white-space: normal;
+    
+    }
+    .form {
+        box-shadow: none;
+        border-top-left-radius: none;
+        border-bottom-left-radius: none;
+    }
+   
+}

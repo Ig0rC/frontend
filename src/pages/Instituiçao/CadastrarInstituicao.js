@@ -24,9 +24,13 @@ export default function CadastrarInstituicao() {
     const tipoTelefone = ['Tipo Telefone', 'Móvel', 'Fixo'];
     const AddTelefone = tipoTelefone.map(AddTelefone => AddTelefone);
     const [escolhaTipoTelefone, setEscolhaTipoTelefone] = useState('');
-    const SelecioneTipoTelefone = (e) => setEscolhaTipoTelefone(tipoTelefone[e.target.value]);
+    const SelecioneTipoTelefone = 
+            (e) => setEscolhaTipoTelefone(tipoTelefone[e.target.value]);
+
+
     const [convertTipoTelefone, setConvertTipoTelefone] = useState(0);
     //converte tipo
+    
     useEffect(() =>{
         if (escolhaTipoTelefone === 'Fixo') {
             setConvertTipoTelefone(1);
@@ -157,6 +161,7 @@ export default function CadastrarInstituicao() {
                             <input 
                                 class="input-styles-IT" 
                                 type="text" 
+                                maxLength={3}
                                 onChange={({ target: {value}}) => setDDD(value)}
                             />
                         </div>

@@ -8,7 +8,7 @@ import history from '../pages/history'
 
 function Root(){
     return(
-         <AuthProvider vaslue={{autorizacao: false}}>
+         <AuthProvider >
             <Router history={history}>
                 <Routes />
             </Router>

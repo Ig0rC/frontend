@@ -63,11 +63,11 @@
     margin-bottom: 10px;
 }
 .c-dropdown_submenu{
-    background-color:  white;
+    background-color:  #05CAB6;
     list-style: none;
     border-radius: 5px;
     margin: 0;
-    padding: 50px;
+    padding: 60px;
     width: 150px;
     position: absolute;
     left: 50%;
@@ -94,5 +94,6 @@
 }
 
 .span{
+    padding: 20px 0px;
     cursor: pointer;
 }

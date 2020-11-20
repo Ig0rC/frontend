@@ -75,7 +75,7 @@ export default function BuscarInstituicoes() {
         <div class="flex-list-all-bg">
                     <div class="flex-pesq-list-all">
                             <div class="tamanho-pesq-atributos">
-                                <p class="titulo-aluno-list-all">Curso</p>
+                                <p class="titulo-aluno-list-all">Instituição</p>
                             </div>
                             <div class="tamanho-pesq-atributos">
                                 <input

@@ -14,10 +14,10 @@ export default function BuscarCurso(){
 
 
 
-    // function nextPage(){
+    //  function nextPage(){
     //     if(page ==)
-    //     const response = await api.get(`/cursos/${page}`)
-    //     setResultado(response.data);
+    //      const response = await api.get(`/cursos/${page}`)
+    //      setResultado(response.data);
     // }
     useEffect(() => {
 

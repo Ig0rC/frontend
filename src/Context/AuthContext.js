@@ -1,16 +1,16 @@
-import React, { createContext, useEffect, useState }from 'react';
+import React, { createContext, useContext, useEffect, useState }from 'react';
 import api from '../services/api';
 import history from '../pages/history.js';
+
 const Context = createContext();
 
 
-
 function AuthProvider( {children} ) {
-
+    
+   
     const [autorizacao, setAutorizacao ] = useState(false);
     const [loading, setLoading ] = useState(true)
 
-    
     useEffect(() =>{
         const token = localStorage.getItem('token');
 
@@ -21,21 +21,36 @@ function AuthProvider( {children} ) {
         
         setLoading(false)
     }, [])
-     
-        async function ValidacaoLogin(){
-            console.log('entrou')
-            const { data: { token } } = await api.post('/login',{
-                email: 'igor@gmail.com',
-                password: '12345'
+
+        async function ValidacaoLogin(email, password){
+            console.log(email)
+            const envEmail = email
+            console.log(envEmail, 'ok')
+            const envSenha = password
+            const { data: { token, user } } = await api.post('/login',{
+               email: envEmail,
+               password: envSenha
             })
             
+            console.log(user[0].id_tipo_login,'ok')
             localStorage.setItem('token', JSON.stringify(token));
 
             api.defaults.headers.Authorization = `Bearer ${token}`;
-            setAutorizacao(true);
-            history.push('/pesqinstituicao');
+            if(user[0].id_tipo_login === 1){
+                setAutorizacao(true);
+                history.push('/pesqinstituicao');
+            }
+            else if(user[0].id_tipo_login === 2){
+                setAutorizacao(true);
+                history.push('/professorhome')
+            }
+            else if(user[0].id_tipo_login === 3){
+                setAutorizacao(true);
+                history.push('/alunohome')
+            }
+     
         }
-        console.log(localStorage)
+   
 
 
         function logout(){

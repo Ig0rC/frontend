@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Menu from '../../../Components/administrador/header/header.js';
-// import Container from '../../Components/ContainerList/containerlist.js';
- import './CadastrarCursos.css';
- import api from '../../../services/api'
+import './CadastrarCursos.css';
+import api from '../../../services/api'
 
 
 
@@ -24,6 +23,7 @@ export default function CadastrarCursos(){
                 nivel: nivel,
                 carga_horaria: horario
             })
+            console.log(response)
             window.alert('SUCESSO MEU GAROTO, dormi feliz')
         } catch (error) {
            window.alert('errou otario')
@@ -33,7 +33,7 @@ export default function CadastrarCursos(){
     <>
     <Menu />
                 <div class="titulo-styles-cadastrar-cursos">
-                    <h1>Cadastrar Instituição</h1>
+                    <h1>Cadastrar Cursos</h1>
                 </div>
                 <div class="columns-flex-cadastrar-cursos">
                     <div class="column-div-instituicao-cadastro">

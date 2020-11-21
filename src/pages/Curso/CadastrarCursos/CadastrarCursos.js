@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Menu from '../../../Components/administrador/header/header.js';
 import './CadastrarCursos.css';
-import api from '../../../services/api'
+import api from '../../../services/api';
+
 
 
 
@@ -11,7 +12,30 @@ export default function CadastrarCursos(){
     const [ semestre, setSemestre ] =useState(0)
     const [periodo, setPeriodo] = useState('');
     const [nivel, setNivel] = useState('')
+   
+  
+
+
+
+    useEffect(() => {
+
+        (async function(){
+            const time = await api.get('/searchHorario');
+        
+            console.log(time.data)   
+            setTime(time.data)
+
+
+        })();
+       
+    }, [])
+
+    const [time, setTime ] = useState([]);
+
+
+
     const [horario, setHorario] = useState('');
+    console.debug('horas', horario)
 
 
     async function cadatrarback(){
@@ -72,12 +96,17 @@ export default function CadastrarCursos(){
                         </div>
                         <div>
                         <p>Carga Horária:</p>
-                            <input 
-                                class="input-styles-IT" 
-                                type="text" 
-                                maxLength={8}
-                                onChange={({ target: { value }}) => setHorario(value)}
-                            />
+                           <select 
+                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            onChange={({ target: {value }}) => setHorario(value)}
+                           > 
+                               {time.map(time =>(
+                                   <option >{time.horas}</option>
+                               ))} 
+                                   
+                            
+        
+                          </select>
                         </div>
                     </div>
                     <div class="flex-button-IT">

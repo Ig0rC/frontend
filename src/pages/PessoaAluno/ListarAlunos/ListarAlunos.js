@@ -13,18 +13,50 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 export default function ListarAlunos(){
 
     const [ alunos, setAlunos ] = useState([]);
+    const [ count , setCount ] = useState(0);
+    const [page , setPage ] = useState(1);
+    const [totalPage, setTotalPage ] = useState(0)
+
+
+    useEffect(() => {
+        let paginacao = count / 5;
+        let decidir = count % 2 === 0;
+        if(decidir === false ){
+            let save = paginacao + 1
+            paginacao = Math.round(save);
+            setTotalPage(paginacao)
+        }else{
+            setTotalPage(paginacao)
+        }
+    }, [count])
+
+
+    async function nextPage(){
+        console.log(totalPage)
+        console.log('entrou')
+        if(page < totalPage){
+            console.log('entrou next')
+            let next = await page + 1;
+            setPage(next);
+            const {data} = await api.get(`/alunos/${next}`);
+            setAlunos(data)
+        }else if(page === totalPage){
+            alert('ja chegou')
+        }
+      
+    }
 
     useEffect(() => {
         async function BuscarAlunos(){
-            const { data } = await api.get('/alunos');
-
+            const { data, headers} = await api.get(`/alunos/${1}`);
+            setCount(headers.count)
             setAlunos(data)
         }
         BuscarAlunos();
 
     }, []);
 
-  console.log(alunos)
+
     
     return(
         <>
@@ -88,7 +120,7 @@ export default function ListarAlunos(){
                             class="back-button-list-all btn-list-color-voltar">
                             Voltar
                         </button>
-                        <button //onClick={() => nextInstituicao()}
+                        <button onClick={nextPage}
                         class="back-button-list-all btn-list-color-proximo">
                             Próximo
                         </button>

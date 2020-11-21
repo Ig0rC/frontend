@@ -35,7 +35,7 @@ export default function MenuAdm() {
                                         </li>
                                         <li class="c-dropdown_submenu-item">
                                             <a href="#" class="c-dropdown_submenu-link">
-                                                    Ativar/Desativar Alunos
+                                                    Ativar Alunos
                                             </a>
                                         </li>
                                     </ul>
@@ -68,7 +68,7 @@ export default function MenuAdm() {
                                             </a>
                                         </li>
                                         <li class="c-dropdown_submenu-item space-bottom">
-                                            <a href="#" class="c-dropdown_submenu-link">
+                                            <a href="/pesquisacursos" class="c-dropdown_submenu-link">
                                                     Buscar Cursos
                                             </a>
                                         </li>

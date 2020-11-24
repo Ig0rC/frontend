@@ -1,50 +1,55 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Menu from '../../../Components/administrador/header/header.js'
-import api from '../../../services/api'
-import './BuscarCurso.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import api from '../../../services/api';
+import './BuscarCurso.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Context } from '../../../Context/CursoContext'
 
 
-export default function BuscarCurso(){
+export default function BuscarCurso() {
 
-    const [ resultado, setResultado ] = useState([]);
+
+    const { perfilCursoIdc } = useContext(Context);
+
+
+    const [resultado, setResultado] = useState([]);
     const [page, setPage] = useState(1);
-    const [count , setCount ] = useState(0);
-    const [ next, setNext ] = useState(0);
+    const [count, setCount] = useState(0);
+    const [next, setNext] = useState(0);
 
 
 
-     async function nextPage(){ 
+    async function nextPage() {
         console.debug('next', next)
-         if(page < next ){
-            let next  = await page + 1;
+        if (page < next) {
+            let next = await page + 1;
             setPage(next);
             const response = await api.get(`/cursos/${next}`);
             setResultado(response.data)
-        
-         }else if( page === next){
-             alert('fim')
-         }
-    
-     }
-    async function prevPage(){
-        if(page === 1){
+
+        } else if (page === next) {
+            alert('fim')
+        }
+
+    }
+    async function prevPage() {
+        if (page === 1) {
             alert('esta no começo')
-        }else{
-            let prev = await page -1;
+        } else {
+            let prev = await page - 1;
             setPage(prev)
             const response = await api.get(`/cursos/${prev}`);
             setResultado(response.data)
         }
     }
-    useEffect(() =>{
+    useEffect(() => {
         let paginacao = count / 5;
         let logica = count % 2 === 0;
-        if(logica === false){
-           let arrendodamento = paginacao + 1
-           paginacao = Math.round(arrendodamento);
-     
+        if (logica === false) {
+            let arrendodamento = paginacao + 1
+            paginacao = Math.round(arrendodamento);
+
         }
         setNext(paginacao)
     }, [count]);
@@ -53,7 +58,7 @@ export default function BuscarCurso(){
 
     useEffect(() => {
 
-        async function BuscarServer(){
+        async function BuscarServer() {
             const response = await api.get(`/cursos/${1}`)
             setResultado(response.data);
             setCount(response.headers.count)
@@ -63,11 +68,27 @@ export default function BuscarCurso(){
         BuscarServer();
     }, []);
 
-    return(
+    return (
         <>
-        <Menu />
-        <div class="list-cursos-all-bg">
-        <table >
+            <Menu />
+            <div class="flex-list-all-bg">
+                <div class="flex-pesq-list-all">
+                    <div class="tamanho-pesq-atributos">
+                        <p class="titulo-aluno-list-all">Cursos</p>
+                    </div>
+                    <div class="tamanho-pesq-atributos">
+                        <input
+                            placeholder="Pesquisar"
+                            class="pesquisa-aluno-list-all" />
+
+                    </div>
+                    <div class="tamanho-pesq-atributos">
+
+                    </div>
+                </div>
+            </div>
+            <div class="list-instituicao-all-bg">
+                <table >
                     <tr>
                         <th scope="col">
                             Código
@@ -76,43 +97,48 @@ export default function BuscarCurso(){
                             Nome Curso
                         </th>
                         <th scope="col">
-                            Semestres 
+                            Semestres
                         </th>
                         <th scope="col">
                             Carga
                         </th>
                         <th scope="col">
-                           Editar / Visulizar          
+                            Editar / Visulizar
                         </th>
                     </tr>
-           
-                 {resultado.map(resultado => (
-              
-                    <tr key={resultado.id_curso}>
-                        <td>{resultado.id_curso}</td>
-                        <td>{resultado.nome_curso}</td>
-                        <td>{resultado.duracao_semestres}</td>
-                        <td>{resultado.carga_horaria}</td>
-                        <td><FontAwesomeIcon icon={faEdit} color="#0060EB" /></td>
-                    </tr>
-       
-                ))} 
-                  </table> 
-        </div>
-        <div class="bg-footer">
-                    
-                    <div class="flex-next-prev-list">
-                        <button
-                       onClick={prevPage}
+
+                    {resultado.map(resultado => (
+
+                        <tr key={resultado.id_curso}>
+                            <td>{resultado.id_curso}</td>
+                            <td>{resultado.nome_curso}</td>
+                            <td>{resultado.duracao_semestres}</td>
+                            <td>{resultado.carga_horaria}</td>
+                            <td>
+                                <a onClick={() => perfilCursoIdc(resultado.id_curso)}>
+                                    <FontAwesomeIcon icon={faEdit} color="#0060EB" />
+                                </a>
+                            </td>
+                        </tr>
+
+                    ))}
+                </table>
+            </div>
+
+            <div class="bg-footer">
+
+                <div class="flex-next-prev-list">
+                    <button
+                        onClick={prevPage}
                         class="back-button-list-all btn-list-color-voltar">
-                            Voltar
-                        </button>
-                        <button 
-                         onClick={nextPage}
+                        Voltar
+                </button>
+                    <button
+                        onClick={nextPage}
                         class="back-button-list-all btn-list-color-proximo">
-                            Próximo
-                        </button>
-                    </div>
+                        Próximo
+                </button>
+                </div>
             </div>
 
 

@@ -1,0 +1,15 @@
+.aluno-perfil-styles-flex{
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.aluno-perfil-styles-flex label{
+    margin: 5px 5px;
+}
+
+.aluno-perfil-styles-flex-sub-div{
+    display: flex;
+    flex-direction: column;
+}

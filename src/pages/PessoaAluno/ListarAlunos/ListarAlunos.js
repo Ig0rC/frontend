@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Menu from '../../../Components/administrador/header/header.js';
 import api from '../../../services/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Context } from '../../../Context/AlunoContext';
+
 
 
 
@@ -11,6 +13,8 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function ListarAlunos(){
+
+    const { selecionarAluno } = useContext(Context);
 
     const [ alunos, setAlunos ] = useState([]);
     const [ count , setCount ] = useState(0);
@@ -51,6 +55,7 @@ export default function ListarAlunos(){
             const { data, headers} = await api.get(`/alunos/${1}`);
             setCount(headers.count)
             setAlunos(data)
+            console.log(data)
         }
         BuscarAlunos();
 
@@ -64,7 +69,7 @@ export default function ListarAlunos(){
         <div class="flex-list-all-bg">
                     <div class="flex-pesq-list-all">
                             <div class="tamanho-pesq-atributos">
-                                <p class="titulo-aluno-list-all">Curso</p>
+                                <p class="titulo-aluno-list-all">Alunos</p>
                             </div>
                             <div class="tamanho-pesq-atributos">
                                 <input
@@ -72,9 +77,6 @@ export default function ListarAlunos(){
                                     class="pesquisa-aluno-list-all" />
                             </div>
                             <div class="tamanho-pesq-atributos">
-                                <button class="back-button-list-all btn-list-color-proximo">
-                                        Próximo
-                                    </button>
                             </div>
                     </div>
         </div>
@@ -105,7 +107,11 @@ export default function ListarAlunos(){
                             <td>{alunos.nome}</td>
                             <td>{alunos.numero_telefone}</td>
                             <td>{alunos.email}</td>
-                            <td><FontAwesomeIcon icon={faEdit} color="#0060EB" /></td>
+                            <td>
+                                <a onClick={() => selecionarAluno(alunos.cpf)}>
+                                    <FontAwesomeIcon icon={faEdit} color="#0060EB" />
+                                </a>
+                            </td>
                         </tr>
                     ))}
 

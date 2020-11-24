@@ -12,7 +12,8 @@ export default function CadastrarCursos(){
     const [ semestre, setSemestre ] =useState(0)
     const [periodo, setPeriodo] = useState('');
     const [nivel, setNivel] = useState('')
-   
+    const [time, setTime ] = useState([]);
+
   
 
 
@@ -21,21 +22,17 @@ export default function CadastrarCursos(){
 
         (async function(){
             const time = await api.get('/searchHorario');
-        
-            console.log(time.data)   
             setTime(time.data)
-
 
         })();
        
     }, [])
 
-    const [time, setTime ] = useState([]);
 
 
 
     const [horario, setHorario] = useState('');
-    console.debug('horas', horario)
+    
 
 
     async function cadatrarback(){
@@ -48,9 +45,9 @@ export default function CadastrarCursos(){
                 carga_horaria: horario
             })
             console.log(response)
-            window.alert('SUCESSO MEU GAROTO, dormi feliz')
+            window.alert('Cadastrado com sucesso')
         } catch (error) {
-           window.alert('errou otario')
+           window.alert('error: verifique os campos')
         }
     }
      return(
@@ -70,7 +67,7 @@ export default function CadastrarCursos(){
                             />
                         </div>
                         <div>
-                            <p>duração Semestre:</p>
+                            <p>Duração do curso em Semestres:</p>
                             <input
                                 class="input-styles-IT"
                                 type="text"
@@ -101,7 +98,7 @@ export default function CadastrarCursos(){
                             onChange={({ target: {value }}) => setHorario(value)}
                            > 
                                {time.map(time =>(
-                                   <option >{time.horas}</option>
+                                   <option>{time.horas}</option>
                                ))} 
                                    
                             

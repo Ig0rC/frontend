@@ -1,0 +1,10 @@
+.header-a{
+    text-decoration: none !important;
+    color: white;
+    font-weight: 400;
+}
+
+.header-a:hoveR{
+    font-weight: 600;
+    cursor: pointer
+}

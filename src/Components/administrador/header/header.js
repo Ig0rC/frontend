@@ -34,7 +34,7 @@ export default function MenuAdm() {
                                             </a>
                                         </li>
                                         <li class="c-dropdown_submenu-item">
-                                            <a href="#" class="c-dropdown_submenu-link">
+                                            <a href="/ativar-aluno" class="c-dropdown_submenu-link">
                                                     Ativar Alunos
                                             </a>
                                         </li>
@@ -79,7 +79,7 @@ export default function MenuAdm() {
                                         </li>
                                         <li class="c-dropdown_submenu-item ">
                                             <a href="/cadastrar-horario" class="c-dropdown_submenu-link">
-                                                 Cadastrar Horário
+                                                    Cadastrar Horário
                                             </a>
                                         </li>
                                     </ul>
@@ -89,12 +89,12 @@ export default function MenuAdm() {
 
                                     <ul class="c-dropdown_submenu">
                                         <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="#" class="c-dropdown_submenu-link">
+                                            <a  href="/cadastrar-turma" class="c-dropdown_submenu-link">
                                                     Cadastrar Turma
                                             </a>
                                         </li>
                                         <li class="c-dropdown_submenu-item">
-                                            <a href="#" class="c-dropdown_submenu-link">
+                                            <a href="/buscar-turma" class="c-dropdown_submenu-link">
                                                     Buscar Turma
                                             </a>
                                         </li>
@@ -105,13 +105,18 @@ export default function MenuAdm() {
 
                                     <ul class="c-dropdown_submenu">
                                         <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="#" class="c-dropdown_submenu-link">
+                                            <a  href="/cadastrar-disciplinas" class="c-dropdown_submenu-link">
                                                     Cadastrar Disciplina
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item">
-                                            <a href="#" class="c-dropdown_submenu-link">
+                                        <li class="c-dropdown_submenu-item space-bottom">
+                                            <a href="/buscar-disciplinas" class="c-dropdown_submenu-link">
                                                     Buscar Disciplina
+                                            </a>
+                                        </li>
+                                        <li class="c-dropdown_submenu-item">
+                                            <a href="/leciona" class="c-dropdown_submenu-link">
+                                                    Leciona
                                             </a>
                                         </li>
                                     </ul>

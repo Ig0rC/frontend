@@ -1,35 +1,31 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Menu from '../../Components/administrador/header/header.js';
-import Container from '../../Components/ContainerList/containerlist.js';
-import './BuscarInstituicao.css';
-import { Context } from '../../Context/InstituicaoContext'
-import api from '../../services/api'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import Menu from '../../../Components/administrador/header/header';
+import './BuscarTurmas.css';
+import api from '../../../services/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { Context } from '../../../Context/TurmaContext';
 
 
 
-export default function BuscarInstituicoes() {
 
-    const { SaveID, id } = useContext(Context)
-
+export default function BuscarTurmas() {
     const [i, setI] = useState(0);
-    const [instituicao, setInstituicao] = useState([]);
+    const [turmas, setTurmas] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
-
-
+    
+    const { SelecionaTurma } = useContext(Context)
 
     useEffect(() => {
-
         async function BuscarAll() {
-            const response = await api.get(`/instituicao/${1}`)
-            setInstituicao(response.data)
+
+            const response = await api.get(`/turma/${1}`)
+
+            setTurmas(response.data)
             setTotalPage(response.headers.count);
 
-
         };
-
         BuscarAll();
 
 
@@ -45,50 +41,45 @@ export default function BuscarInstituicoes() {
         setI(paginacao)
 
     }, [totalPage])
-    console.log(instituicao)
-    async function nextInstituicao() {
+
+
+    async function nextTurma() {
         console.log(i, 'next')
         if (page < i) {
             let next = await page + 1;
             setPage(next);
-            const response = await api.get(`/instituicao/${next}`)
-            setInstituicao(response.data)
+            const response = await api.get(`/turma/${1}`)
+            setTurmas(response.data)
         } else if (page === i) {
             alert('Já Chegou no Final')
         }
     }
 
-    async function PrevInstituicao() {
-        console.log(page)
-        if (page === 1) {
-            return alert('inicio')
-        } else {
-            let prev = await page - 1;
-            setPage(prev);
-            const response = await api.get(`/instituicao/${prev}`)
-            setInstituicao(response.data)
-        }
-    }
-
-
-
-
+    // async function PrevInstituicao(){
+    //    console.log(page)
+    //    if(page === 1){
+    //        return alert('inicio')
+    //    }else{
+    //        let prev = await page - 1;
+    //        setPage(prev);
+    //        const response = await api.get(`/instituicao/${prev}`)
+    //        setInstituicao(response.data)
+    //    }
+    // }
     return (
         <>
             <Menu />
             <div class="flex-list-all-bg">
                 <div class="flex-pesq-list-all">
                     <div class="tamanho-pesq-atributos">
-                        <p class="titulo-aluno-list-all">Instituições</p>
+                        <p class="titulo-aluno-list-all">Turmas</p>
                     </div>
                     <div class="tamanho-pesq-atributos">
                         <input
                             placeholder="Pesquisar"
                             class="pesquisa-aluno-list-all" />
-
                     </div>
                     <div class="tamanho-pesq-atributos">
-
                     </div>
                 </div>
             </div>
@@ -96,39 +87,32 @@ export default function BuscarInstituicoes() {
                 <table >
                     <tr >
                         <th scope="col">
-                            Código
+                            Código turma
                         </th>
                         <th scope="col">
-                            Nome Instituição
+                            Nome Turma
                         </th>
                         <th scope="col">
-                            Unidade
-                        </th>
-                        <th scope="col">
-                            Responsável
+                            Data Ingresso
                         </th>
                         <th scope="col">
                             Editar / Visualizar
                         </th>
                     </tr>
 
-
-                    {instituicao.map(instituicao => (
+                    {turmas.map(turmas => (
                         <tr>
-                            <th>{instituicao.id_instituicao}</th>
-                            <td>{instituicao.nome}</td>
-                            <td>{instituicao.unidade}</td>
-                            <td>{instituicao.responsavel}</td>
+                            <th>{turmas.id_turma}</th>
+                            <td>{turmas.nome_turma}</td>
+                            <td>{turmas.data_ingresso}</td>
                             <td>
-                                <a
-                                    onClick={() => SaveID(instituicao.id_instituicao)}>
-                                    <FontAwesomeIcon icon={faEdit} color="#0060EB" />
-                                </a>
+                            <a onClick={() => SelecionaTurma(turmas.id_turma)} >
+                                <FontAwesomeIcon icon={faEdit} color="#0060EB" />
+                            </a>
                             </td>
                         </tr>
-
-
                     ))}
+
 
 
                 </table>
@@ -138,18 +122,15 @@ export default function BuscarInstituicoes() {
 
                 <div class="flex-next-prev-list">
                     <button
-                        onClick={() => PrevInstituicao()}
                         class="back-button-list-all btn-list-color-voltar">
                         Voltar
-                        </button>
-                    <button onClick={() => nextInstituicao()}
+                    </button>
+                    <button
                         class="back-button-list-all btn-list-color-proximo">
                         Próximo
-                        </button>
+                    </button>
                 </div>
             </div>
-
-
 
         </>
     );

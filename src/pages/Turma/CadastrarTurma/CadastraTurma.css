@@ -1,0 +1,25 @@
+.cadastrar-turma-flex-20vh{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+}
+.cadastrar-turma-flex-80vh {
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.input-cadastrar-turma-margin{
+    margin: 10px 5px;
+   
+    border-radius: 20px;   
+    border: 1px solid blue;
+    padding: 5px 5px;
+    width: 200px;
+}

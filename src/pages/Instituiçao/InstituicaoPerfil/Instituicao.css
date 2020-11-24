@@ -18,3 +18,29 @@
     display: flex;
     justify-content: space-between;
 }
+
+.linha-separado-instituicao-perfil{
+    background: #0060EB;
+    padding: 10px 0px;
+    margin-top: 20px;
+
+}
+
+.cadastrar-curso-a-instituicao-titulo{
+    text-align: center;
+}
+.input-cadastrar-curso-a-instituicao{
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.input-cadastrar-curso-a-instituicao-div{
+    margin: 20px 5px;
+}
+
+.button-cadastrar-curso-a-instituicao-div{
+    text-align: center;
+}

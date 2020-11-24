@@ -26,7 +26,7 @@ function Login(){
          
                     <div class="inputs">
                         <div class="email">
-                             <label for="email">E-mail{email}</label>
+                             <label for="email">E-mail:</label>
                             <input class=" styleInput" type="email" id="email" name="email"
                             onChange={( {target: {value}}) => setEmail(value)}
                             placeholder="email" />

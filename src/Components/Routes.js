@@ -6,11 +6,12 @@ import  Login  from '../pages/login/login';
 import Cadastro from '../pages/Cadastro'
 import Instituicao from '../pages/Instituiçao/CadastrarInstituicao';
 import BuscarInstituicao from '../pages/Instituiçao/BucarInstituicao'
-import PerfilInstituicao from '../pages/Instituiçao/InstituicaoPerfil/InstituicaoPerfil.js'
+import { InstituicaoPerfil } from '../pages/Instituiçao/InstituicaoPerfil/InstituicaoPerfil.js'
 
 //cursos
 import BuscarCurso from '../pages/Curso/BuscarCursos/BuscarCurso.js';
 import CadastrarCursos from '../pages/Curso/CadastrarCursos/CadastrarCursos.js';
+import PerfilCurso from '../pages/Curso/PerfilCursos/PerfilCurso'
 
 //Semestre
 import CadastrarSemestres from '../pages/Semestre/CadastrarSemestre/CadastrarSemestres'
@@ -22,13 +23,34 @@ import { Context } from '../Context/AuthContext';
 //ALUNOS
 import AlunosHome from '../pages/Aluno/AlunoHome/AlunoHome.js';
 import ListarAlunos from '../pages/PessoaAluno/ListarAlunos/ListarAlunos';
+import AtivarAlunos from '../pages/Aluno/AlunoAtivar/AlunoAtivar';
+import PerfilAluno from '../pages/Aluno/AlunoPerfil/AlunoPerfil';
 //PROFESSOR
-import ProfessorHome from '../pages/Professor/ProfessorHome/ProfessorHome.js'
+import ProfessorHome from '../pages/Professor/ProfessorHome/ProfessorHome.js';
+import ProfessorTurmas from '../pages/Professor/ProfessorTurmas/ProfessorTurma.js';
+import ProfessorNotas from '../pages/Professor/ProfessorNotas/ProfessorNotas.js'
 //carga horaria
-import CadastrarHorario from '../pages/CargaHoraria/CargaHoraria.js'
+import CadastrarHorario from '../pages/CargaHoraria/CargaHoraria.js';
+
+
+//turma
+import CadastrarTurma from '../pages/Turma/CadastrarTurma/CadastraTurma.js';
+import BuscarTurmas from '../pages/Turma/BuscarTurmas/BuscarTurmas.js';
+import PerfilTurma from '../pages/Turma/PerfilTurma/PerfilTurma.js';
+
+
+//disciplina
+import CadastrarDisciplina from '../pages/Disciplina/CadastrarDisciplinas/CadastrarDisciplina';
+import BuscarDisciplina from '../pages/Disciplina/BuscarDisciplina/BuscarDisciplina.js';
+import PerfilDisciplina from '../pages/Disciplina/PerfilDisciplina/PerfilDisciplina.js';
+//Leciona
+import Leciona from '../pages/Leciona/Leciona';
+
+
 
 function CustomRoute({ isPrivate, ...rest}){
     const { loading, autorizacao } = useContext(Context);
+
 
 
 
@@ -53,7 +75,7 @@ function Routes (){
             <CustomRoute exact path='/homealuno' component={InicialAluno} />
             <CustomRoute exact path='/instituicao' component={Instituicao} />
             <CustomRoute isPrivate exact path='/pesqinstituicao' component={BuscarInstituicao} />
-            <CustomRoute exact path='/perfilinstituicao' component={PerfilInstituicao} />
+            <CustomRoute exact path='/perfilinstituicao' component={InstituicaoPerfil} />
             <CustomRoute exact path='/pesquisacursos' component={BuscarCurso} />
             <CustomRoute exact path='/cadastrarcursos' component={CadastrarCursos} />
             <CustomRoute exact path='/alunohome' component={AlunosHome} />
@@ -61,6 +83,23 @@ function Routes (){
             <CustomRoute exact path='/alunos' component={ListarAlunos} />
             <CustomRoute exact path='/cadastrar-semestre' component={CadastrarSemestres} />
             <CustomRoute exact path='/cadastrar-horario' component={CadastrarHorario} />
+            <CustomRoute exact path='/cadastrar-turma' component={CadastrarTurma} />
+            <CustomRoute exact path='/buscar-turma' component={BuscarTurmas} />
+            <CustomRoute exact path='/cadastrar-disciplinas' component={CadastrarDisciplina} />
+            <CustomRoute exact path='/buscar-disciplinas' component={BuscarDisciplina} />
+            <CustomRoute exact path='/leciona' component={Leciona} />
+            <CustomRoute exact path='/professor-turmas' component={ProfessorTurmas} />
+            <CustomRoute exact path='/professor-turma-notas' component={ProfessorNotas} />
+            <CustomRoute exact path='/perfil-curso' component={PerfilCurso} />
+            <CustomRoute exact path='/perfil-turma' component={PerfilTurma} />
+            <CustomRoute exact path='/perfil-disciplina' component={PerfilDisciplina} />
+            <CustomRoute exact path='/ativar-aluno' component={AtivarAlunos} /> 
+            <CustomRoute exact path='/perfil-aluno' component={PerfilAluno} />
+
+
+
+            PerfilAluno
+            
         </Switch>
   )
 }

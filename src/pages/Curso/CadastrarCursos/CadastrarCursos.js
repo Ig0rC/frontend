@@ -97,6 +97,7 @@ export default function CadastrarCursos(){
                             class="input-styles-IT text-aling-center-cadastrar-curso"
                             onChange={({ target: {value }}) => setHorario(value)}
                            > 
+                            <option></option>
                                {time.map(time =>(
                                    <option>{time.horas}</option>
                                ))} 

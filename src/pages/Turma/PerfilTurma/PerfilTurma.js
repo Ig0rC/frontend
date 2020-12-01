@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Menu from '../../../Components/administrador/header/header';
-import { Context } from '../../../Context/TurmaContext';
+import { ContextTurma } from '../../../Context/TurmaContext';
 import api from '../../../services/api'
 
 
 export default function PerfilTurma() {
 
-    const { id } = useContext(Context);
+    const { id } = useContext(ContextTurma);
     const [ dadosTurma, setDadosTUrma ] = useState([]);
 
     useEffect(() => {

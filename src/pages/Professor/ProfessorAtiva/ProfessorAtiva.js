@@ -1,99 +1,82 @@
-import React, { useEffect , useState, useContext } from 'react';
+import React, { useEffect , useState } from 'react';
 import Menu from '../../../Components/administrador/header/header';
-import api from '../../../services/api';
+import api from '../../../services/api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faEdit, faTrash, faSearch, faUserLock } from '@fortawesome/free-solid-svg-icons';
-import { Context } from '../../../Context/AlunoContext';
 
 
+export default function AtivarProfessor(){
 
-
-
-
-export default function AlunoAtivar() {
-
-    const { selecionarAluno } = useContext(Context);
-
-    const [ totalPage, setTotalPage  ] = useState(0);
-    const [alunos, setAlunos ] = useState([]);
+    const [ professorInativados, setProfessoresInativados ] = useState([]);
     const [ reload, setReload ] = useState(false);
-    const [ indice, setIndicie ] = useState(0);
+    const [ totalPage, setTotalPage ] = useState(false);
+    const [indice, setIndice ] = useState(0);
     const [page, setPage ] = useState(1);
-
+    
     useEffect(() =>{
-        try {
-            (async ()=> {
-                const response = await api.get(`/alunos/inativados/${1}`);
-                setTotalPage(response.headers.count)
-                console.debug('totalPage', response.headers.count)
-                setAlunos(response.data)
-            })();
-        } catch (error) {
-            console.log(error)
-        }
+        (async () =>{
+            const { data, headers } = await api.get(`/professor/inativados/${page}`);
+            setProfessoresInativados(data)
+            setTotalPage(headers.count)
+            console.log(data)
+        })();
     }, [reload])
 
-    useEffect( () => {
+    useEffect(() =>{
         let paginacao = totalPage / 5;
-        let numeracao = totalPage % 5 === 0;
-        if(numeracao === false){
-            let save = paginacao + 1
-            paginacao = Math.round(save)
+        let save = totalPage % 5 === 0;
+        if(save === false){
+            paginacao+= paginacao
+            paginacao = Math.round(paginacao)
         }
-        setIndicie(paginacao)
-    }, [totalPage]);
+        setIndice(paginacao)
+        console.log('ok', paginacao)
+    }, [totalPage])
+
+
+    async function AtivarProfessor(id){
+        try {
+            await api.put(`/usuarios/${id}/true`)
+            alert('liberado');
+            if(reload === false){
+                return setReload(true)
+            }
+            return setReload(false)
+        } catch (error) {
+            alert('error')
+        }
+    }
 
 
     async function nextPage(){
-        console.log(page, indice)
-        if(page < indice){
-            console.log('entrou')
+        if( page < indice ){
             let next = await page + 1;
             setPage(next)
-            const { data } = await api.get(`/alunos/inativados/${next}`);
-            setAlunos(data)
+            const { data } = await api.get(`/professor/inativados/${next}`);
+            setProfessoresInativados(data) 
         }
-        else if(page === 1)
-        {
+        else if(page === indice){
             alert('fim')
         }
     }
     async function prevPage(){
+        console.log('page', page)
         if(page === 1){
-            alert('ínicio')
+            return alert('inicio')
         }
-        else{
-            let prev = await page - 1
-            setPage(prev);
-            const { data  } = await api.get(`/alunos/inativados/${prev}`);
-            setAlunos(data)
-        }
+        let prev = await page - 1;
+        await setPage(prev)
+        const { data } = await api.get(`/professor/inativados/${prev}`);
+        setProfessoresInativados(data) 
     }
 
-
-    async function ativarAluno(cpf) {
-        try {
-            if(reload === false){
-                setReload(true)
-            }else{
-                setReload(false)
-            }
-            const response = await api.put(`/usuarios/${cpf}/true`);
-            console.log(response.status)
-            alert('deu certo')
-        } catch (error) {
-            console.log(error)
-        }
-       
-    }
-    
     return(
         <>
             <Menu />
             <div class="flex-list-all-bg">
                     <div class="flex-pesq-list-all">
                             <div class="tamanho-pesq-atributos">
-                                <p class="titulo-aluno-list-all">Alunos Inativados</p>
+                                <p class="titulo-aluno-list-all">Professores Inativados</p>
                             </div>
                             <div class="tamanho-pesq-atributos">
                                 <input
@@ -130,24 +113,24 @@ export default function AlunoAtivar() {
                                 Editar / Visualizar           
                             </th>
                         </tr>
-                        {alunos.map( alunos => (
+                         {professorInativados.map( professor => (
                             <tr>
-                                <th key={alunos.cpf}>{alunos.cpf}</th>
-                                <td>{alunos.nome}</td>
-                                <td>{alunos.numero_telefone}</td>
-                                <td>{alunos.email}</td>
+                                <th key={professor.cpf}>{professor.cpf}</th>
+                                <td>{professor.nome}</td>
+                                <td>{professor.numero_telefone}</td>
+                                <td>{professor.email}</td>
+                                <td>{professor.situacao}</td>
                                 <td>
-                                    {
-                                    alunos.situacao === false ? "Inativo" : "Ativo"
-                                    }
-                                </td>
-                                <td>
-                                    <a onClick={() => ativarAluno(alunos.cpf)}>
+                                    <a 
+                                        onClick={() => AtivarProfessor(professor.cpf)}
+                                    >
                                         <FontAwesomeIcon icon={faUserLock} size="lg" color="green" />
                                     </a>
                                 </td>
                                 <td>
-                                    <a onClick={() => selecionarAluno(alunos.cpf)}>
+                                    <a 
+                                        // onClick={() => selecionarAluno(professor.cpf)}
+                                    >
                                         <FontAwesomeIcon icon={faSearch} size="lg" color="green" />
                                     </a>
                                 </td>
@@ -164,7 +147,8 @@ export default function AlunoAtivar() {
                             class="back-button-list-all btn-list-color-voltar">
                             Voltar
                         </button>
-                        <button onClick={nextPage}
+                        <button 
+                            onClick={nextPage}
                         class="back-button-list-all btn-list-color-proximo">
                             Próximo
                         </button>

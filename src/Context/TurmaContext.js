@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import history from '../pages/history';
 
 
-const Context = createContext();
+const ContextTurma = createContext();
 
 
 function ContextTurmaPerfil({ children }){
@@ -21,11 +21,11 @@ function ContextTurmaPerfil({ children }){
     })
     return(
     <>
-        <Context.Provider value={{ SelecionaTurma, id}}>
+        <ContextTurma.Provider value={{ SelecionaTurma, id}}>
             {children}
-        </Context.Provider>
+        </ContextTurma.Provider>
     </>
     )
  }
 
-export {ContextTurmaPerfil, Context}
+export {ContextTurmaPerfil, ContextTurma}

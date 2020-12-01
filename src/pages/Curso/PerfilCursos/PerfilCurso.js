@@ -12,11 +12,9 @@ import {  faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default function PerfilCurso() {
     const [curso, setCurso] = useState([]);
-    const [turma, setTurma] = useState([]);
-    const [turmasVinculadas, setTurmasVinculadas ] = useState([])
+   
     const { idc } = useContext(Context);
-    const [escolhaTurma, setEscolhaTurma] = useState(0);
-    const [escolhaTurno, setEscolhaTurno] = useState('');
+ 
     const [ reload , setReload] = useState(true)
     const [disciplinasVinculadas, setDisciplinasVinculadas ] = useState([])
     const [ disciplinas, setDisciplinas ] = useState([]);
@@ -27,11 +25,7 @@ export default function PerfilCurso() {
         (async () => {
             const response = await api.get(`cursos/seleciona/${idc}`);
             setCurso(response.data)
-            const responseTurma = await api.get(`turma`)
-            console.debug('turma', turma)
-            setTurma(responseTurma.data)
-            const responseTableTurma = await api.get(`/turma/curso/${idc}`)
-            setTurmasVinculadas(responseTableTurma.data);
+       
             const responseDisciplinas = await api.get(`/disciplinas/cursos`);
             setDisciplinas(responseDisciplinas.data)
             const responseDisciplinasVinculadas = await api.get(`/disciplinacurso/${idc}`)
@@ -40,13 +34,13 @@ export default function PerfilCurso() {
     }, [idc])
     
 
-    useEffect(() =>{
-        (async() =>{
-            const responseTableTurma = await api.get(`/turma/curso/${idc}`)
-            setTurmasVinculadas(responseTableTurma.data);
+    // useEffect(() =>{
+    //     (async() =>{
+    //         const responseTableTurma = await api.get(`/turma/curso/${idc}`)
+    //         setTurmasVinculadas(responseTableTurma.data);
          
-        })();
-    }, [reload])
+    //     })();
+    // }, [reload])
 
     useEffect(() =>{
         (async() =>{
@@ -56,33 +50,6 @@ export default function PerfilCurso() {
         })();
     }, [realoadDisciplinas])
 
-    async function vincularCursoaTurma() {
-        console.log(escolhaTurno, escolhaTurma)
-        try {
-            await api.post(`turmacurso/${escolhaTurma}/${idc}/${escolhaTurno}`);
-            alert('Vinculado');
-            if(reload === false){
-                return setReload(true); 
-            }
-            return setReload(false); 
-        } catch (error) {
-            console.log(error)
-            alert('error! Verifique os campos.')
-        }
-
-    }
-    async function desvincularTurmadoCurso(idTurma){
-        try {
-           await api.delete(`turmacurso/${idTurma}/${idc}`);
-            alert('Apagado com Sucesso');
-            if(reload === false){
-                return setReload(true); 
-            }
-            return setReload(false); 
-        } catch (error) {
-            alert('Error')
-        }
-    }
 
     async function VincularDisciplina(){
         try {
@@ -169,106 +136,12 @@ export default function PerfilCurso() {
 
                     </section>
                 ))}
-            <div class="linha-separado-instituicao-perfil">
+         
+         
             </div>
-            <div class="cadastrar-curso-a-instituicao-titulo">
-                <h1>Vincular turma</h1>
-            </div>
-            </div>
-            <div class="input-cadastrar-curso-a-instituicao">
-                <div class="input-cadastrar-curso-a-instituicao-div">
-                    <p>Turma:</p>
-                    <select
-                        class="input-styles-IT text-aling-center-cadastrar-curso"
-                        onChange={({ target: { value } }) => setEscolhaTurma(value)}
-                    >
-                        <option></option>
-                        {turma.map(turma => (
-                            <option value={turma.id_turma}>
-                                Código: {turma.id_turma} ||
-                                                Nome: {turma.nome_turma}
-
-                            </option>
-                        ))}
-
-
-
-                    </select>
-                </div>
-                <div class="input-cadastrar-curso-a-instituicao-div">
-                    <p>Turno:</p>
-
-                         <select
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
-                            onChange={({ target: { value } }) => setEscolhaTurno(value)}
-                        >
-                            <option></option>
-                            <option value="Matutino">Matutino</option>
-                            <option value="Vespertino">Vespertino</option>
-                            <option value="Noturno">Noturno</option>
-
-                        </select>
-                     
-                </div>
-
-            </div>
-            <div class="button-cadastrar-curso-a-instituicao-div">
-                <button 
-                    onClick={vincularCursoaTurma}
-                    class="button-cadastrar-semestre-env">Cadastrar</button>
-            </div>
-            <div class="linha-separado-instituicao-perfil">
-            </div>
-            <div class="cadastrar-curso-a-instituicao-titulo">
-                    <h1>Turmas</h1>
-            </div>
-            <section>
-                <div class="list-cursos-all-bg">
-                    <table >
-                        <tr>
-                            <th scope="col">
-                                Código da Turma
-                            </th>
-                            <th scope="col">
-                                Nome da Turma
-                            </th>
-                            <th scope="col">
-                                Turno
-                            </th>
-                            <th scope="col">
-                                Data Ingresso
-                            </th>
-                            <th scope="col">
-                                Excluir
-                            </th>
-                            <th scope="col">
-                                Visualizar
-                            </th>
-                        </tr>
-
-                        
-                        {turmasVinculadas.map(turmasVinculadas => (
-                            <tr key={turmasVinculadas.id_turma}>
-                            <td>{turmasVinculadas.id_turma}</td>
-                            <td>{turmasVinculadas.nome_turma}</td>
-                            <td>{turmasVinculadas.turno}</td>
-                            <td>{turmasVinculadas.data_ingresso}</td>
-                            <td> 
-                                <a onClick={() => desvincularTurmadoCurso(turmasVinculadas.id_turma)}>
-                                    <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
-                                </a>
-                            </td>
-                            <td> 
-                                <a>
-                                    <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
-                                </a>
-                            </td>
-                            </tr> 
-                        ))}
-                    </table>
-                </div>
-            </section>
-
+            
+      
+      
             <section>
                 <div class="linha-separado-instituicao-perfil">
                 </div>
@@ -312,13 +185,7 @@ export default function PerfilCurso() {
                                 Nome
                             </th>
                             <th scope="col">
-                                Horário da Aula
-                            </th>
-                            <th scope="col">
-                                Semana
-                            </th>
-                            <th scope="col">
-                                Professor 
+                                Carga Horária 
                             </th>
                             <th scope="col">
                                 Excluir
@@ -333,8 +200,6 @@ export default function PerfilCurso() {
                             <tr key={disciplinasVinculadas.id_disciplina}>
                             <td>{disciplinasVinculadas.id_disciplina}</td>
                             <td>{disciplinasVinculadas.nome_disciplina}</td>
-                            <td>{disciplinasVinculadas.horario_aula}</td>
-                            <td>{disciplinasVinculadas.diasemana}</td>
                             <td>{disciplinasVinculadas.horas}</td>
                             <td> 
                                 <a onClick={() => DesvincularDisciplina(disciplinasVinculadas.id_disciplina)}>

@@ -22,16 +22,10 @@ export default function HeaderProfessor() {
                             <li class="c-dropdown_item">
                                 <a class="c-dropdown_menu-link">Home</a>
                             </li>
-                            <li class="c-dropdown_item hover-item-first">
-                                <span class="span">Meus Alunos</span>
-                            </li>
-
-                            <li class="c-dropdown_item hover-item-first">
-                         
+                            <li class="c-dropdown_item hover-item-first">               
                                     <a 
                                     href="/professor-turmas"
-                                    class="c-dropdown_menu-link header-a">Minhas Turmas</a>
-                            
+                                    class="c-dropdown_menu-link header-a">Minhas Turmas</a>                      
                             </li>
                             <li class="c-dropdown_item hover-item-first">
                                 <a onClick={logout}> Sair</a>

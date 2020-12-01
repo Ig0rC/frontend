@@ -3,38 +3,78 @@ import Menu from '../../../Components/administrador/header/header';
 import './Instituicao.css';
 import api from '../../../services/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
-import { Context } from '../../../Context/InstituicaoContext'
+import { faTrash, faEdit, faLock } from '@fortawesome/free-solid-svg-icons';
+import { ContextInstituicao } from '../../../Context/InstituicaoContext';
+import { Context } from '../../../Context/CursoContext';
+import { ContextTurma } from '../../../Context/TurmaContext';
+
+
 
 
 
 
 function InstituicaoPerfil({ children }) {
+    const { SelecionaTurma } = useContext(ContextTurma)
+    const { perfilCursoIdc } = useContext(Context)
+    const { id } = useContext(ContextInstituicao)
 
-
-    const { id } = useContext(Context)
-
-
-
-    const [result, setResult] = useState([]);
+    //buscar Instituição Selecionada!
+    const [buscarInstituicao, setBuscarInstituicao] = useState([]);
     const [nome, setNome] = useState('');
-    const [curso, setCurso] = useState([]);
-    const [cursoInstituicao, setCursoInstituciao] = useState([]);
+
+
+
+    //Buscar Cursos Ativo na instituicao
+    const [buscarCursosAtivos, setBuscarCursosAtivos] = useState([]);
+
+
+    // Buscar Turmas situacao aberto # 3
+    const [turma, setTurma] = useState([]);
     const [escolhaCurso, setEscolhaCurso] = useState(0);
+
+
+    // Recarregar a pagina
+    const [reload, setReload] = useState(true);
+    const [turmasVinculadas, setTurmasVinculadas] = useState([])
+
+
+    //Buscar Cursos Vinculados a Instituicao #2
+    const [cursoInstituicao, setCursoInstituciao] = useState([]);
+
+    //vincular Curso a Instituição
+    const [curso, setCurso] = useState([]);
     const [escolhaInstituicao, setEscolhaInstituicao] = useState(0);
     const [escolhaSituacao, setEscolhaSituacao] = useState('');
-    const [reload, setReload] = useState(true);
-    const [icon, setIcon ] = useState(faLock)
-    console.log(escolhaSituacao)
+
+
+
     useEffect(() => {
         try {
             async function SelecionarInstituicao() {
+                // const responseTableTurma = await api.get(`/turma/curso/${idc}`)
+                // setTurmasVinculadas(responseTableTurma.data);
+
+
+                //Selecionar a insituticao
                 const response = await api.get(`/instituicao/perfil/${id}`)
-                setResult(response.data)
+                    setBuscarInstituicao(response.data)
+
+                //Buscar Curso Para vincular a instituicao
                 const { data } = await api.get(`/instituicao/cursos/perfil`);
-                setCurso(data)
-                const responseCursosInstituicao = await api.get(`/instituicao/cursos/buscar/${id}`)
-                setCursoInstituciao(responseCursosInstituicao.data)
+                    setCurso(data)
+
+
+                //Buscar Cursos Vinculados a Instituicao #2
+                const responseCursosInstituicao = await api.get(`/instituicao/curso/${id}`)
+                    setCursoInstituciao(responseCursosInstituicao.data);
+
+                // Buscar Turmas situacao aberto # 3
+                const responseTurma = await api.get(`/instituicao/turmas/conecttion`)
+                    setTurma(responseTurma.data);
+
+                //Buscar Cursos Ativos para incluir na turma
+                const responseCursosAtivos = await api.get(`/instituicao/cursos-ativos/turmas/${id}`)
+                    setBuscarCursosAtivos(responseCursosAtivos.data);
             }
 
             SelecionarInstituicao();
@@ -42,25 +82,60 @@ function InstituicaoPerfil({ children }) {
             console.log(error)
         }
 
-    },[])
-    
-    useEffect(() =>{
+    }, [])
+
+    useEffect(() => {
         (async () => {
 
-            const responseCursosInstituicao = await api.get(`/instituicao/cursos/buscar/${id}`)
-            setCursoInstituciao(responseCursosInstituicao.data)
-        
+        const responseCursosInstituicao = await api.get(`/instituicao/cursos/buscar/${id}`)
+            setCursoInstituciao(responseCursosInstituicao.data);
+
+        const ResponseTurmasVIC = await api.get(`/instituicao/curso/turmas/vinculados/${id}`);
+            setBuscarTurmaVI(ResponseTurmasVIC.data);
+
+        const responseCursosAtivos = await api.get(`/instituicao/cursos-ativos/turmas/${id}`)
+            setBuscarCursosAtivos(responseCursosAtivos.data);
+
         })();
-      
+
     }, [reload])
 
-
-
-
-    async function DesativaCursoInstituicao(idI, idC, situacao){
+    async function vincularCursoaTurma() {
+        console.log(escolhaTurno, escolhaTurma)
         try {
-            if(situacao === 'Inativo' || situacao === 'INATIVO'){
-                if(reload === true){
+            // await api.post(`turmacurso/${escolhaTurma}/${idc}/${escolhaTurno}`);
+            alert('Vinculado');
+            if (reload === false) {
+                return setReload(true);
+            }
+            return setReload(false);
+        } catch (error) {
+            console.log(error)
+            alert('error! Verifique os campos.')
+        }
+
+    }
+    async function desvincularTurmadoCurso(idTurma) {
+        try {
+            //    await api.delete(`turmacurso/${idTurma}/${idc}`);
+            alert('Apagado com Sucesso');
+            if (reload === false) {
+                return setReload(true);
+            }
+            return setReload(false);
+        } catch (error) {
+            alert('Error')
+        }
+    }
+
+
+
+
+
+    async function DesativaCursoInstituicao(idI, idC, situacao) {
+        try {
+            if (situacao === 'Inativo' || situacao === 'INATIVO') {
+                if (reload === true) {
                     setReload(false)
                 }
                 console.log(reload)
@@ -70,8 +145,8 @@ function InstituicaoPerfil({ children }) {
                 setReload(true)
                 return alert('Ativo')
             }
-            else if(situacao === 'Ativo' || situacao === "ATIVO"){
-                if(reload === false){
+            else if (situacao === 'Ativo' || situacao === "ATIVO") {
+                if (reload === false) {
                     setReload(true)
                 }
                 console.log(reload)
@@ -80,17 +155,24 @@ function InstituicaoPerfil({ children }) {
                 console.log(response);
                 setReload(false)
                 alert('Inativado')
-            }    
+            }
         } catch (error) {
             console.log(error)
         }
     }
 
+    async function VincularTurmaCursoInstituicao() {
+        try {
+            alert('ok')
+        } catch (error) {
+
+        }
+    }
     async function CadastrarCursoInstituicao() {
         try {
             const response = await api.post(`/instituicao/cursos`, {
                 idCurso: escolhaCurso,
-                idInstituicao: escolhaInstituicao,
+                idInstituicao: id,
                 situacao_curso_instituicao: escolhaSituacao
             })
             setReload(1);
@@ -105,11 +187,54 @@ function InstituicaoPerfil({ children }) {
         try {
             const response = await api.delete(`/instituicao/cursos/${instituicao}/${curso}`);
             await setReload(2);
+        
             alert('apagado com sucesso');
         } catch (error) {
             console.log(error)
         }
     }
+
+
+
+    //Vincular ou Desvincular Instituição, turma e cursos.
+
+    // Vincular
+    const [escolhaTurno, setEscolhaTurno] = useState('');
+    const [escolhaTurma, setEscolhaTurma] = useState(0);
+    const [escolhaCursoTI, setEscolhaCursoTI] = useState(0);
+    const [buscarTurmaVI, setBuscarTurmaVI ] = useState([]);
+   
+
+    async function CursoTurmaInstituicao(){
+            const response = 
+            await 
+                api.post(`/instituicao/turmas/curso/connection/${escolhaTurma}/${id}/${escolhaCursoTI}/${escolhaTurno}`);
+            
+            if(response.data  === 'Vinculado'){
+                if(reload === false){
+                    alert(response.data)
+                    return setReload(true)
+                }
+                alert(response.data)
+                return setReload(false)
+            }else(
+                alert(response.data)
+            )
+    }
+    //Desvincular
+    async function CursoTurmaInstituicaoDelete(idCurso, idTurma){
+        try {
+            await 
+                api.delete(`/instituicao/turmas/curso/connection/${idTurma}/${id}/${idCurso}`);
+                    alert('Desvinculado a turma na Instituição');
+            if(reload === false){
+                return setReload(true);
+            }
+            return setReload(false);
+        } catch (error) {
+            alert('error')   
+        }
+    }     
 
     return (
         <>
@@ -120,56 +245,56 @@ function InstituicaoPerfil({ children }) {
                     <h2>Dados do Perfil</h2>
                 </div>
             </div>
-            {result.map(result => (
+            {buscarInstituicao.map(instituicao => (
 
-                <section key={result.id_instituicao} class="perfil-dados-flex">
+                <section key={instituicao.id_instituicao} class="perfil-dados-flex">
                     <div class="flex-1">
-                        <p>Nome da Instituição: {nome}</p>
+                        <p>Nome da Instituição: </p>
                         <input
                             type="text"
-                            defaultValue={result.nome}
+                            defaultValue={instituicao.nome_instituicao}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Resposável: </p>
                         <input
                             type="text"
-                            defaultValue={result.responsavel}
+                            defaultValue={instituicao.responsavel}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Unidade: </p>
                         <input
                             type="text"
-                            defaultValue={result.unidade}
+                            defaultValue={instituicao.unidade}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>E-mail: </p>
                         <input
                             type="text"
-                            defaultValue={result.email}
+                            defaultValue={instituicao.email}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>DDI: </p>
                         <input
                             type="text"
-                            defaultValue={result.ddi}
+                            defaultValue={instituicao.ddi}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>DDD: </p>
                         <input
                             type="text"
-                            defaultValue={result.ddd}
+                            defaultValue={instituicao.ddd}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Número Telefone: </p>
                         <input
                             type="text"
-                            defaultValue={result.numero_telefone}
+                            defaultValue={instituicao.numero_telefone}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>CEP: </p>
                         <input
                             type="text"
-                            defaultValue={result.cep}
+                            defaultValue={instituicao.cep}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                     </div>
@@ -177,37 +302,37 @@ function InstituicaoPerfil({ children }) {
                         <p>Estado: </p>
                         <input
                             type="text"
-                            defaultValue={result.estado}
+                            defaultValue={instituicao.estado}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Cidade: </p>
                         <input
                             type="text"
-                            defaultValue={result.cidade}
+                            defaultValue={instituicao.cidade}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Bairro: </p>
                         <input
                             type="text"
-                            defaultValue={result.bairro}
+                            defaultValue={instituicao.bairro}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Quadra: </p>
                         <input
                             type="text"
-                            defaultValue={result.quadra}
+                            defaultValue={instituicao.quadra}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Número: </p>
                         <input
                             type="text"
-                            defaultValue={result.numero_endereco}
+                            defaultValue={instituicao.numero_endereco}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Complemento: </p>
                         <input
                             type="text"
-                            defaultValue={result.complemento}
+                            defaultValue={instituicao.complemento}
                             onChange={({ target: { value } }) => setNome(value)}
                         />
                     </div>
@@ -221,22 +346,6 @@ function InstituicaoPerfil({ children }) {
                 </div>
                 <div class="input-cadastrar-curso-a-instituicao">
                     <div class="input-cadastrar-curso-a-instituicao-div">
-                        <p>Instituição</p>
-                        <select
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
-                            onChange={({ target: { value } }) => setEscolhaInstituicao(value)}
-                        >
-                            <option></option>
-                            {result.map(result => (
-                                <option value={result.id_instituicao}>
-                                    Código: {result.id_instituicao} ||
-                                                Nome: {result.nome}
-
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div class="input-cadastrar-curso-a-instituicao-div">
                         <p>Curso</p>
                         <select
                             class="input-styles-IT text-aling-center-cadastrar-curso"
@@ -245,8 +354,9 @@ function InstituicaoPerfil({ children }) {
                             <option></option>
                             {curso.map(curso => (
                                 <option value={curso.id_curso}>
-                                    Código: {curso.id_curso} ||
-                                                Nome: {curso.nome_curso}
+                                    Código: {curso.id_curso} 
+                                        ||
+                                    Nome: {curso.nome_curso}
 
                                 </option>
                             ))}
@@ -259,8 +369,8 @@ function InstituicaoPerfil({ children }) {
                             onChange={({ target: { value } }) => setEscolhaSituacao(value)}
                         >
                             <option></option>
-                            <option value="ATIVO">Ativo</option>
-                            <option value="INATIVO">Inativo</option>
+                            <option value="Ativo">Ativo</option>
+                            <option value="Inativo">Inativo</option>
                         </select>
                     </div>
 
@@ -303,44 +413,154 @@ function InstituicaoPerfil({ children }) {
                                 <td>{cursoInstituicao.situacao_curso_instituicao}</td>
                                 <td>
                                     <a
-                                        onClick={() => 
-                                            DesativaCursoInstituicao
-                                            (id, cursoInstituicao.id_curso, cursoInstituicao.situacao_curso_instituicao)
+                                        onClick={() =>
+                                        DesativaCursoInstituicao
+                                        (id, cursoInstituicao.id_curso, cursoInstituicao.situacao_curso_instituicao)
                                         }
-                                    
-                                        
-
                                     >
-                                        <FontAwesomeIcon icon={icon} size="lg" color="green" />
-                                    </a>
-
-                                </td>
-
-                                <td>
-
-                                    <a
-                                        onClick={() => ExcluirCursoInstituicao(cursoInstituicao.id_curso, id)}
-                                    >
-                                        <FontAwesomeIcon icon={faEdit} size="lg" color="#0060EB" />
+                                        <FontAwesomeIcon icon={faLock} size="lg" color="green" />
                                     </a>
 
                                 </td>
                                 <td>
-
+                                <a
+                                    onClick={() => perfilCursoIdc(cursoInstituicao.id_curso)}
+                                >
+                                    <FontAwesomeIcon icon={faEdit} size="lg" color="#0060EB" />
+                                </a>
+                                </td>
+                                <td>
                                     <a
                                         onClick={() => ExcluirCursoInstituicao(cursoInstituicao.id_curso, id)}
                                     >
-                                        <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
+                                    <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
                                     </a>
-
                                 </td>
                             </tr>
-
                         ))}
                     </table>
                 </div>
             </section>
+            <div class="linha-separado-instituicao-perfil">
+            </div>
+            <div class="cadastrar-curso-a-instituicao-titulo">
+                <h1>Vincular a Turma a Instituição</h1>
+            </div>
+            <div class="input-cadastrar-curso-a-instituicao">
+                <div class="input-cadastrar-curso-a-instituicao-div">
+                    <p>Turma:</p>
+                    <select
+                        class="input-styles-IT text-aling-center-cadastrar-curso"
+                        onChange={({ target: { value } }) => setEscolhaTurma(value)}
+                    >
+                        <option></option>
+                        {turma.map(turma => (
+                            <option value={turma.id_turma}>
+                                Código: {turma.id_turma} 
+                                    ||
+                                Nome: {turma.nome_turma}
 
+                            </option>
+                        ))}
+
+
+
+                    </select>
+                </div>
+                <div class="input-cadastrar-curso-a-instituicao-div">
+                    <p>Turno:</p>
+
+                    <select
+                        class="input-styles-IT text-aling-center-cadastrar-curso"
+                        onChange={({ target: { value } }) => setEscolhaTurno(value)}
+                    >
+                        <option></option>
+                        <option value="Matutino">Matutino</option>
+                        <option value="Vespertino">Vespertino</option>
+                        <option value="Noturno">Noturno</option>
+
+                    </select>
+
+                </div>
+                <div class="input-cadastrar-curso-a-instituicao-div">
+                    <p>Curso:</p>
+
+                    <select
+                        class="input-styles-IT text-aling-center-cadastrar-curso"
+                        onChange={({ target: { value } }) => setEscolhaCursoTI(value)}
+                    >
+                        <option></option>
+                        {buscarCursosAtivos.map(buscarCursosAtivos => (
+                            <option value={buscarCursosAtivos.id_curso}>
+                                Código: {buscarCursosAtivos.id_curso} ||
+                                Nome: {buscarCursosAtivos.nome_curso}
+
+                            </option>
+                        ))}
+
+                    </select>
+
+                </div>
+            </div>
+            <div class="button-cadastrar-curso-a-instituicao-div">
+                <button
+                    onClick={CursoTurmaInstituicao}
+                    class="button-cadastrar-semestre-env">Cadastrar</button>
+            </div>
+            <div class="linha-separado-instituicao-perfil">
+            </div>
+            <div class="cadastrar-curso-a-instituicao-titulo">
+                <h1>Turmas</h1>
+            </div>
+            <section>
+                <div class="list-cursos-all-bg">
+                    <table >
+                        <tr>
+                            <th scope="col">
+                                Código da Turma
+                            </th>
+                            <th scope="col">
+                                Nome da Turma
+                            </th>
+                            <th scope="col">
+                                Turno
+                            </th>
+                            <th scope="col">
+                                Curso
+                            </th>
+                            <th scope="col">
+                                Visualizar
+                            </th>
+                            <th scope="col">
+                                Excluir
+                            </th>
+                        </tr>
+
+
+                        {buscarTurmaVI.map(buscarTurmaVI => (
+                            <tr key={buscarTurmaVI.id_turma}>
+                                <td>{buscarTurmaVI.id_turma}</td>
+                                <td>{buscarTurmaVI.nome_turma}</td>
+                                <td>{buscarTurmaVI.turno}</td>
+                                <td>{buscarTurmaVI.nome_curso}</td>
+                                <td>
+                                    <a onClick={() => SelecionaTurma(buscarTurmaVI.id_turma)}>
+                                        <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
+                                    </a>
+                                </td>
+                                <td>
+                                <a onClick={
+                                        () => CursoTurmaInstituicaoDelete(buscarTurmaVI.id_curso,buscarTurmaVI.id_turma)
+                                    }
+                                >
+                                        <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
+                                    </a>                  
+                                </td>
+                            </tr>
+                        ))}
+                    </table>
+                </div>
+            </section>
         </>
     );
 }

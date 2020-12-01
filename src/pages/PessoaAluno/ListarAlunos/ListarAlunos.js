@@ -50,6 +50,19 @@ export default function ListarAlunos(){
       
     }
 
+    async function prevPage(){
+        if(page === 1){
+          return  alert('inicio')
+        }
+        else{
+            let prev = await page - 1;
+            setPage(prev);
+            const {data} = await api.get(`/alunos/${prev}`);
+            setAlunos(data)
+        }
+
+    }
+
     useEffect(() => {
         async function BuscarAlunos(){
             const { data, headers} = await api.get(`/alunos/${1}`);
@@ -118,11 +131,11 @@ export default function ListarAlunos(){
                   </table> 
         </div>
        
-                  <div class="bg-footer">
+            <div class="bg-footer">
                     
                     <div class="flex-next-prev-list">
                         <button 
-                            //  onClick={() =>PrevInstituicao()}
+                            onClick={prevPage}
                             class="back-button-list-all btn-list-color-voltar">
                             Voltar
                         </button>

@@ -13,7 +13,7 @@ function AuthProvider( {children} ) {
 
     useEffect(() =>{
         const token = localStorage.getItem('token');
-
+     
         if(token){
             api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`;
             setAutorizacao(true)
@@ -23,6 +23,7 @@ function AuthProvider( {children} ) {
     }, [])
 
         async function ValidacaoLogin(email, password){
+            console.log('entrou')
             console.log(email)
             const envEmail = email
             console.log(envEmail, 'ok')

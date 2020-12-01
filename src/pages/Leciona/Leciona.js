@@ -6,42 +6,46 @@ import api from '../../services/api';
 
 export default function Leciona(){
 
+
+    // Buscar Instituições, curso e turmas:
+    
+    const [ instituicao, setInstituicao ] = useState([]);
+    const [ cursoInstituicao, setCursoInstituicao ] = useState([]);
+    const [ turmaPIC, setTurmaPIC ] = useState([]);
     const [disciplina, setDisciplina] = useState([]);
     const [professor, setProfessor ] = useState([]);
-    const [ turma, setTurma ] = useState([]);
     const [ Semestre, setSemestre ] = useState([]);
     const [ ano, setAno ] = useState([]);
+
+
+    //Salvando as Escolhas
+    const [ idInstituicao, setIdInstituicao ] = useState(0);
+    const [ idCurso, setIdCurso] = useState(0);
+    const [diaSemana , setDiaSemana] = useState('');
+    const [horarioAula, setHorarioAula] = useState('');
     const [escolhaSemestre, setEscolhaSemestre ] = useState('');
-    const [ escolhaAno, setEscolhaAno ] = useState('');
-    const [escolhaTurma, setEscolhaTurma ] = useState(0);
+    const [escolhaAno, setEscolhaAno ] = useState('');
+    const [escolhaTurma, setEscolhaTurma ] = useState(0); 
     const [ escolhaProfessor, setEscolhaProfessor ] = useState('');
     const [ escolhaDisciplina, setEscolhaDisciplina ] = useState(0);
 
+   
+
+
+
     useEffect(() =>{
-        (async () => {
+        (async () => { 
+            // Consumindo web service para buscar Instituições, curso e turmas:
+            const responseInstituicao = await api.get('/leciona');
+            setInstituicao(responseInstituicao.data);
             const responseSemestre = await api.get('semestre');
             setSemestre(responseSemestre.data)
-            //turma
-            // const responseTurma = await api.get('/turma');
-            // setTurma(responseTurma.data)
-            //professor
-            const responseProfessor = await api.get('/professor');
+            const responseProfessor = await api.get('/professor/buscar/leciona/all');
             setProfessor(responseProfessor.data)
-            //disciplina
-            const responseDisciplina = await api.get('/disciplina')
-            setDisciplina(responseDisciplina.data);
         })();
     }, []);
 
     useEffect( () => {
-        console.debug('professor', escolhaProfessor)
-        console.debug('turma', escolhaTurma)
-        console.debug('semestre', escolhaSemestre)
-        console.debug('ano', escolhaAno)
-        console.debug('disciplina', escolhaDisciplina)
-        if(!escolhaSemestre){
-            return alert('escolha um semestre');
-        }
         (async () =>{
             const responseAno = await api.get(`/semestre/${escolhaSemestre}`);
             setAno(responseAno.data)
@@ -56,10 +60,11 @@ export default function Leciona(){
                 cpf_professor: escolhaProfessor,
                 id_turma: escolhaTurma,
                 semestre: escolhaSemestre,
-                ano: escolhaAno
+                ano: escolhaAno,
+                diasemana: diaSemana,
+                horario_aula: horarioAula
 
             });
-            console.log(response);
             alert('Cadastrado com sucesso')
         } catch (error) {
             console.log(error)
@@ -69,12 +74,19 @@ export default function Leciona(){
     useEffect(() => {
 
         (async () =>{
-            const response = await api.get(`/leciona/${escolhaDisciplina}`)
-            setTurma(response.data)
+            const responseTurmaPInstCurso = await api.get(`/leciona/${idInstituicao}/${idCurso}`);
+            setTurmaPIC(responseTurmaPInstCurso.data)
+            
+            const responseCursoInstuicao = await api.get(`/instituicao/cursos-ativos/turmas/${idInstituicao}`)
+            setCursoInstituicao(responseCursoInstuicao.data)
+
+            const responseDisciplinaCurso = await api.get(`/leciona/disciplina/curso/${idCurso}`)
+            setDisciplina(responseDisciplinaCurso.data)
+
         })();
       
 
-    }, [escolhaDisciplina])
+    }, [idInstituicao, idCurso])
     return(
         <>
             <Menu />
@@ -84,18 +96,62 @@ export default function Leciona(){
             <div class="columns-flex-cadastrar-cursos">
                 <div class="column-div-instituicao-cadastro">
                     <div>
-                            <p>Escolha Disciplina:</p>
+                            <p>Escolha Instituição:</p>
                             <select 
                             class="input-styles-IT text-aling-center-cadastrar-curso"
-                            onChange={({ target: {value }}) => setEscolhaDisciplina(value)}
+                            onChange={({ target: {value }}) => setIdInstituicao(value)}
                            > 
                             <option></option>
-                               {disciplina.map(disciplina =>(
-                                   <option value={disciplina.id_disciplina}>{disciplina.nome_disciplina}</option>
+                               {instituicao.map(instituicao =>(
+                                    <option value={instituicao.id_instituicao}>
+                                       Código: {instituicao.id_instituicao} ||
+                                       Nome: {instituicao.nome_instituicao}
+                                    </option>
                                ))} 
                           </select>
                     </div>
                     <div>
+                        <p>Escolha o Curso:</p>
+                        <select 
+                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            onChange={({ target: {value }}) => setIdCurso(value)}
+                        > 
+                            <option></option>
+                               {cursoInstituicao.map(cursoInstituicao =>(
+                                   <option value={cursoInstituicao.id_curso}>{cursoInstituicao.nome_curso}</option>
+                               ))} 
+                        </select>
+                    </div>
+                    <div>
+                        <p>Escolha a Disciplina:</p>
+                        <select 
+                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            onChange={({ target: {value }}) => setEscolhaDisciplina(value)}
+                        > 
+                            <option></option>
+                               {disciplina.map(disciplina =>(
+                                   <option value={disciplina.id_disciplina}>{disciplina.nome_disciplina}</option>
+                               ))} 
+                        </select>
+                    </div>
+                    <div>
+            
+                        <p>Escolha a Turma:</p>
+        
+                            <select 
+                                class="input-styles-IT text-aling-center-cadastrar-curso"
+                                onChange={({ target: {value }}) => setEscolhaTurma(value)}
+                            > 
+                                <option></option>
+                                {turmaPIC.map(turmaPIC =>(
+                                    <option value={turmaPIC.id_turma}>
+                                        Nome:{turmaPIC.nome_turma} || 
+                                        Turno: {turmaPIC.turno}</option>
+                                      ))} 
+                            </select>
+          
+                    </div>
+                <div>
                     <p>Escolha o Professor(a):</p>
                             <select 
                             class="input-styles-IT text-aling-center-cadastrar-curso"
@@ -108,32 +164,21 @@ export default function Leciona(){
                           </select>
                     </div>
                     <div>
-                            <p>Escolha a Turma:</p>
-                            <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
-                            onChange={({ target: {value }}) => setEscolhaTurma(value)}
-                            > 
-                            <option></option>
-                               {turma.map(turma =>(
-                                   <option value={turma.id_turma}>{turma.nome_turma} </option>
-                               ))} 
-                          </select>
-                    </div>
-                    <div>
-                    <p>Semestre e Ano :</p>
+                    <p>Semestre:</p>
                            <select 
                             class="input-styles-IT text-aling-center-cadastrar-curso"
                             onChange={({ target: {value }}) => setEscolhaSemestre(value)}
                            > 
                             <option></option>
                                {Semestre.map(Semestre =>(
-                                   <option value={Semestre.semestre}>{Semestre.semestre} de {Semestre.ano}</option>
+                                   <option value={Semestre.semestre}>{Semestre.semestre}</option>
                                ))} 
                                    
                             
         
                           </select>
                     </div>
+                   
                     <div>
                     <p>Ano:</p>
                            <select 
@@ -145,6 +190,32 @@ export default function Leciona(){
                                    <option>{ano.ano}</option>
                                ))} 
                           </select>
+                    </div>
+                     
+                    <div>
+                        <p>Horário da Aula:</p>
+                        <input
+                            class="input-styles-IT"
+                            type="text"
+                            onChange={({ target: { value }}) => setHorarioAula(value)}
+                        />
+                    </div>
+    
+                    <div>
+                        <p>Dia da Semana:</p>
+                        <select
+                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            onChange={({ target: { value } }) => setDiaSemana(value)}
+                        >
+                            <option ></option>
+                            <option value="Segunda-Feira">Segunda-Feira</option>
+                            <option value="Terça-Feira">Terça-Feira</option>
+                            <option value="Quarta-Feira">Quarta-Feira</option>
+                            <option value="Quinta-Feira">Quinta-Feira</option>
+                            <option value="Sexta-Feira">Sexta-Feira</option>
+                            <option value="Sábado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                        </select>
                     </div>
                 </div>    
             </div>

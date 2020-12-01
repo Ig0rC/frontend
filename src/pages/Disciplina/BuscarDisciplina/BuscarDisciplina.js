@@ -97,26 +97,16 @@ export default function BuscarDisciplinas(){
                             Nome Disciplina
                         </th>
                         <th scope="col">
-                            Hórario aula
-                        </th>
-                        <th scope="col">
-                            Data
-                        </th>
-                        <th scope="col">
-                            Horas           
+                            Carga Horária           
                         </th>
                         <th scope="col">
                             Editar / Visualizar           
                         </th>
                     </tr>
-
-
                      {disciplina.map(disciplina =>(
                         <tr>
                             <th>{disciplina.id_disciplina}</th>
                             <td>{disciplina.nome_disciplina}</td>
-                            <td>{disciplina.horario_aula}</td>
-                            <td>{disciplina.data}</td>
                             <td>{disciplina.horas}</td>
                             <td>
                                 <a onClick={() => SelecionaDisciplina(disciplina.id_disciplina)}>

@@ -1,0 +1,26 @@
+.container-info-cursos-alunos-buscar{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+.p-styles-info-cursos-aluno-buscar p {
+    margin: 10px 0px !important;
+}
+
+.p-styles-info-cursos-aluno-buscar{
+    border-bottom: 4px solid #0060EB !important;
+    padding-bottom: 2px ;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.button-styles-info-cursos-aluno-selecionar{
+    padding: 20px 20px;
+    background-color: #37F713;
+    margin: 10px 5px;
+    color: black;
+    font-weight: 600;
+    border: none;
+}

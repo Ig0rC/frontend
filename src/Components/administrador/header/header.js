@@ -13,28 +13,28 @@ export default function MenuAdm() {
       
     return (
         <>
-            <header class="header-menu">
+            <header className="header-menu">
          
-                    <div class="flex-menu">
-                        <div class='logo'>
+                    <div className="flex-menu">
+                        <div className='logo'>
                             <h1>SEJUS-DF</h1>
                         </div>
-                        <div class='list-menu'>
-                            <ul class='c-dropdown'>
-                                <li class="c-dropdown_item">
-                                    <a class="c-dropdown_menu-link">Home</a>
+                        <div className='list-menu'>
+                            <ul className='c-dropdown'>
+                                <li className="c-dropdown_item">
+                                    <a className="c-dropdown_menu-link">Home</a>
                                 </li>
-                                <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Alunos</span>
+                                <li className="c-dropdown_item hover-item-first">
+                                    <span className="span">Alunos</span>
 
-                                    <ul class="c-dropdown_submenu">
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="/alunos" class="c-dropdown_submenu-link">
+                                    <ul className="c-dropdown_submenu">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a  href="/alunos" className="c-dropdown_submenu-link">
                                                     Buscar Alunos
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item">
-                                            <a href="/ativar-aluno" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item">
+                                            <a href="/ativar-aluno" className="c-dropdown_submenu-link">
                                                     Ativar Alunos
                                             </a>
                                         </li>
@@ -42,102 +42,102 @@ export default function MenuAdm() {
                                 </li>
 
 
-                                <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Professores</span>
+                                <li className="c-dropdown_item hover-item-first">
+                                    <span className="span">Professores</span>
 
-                                    <ul class="c-dropdown_submenu">
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="#" class="c-dropdown_submenu-link">
+                                    <ul className="c-dropdown_submenu">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a  href="/buscar-professores" className="c-dropdown_submenu-link">
                                                     Buscar Professores
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item">
-                                            <a href="#" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item">
+                                            <a href="/ativar-professor" className="c-dropdown_submenu-link">
                                                     Ativar/Desativar Professores
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Curso</span>
+                                <li className="c-dropdown_item hover-item-first">
+                                    <span className="span">Curso</span>
 
-                                    <ul class="c-dropdown_submenu">
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="/cadastrarcursos" class="c-dropdown_submenu-link">
+                                    <ul className="c-dropdown_submenu">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a  href="/cadastrarcursos" className="c-dropdown_submenu-link">
                                                     Cadastrar Curso
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a href="/pesquisacursos" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a href="/pesquisacursos" className="c-dropdown_submenu-link">
                                                     Buscar Cursos
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a href="/cadastrar-semestre" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a href="/cadastrar-semestre" className="c-dropdown_submenu-link">
                                                     Cadastrar Semestre
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item ">
-                                            <a href="/cadastrar-horario" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item ">
+                                            <a href="/cadastrar-horario" className="c-dropdown_submenu-link">
                                                     Cadastrar Horário
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Turma</span>
+                                <li className="c-dropdown_item hover-item-first">
+                                    <span className="span">Turma</span>
 
-                                    <ul class="c-dropdown_submenu">
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="/cadastrar-turma" class="c-dropdown_submenu-link">
+                                    <ul className="c-dropdown_submenu">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a  href="/cadastrar-turma" className="c-dropdown_submenu-link">
                                                     Cadastrar Turma
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item">
-                                            <a href="/buscar-turma" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item">
+                                            <a href="/buscar-turma" className="c-dropdown_submenu-link">
                                                     Buscar Turma
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Disciplina</span>
+                                <li className="c-dropdown_item hover-item-first">
+                                    <span className="span">Disciplina</span>
 
-                                    <ul class="c-dropdown_submenu">
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="/cadastrar-disciplinas" class="c-dropdown_submenu-link">
+                                    <ul className="c-dropdown_submenu">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a  href="/cadastrar-disciplinas" className="c-dropdown_submenu-link">
                                                     Cadastrar Disciplina
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a href="/buscar-disciplinas" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a href="/buscar-disciplinas" className="c-dropdown_submenu-link">
                                                     Buscar Disciplina
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item">
-                                            <a href="/leciona" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item">
+                                            <a href="/leciona" className="c-dropdown_submenu-link">
                                                     Leciona
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="c-dropdown_item hover-item-first">
-                                    <span class="span">Instituição</span>
+                                <li className="c-dropdown_item hover-item-first">
+                                    <span className="span">Instituição</span>
 
-                                    <ul class="c-dropdown_submenu">
-                                        <li class="c-dropdown_submenu-item space-bottom">
-                                            <a  href="/instituicao" class="c-dropdown_submenu-link">
+                                    <ul className="c-dropdown_submenu">
+                                        <li className="c-dropdown_submenu-item space-bottom">
+                                            <a  href="/instituicao" className="c-dropdown_submenu-link">
                                                     Cadastrar Instituição
                                             </a>
                                         </li>
-                                        <li class="c-dropdown_submenu-item">
-                                            <a href="/pesqinstituicao" class="c-dropdown_submenu-link">
+                                        <li className="c-dropdown_submenu-item">
+                                            <a href="/pesqinstituicao" className="c-dropdown_submenu-link">
                                                     Buscar Instituições
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="c-dropdown_item hover-item-first">
+                                <li className="c-dropdown_item hover-item-first">
                                     <a onClick={logout}> Sair</a>
                                 </li>
                             </ul>

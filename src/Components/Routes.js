@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Switch, Route, Redirect} from 'react-router-dom';
 
+
+
 import InicialAluno from '../pages/InicialAluno';  
 import  Login  from '../pages/login/login';
 import Cadastro from '../pages/Cadastro'
@@ -22,13 +24,27 @@ import { Context } from '../Context/AuthContext';
 
 //ALUNOS
 import AlunosHome from '../pages/Aluno/AlunoHome/AlunoHome.js';
+import AlunoCursos from '../pages/Aluno/AlunoCursos/AlunoCursos.js';
 import ListarAlunos from '../pages/PessoaAluno/ListarAlunos/ListarAlunos';
 import AtivarAlunos from '../pages/Aluno/AlunoAtivar/AlunoAtivar';
 import PerfilAluno from '../pages/Aluno/AlunoPerfil/AlunoPerfil';
+import AlunosInfo from '../pages/Aluno/AlunoInfoCurso/AlunoInfoCurso.js';
+import MinhasNotasAluno from '../pages/Aluno/AlunoNotas/AlunoNotas';
+import MinhaFaltas from '../pages/Aluno/AlunoFaltas/AlunoFaltas';
+
+
+
 //PROFESSOR
 import ProfessorHome from '../pages/Professor/ProfessorHome/ProfessorHome.js';
 import ProfessorTurmas from '../pages/Professor/ProfessorTurmas/ProfessorTurma.js';
-import ProfessorNotas from '../pages/Professor/ProfessorNotas/ProfessorNotas.js'
+import ProfessorNotas from '../pages/Professor/ProfessorNotas/ProfessorNotas.js';
+import BuscarProfessores from '../pages/Professor/BuscarProfessores/BuscaProfessores';
+import ProfessorPerfil from '../pages/Professor/ProfessorPerfil/ProfessorPerfil';
+import AtivarProfessor from '../pages/Professor/ProfessorAtiva/ProfessorAtiva';
+import ProfessorFaltas from '../pages/Professor/ProfessorFaltas/ProfessorFaltas';
+
+
+
 //carga horaria
 import CadastrarHorario from '../pages/CargaHoraria/CargaHoraria.js';
 
@@ -95,14 +111,17 @@ function Routes (){
             <CustomRoute exact path='/perfil-disciplina' component={PerfilDisciplina} />
             <CustomRoute exact path='/ativar-aluno' component={AtivarAlunos} /> 
             <CustomRoute exact path='/perfil-aluno' component={PerfilAluno} />
-
-
-
-            PerfilAluno
-            
+            <CustomRoute exact path='/buscar-professores' component={BuscarProfessores} />
+            <CustomRoute exact path='/perfil-professor' component={ProfessorPerfil} />
+            <CustomRoute exact path='/ativar-professor' component={AtivarProfessor} />
+            <CustomRoute exact path='/aluno-cursos' component={AlunoCursos} />
+            <CustomRoute exact path='/aluno-info-curso' component={AlunosInfo} />  
+            <CustomRoute exact path='/professor-falta-turma' component={ProfessorFaltas} />
+            <CustomRoute exact path='/minhas-notas-aluno' component={MinhasNotasAluno}/>
+            <CustomRoute exact path='/minhas-faltas-aluno' component={MinhaFaltas}/>
         </Switch>
   )
 }
 
-
+MinhaFaltas
 export default Routes;

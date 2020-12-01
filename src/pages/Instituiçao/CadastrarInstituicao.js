@@ -42,7 +42,7 @@ export default function CadastrarInstituicao() {
     async function EnviarCadastro() {
       try {
         const response = await api.post('/instituicao', {
-            nome: nome,
+            nome_instituicao: nome,
             responsavel: responsavel,
             unidade: unidade, 
             cep: cep,

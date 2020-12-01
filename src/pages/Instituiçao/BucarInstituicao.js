@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Menu from '../../Components/administrador/header/header.js';
 import Container from '../../Components/ContainerList/containerlist.js';
 import './BuscarInstituicao.css';
-import { Context } from '../../Context/InstituicaoContext'
+import { ContextInstituicao } from '../../Context/InstituicaoContext'
 import api from '../../services/api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
@@ -11,19 +11,20 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
 export default function BuscarInstituicoes() {
 
-    const { SaveID, id } = useContext(Context)
+    const { SaveID, id } = useContext(ContextInstituicao)
 
     const [i, setI] = useState(0);
     const [instituicao, setInstituicao] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
+    const [ pesq, setPesq ] = useState('');
 
 
 
     useEffect(() => {
 
         async function BuscarAll() {
-            const response = await api.get(`/instituicao/${1}`)
+            const response = await api.get(`/instituicao/${1}/null`)
             setInstituicao(response.data)
             setTotalPage(response.headers.count);
 
@@ -34,6 +35,16 @@ export default function BuscarInstituicoes() {
 
 
     }, []);
+    console.log(pesq)
+    useEffect(() => {
+        (async () => {
+            const response = await api.get(`/instituicao/${1}/${pesq}`)
+
+            await setInstituicao(response.data)
+            console.log(response.data)
+        })();
+     
+    }, [pesq])
 
     useEffect(() => {
         let paginacao = totalPage / 5;
@@ -45,7 +56,6 @@ export default function BuscarInstituicoes() {
         setI(paginacao)
 
     }, [totalPage])
-    console.log(instituicao)
     async function nextInstituicao() {
         console.log(i, 'next')
         if (page < i) {
@@ -76,23 +86,24 @@ export default function BuscarInstituicoes() {
     return (
         <>
             <Menu />
-            <div class="flex-list-all-bg">
-                <div class="flex-pesq-list-all">
-                    <div class="tamanho-pesq-atributos">
-                        <p class="titulo-aluno-list-all">Instituições</p>
+            <div className="flex-list-all-bg">
+                <div className="flex-pesq-list-all">
+                    <div className="tamanho-pesq-atributos">
+                        <p className="titulo-aluno-list-all">Instituições</p>
                     </div>
-                    <div class="tamanho-pesq-atributos">
+                    <div className="tamanho-pesq-atributos">
                         <input
+                        onChange={ ({ target: {value }}) => setPesq(value)}
                             placeholder="Pesquisar"
-                            class="pesquisa-aluno-list-all" />
+                            className="pesquisa-aluno-list-all" />
 
                     </div>
-                    <div class="tamanho-pesq-atributos">
+                    <div className="tamanho-pesq-atributos">
 
                     </div>
                 </div>
             </div>
-            <div class="list-instituicao-all-bg">
+            <div className="list-instituicao-all-bg">
                 <table >
                     <tr >
                         <th scope="col">
@@ -116,7 +127,7 @@ export default function BuscarInstituicoes() {
                     {instituicao.map(instituicao => (
                         <tr>
                             <th>{instituicao.id_instituicao}</th>
-                            <td>{instituicao.nome}</td>
+                            <td>{instituicao.nome_instituicao}</td>
                             <td>{instituicao.unidade}</td>
                             <td>{instituicao.responsavel}</td>
                             <td>
@@ -134,16 +145,16 @@ export default function BuscarInstituicoes() {
                 </table>
             </div>
 
-            <div class="bg-footer">
+            <div className="bg-footer">
 
-                <div class="flex-next-prev-list">
+                <div className="flex-next-prev-list">
                     <button
                         onClick={() => PrevInstituicao()}
-                        class="back-button-list-all btn-list-color-voltar">
+                        className="back-button-list-all btn-list-color-voltar">
                         Voltar
                         </button>
                     <button onClick={() => nextInstituicao()}
-                        class="back-button-list-all btn-list-color-proximo">
+                        className="back-button-list-all btn-list-color-proximo">
                         Próximo
                         </button>
                 </div>

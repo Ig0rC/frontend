@@ -11,18 +11,15 @@ export default function CadastrarDisciplina() {
     const [time, setTime] = useState([]);
 
     const [nomeDiscplina, setNomeDisciplina ] = useState('');
-    const [diaSemana , setDiaSemana] = useState('');
-    const [horarioAula, setHorarioAula] = useState('');
+  
     const [horas, setHoras] = useState('');
 
 
     async function criarDisciplina(){
-        console.log(horarioAula)
+
         try{
             const response = await api.post('/disciplina', {
                 nome_disciplina: nomeDiscplina,
-                horario_aula: horarioAula,
-                diasemana: diaSemana,
                 horas: horas
             });
             console.log(response);
@@ -64,30 +61,8 @@ export default function CadastrarDisciplina() {
                      onChange={({ target: { value }}) => setNomeDisciplina(value)}
                     />
                 </div>
-                <div class="space-bottom-cadastrar-Disciplina">
-                    <p>Horário da Aula:</p>
-                    <input
-                        class="input-styles-IT"
-                        type="text"
-                        onChange={({ target: { value }}) => setHorarioAula(value)}
-                    />
-                </div>
-                <div class="space-bottom-cadastrar-Disciplina">
-                    <p>Dia da Semana:</p>
-                    <select
-                        class="input-styles-IT text-aling-center-cadastrar-curso"
-                        onChange={({ target: { value } }) => setDiaSemana(value)}
-                    >
-                        <option ></option>
-                        <option value="Segunda-Feira">Segunda-Feira</option>
-                        <option value="Terça-Feira">Terça-Feira</option>
-                        <option value="Quarta-Feira">Quarta-Feira</option>
-                        <option value="Quinta-Feira">Quinta-Feira</option>
-                        <option value="Sexta-Feira">Sexta-Feira</option>
-                        <option value="Sábado">Sábado</option>
-                        <option value="Domingo">Domingo</option>
-                    </select>
-                </div>
+               
+               
                 <div class="space-bottom-cadastrar-Disciplina">
                     <p>Carga Horária:</p>
                     <select
@@ -98,9 +73,6 @@ export default function CadastrarDisciplina() {
                         {time.map(time => (
                             <option >{time.horas}</option>
                         ))}
-
-
-
                     </select>
                 </div>
             </div>

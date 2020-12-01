@@ -4,7 +4,7 @@ import './BuscarTurmas.css';
 import api from '../../../services/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Context } from '../../../Context/TurmaContext';
+import { ContextTurma } from '../../../Context/TurmaContext';
 
 
 
@@ -14,8 +14,8 @@ export default function BuscarTurmas() {
     const [turmas, setTurmas] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
-    
-    const { SelecionaTurma } = useContext(Context)
+    const [ pesq, setPesq] = useState('');
+    const { SelecionaTurma } = useContext(ContextTurma)
 
     useEffect(() => {
         async function BuscarAll() {
@@ -32,15 +32,24 @@ export default function BuscarTurmas() {
     }, []);
 
     useEffect(() => {
-        let paginacao = totalPage / 5;
-        let Numeracao = totalPage % 5 === 0;
-        if (Numeracao === false) {
-            let salve = paginacao + 1
-            paginacao = Math.round(salve)
-        }
-        setI(paginacao)
+        (async () => {
+            const response = await api.get(`/turma/${1}`,{
+                pesq: pesq 
+            })
+            setTurmas(response.data)
+        })();
+    }, [pesq])
 
-    }, [totalPage])
+    // useEffect(() => {
+    //     let paginacao = totalPage / 5;
+    //     let Numeracao = totalPage % 5 === 0;
+    //     if (Numeracao === false) {
+    //         let salve = paginacao + 1
+    //         paginacao = Math.round(salve)
+    //     }
+    //     setI(paginacao)
+
+    // }, [totalPage])
 
 
     async function nextTurma() {
@@ -76,6 +85,7 @@ export default function BuscarTurmas() {
                     </div>
                     <div class="tamanho-pesq-atributos">
                         <input
+                            // onChange={ ({ target: { value }}) => setPesq(value)}
                             placeholder="Pesquisar"
                             class="pesquisa-aluno-list-all" />
                     </div>

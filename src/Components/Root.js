@@ -8,7 +8,10 @@ import history from '../pages/history';
 import {CursoContext} from '../Context/CursoContext';
 import { ContextTurmaPerfil } from '../Context/TurmaContext.js';
 import { DisciplinaContext } from '../Context/DisciplinaContext';
-import { AlunoContext } from '../Context/AlunoContext'
+import { AlunoContext } from '../Context/AlunoContext';
+import { ProfessorContext } from '../Context/ProfessorContext';
+import { ProfessorNotaTurma  } from '../Context/ProfessorNotaContext';
+import { AlunoInfo } from '../Context/AlunoInfoCursoContext';
 
 
 
@@ -21,9 +24,15 @@ function Root(){
                         <ContextTurmaPerfil>
                             <DisciplinaContext>
                                 <AlunoContext>
-                                    <Router history={history}>
-                                        <Routes />
-                                    </Router>
+                                    <ProfessorContext>
+                                        <ProfessorNotaTurma>
+                                            <AlunoInfo>
+                                                <Router history={history}>
+                                                    <Routes />
+                                                </Router>
+                                            </AlunoInfo>
+                                        </ProfessorNotaTurma>
+                                    </ProfessorContext>
                                 </AlunoContext>
                             </DisciplinaContext>
                         </ContextTurmaPerfil>    

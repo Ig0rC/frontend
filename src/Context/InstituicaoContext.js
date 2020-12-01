@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState }from 'react';
 import history from '../pages/history.js';
 
-const Context = createContext();
+const ContextInstituicao = createContext();
 
 
 
@@ -22,12 +22,12 @@ function InstituicaoID( {children }){
 
     return(
         <>
-         <Context.Provider value={{ SaveID, id }}>
+         <ContextInstituicao.Provider value={{ SaveID, id }}>
             {children}
-        </Context.Provider>
+        </ContextInstituicao.Provider>
         </>
     )
 }
 
 
-export { Context, InstituicaoID}
+export { ContextInstituicao, InstituicaoID}

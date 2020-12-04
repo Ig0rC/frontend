@@ -20,22 +20,18 @@ export default function AlunoInfoCurso(){
             //Buscando a informações do curso e da instituição
             const responseCursoInstituicao = await api.get(`/alunos/info/cursos/${idCurso}/${idInstituicao}`);
             setCursoInstituicao(responseCursoInstituicao.data);
-
-     
-
             
-        })();
-    }, []);
-    
-    useEffect( () => {
-        (async () => {
             // Buscando turmas que é do curso e da Instituição
             const responseTurmaCI = await api.get(`/alunos/info/turmas/${idCurso}/${idInstituicao}`)
             setTurmaCI(responseTurmaCI.data)
+     
 
-            
+      
         })();
     }, []);
+    
+ 
+
 
     async function CadastrarNoCurso (idTurma){
         try {

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './MainCadastro.css';
 import api from '../../../services/api';
+import { cpf } from 'cpf-cnpj-validator';
 
 
 function MainCadastro() {
 
-    //chamada da API
 
+
+
+
+    //chamada da API
 
 
     // Regras de Telas
@@ -43,7 +47,7 @@ function MainCadastro() {
     const SelecioneSexo = (e) => setEscolhaSexo(sexo[e.target.value]);
 
     //naturalidade
-    const naturalidade = ['', 'Brasileiro', 'Estrangeio'];
+    const naturalidade = ['', 'Brasileiro', 'Estrangeiro'];
     const addNaturalidade = naturalidade.map(AddNaturalidade => AddNaturalidade);
     const [escolhaNaturalidade, setEscolhaNaturalidade] = useState('');
     const SelecioneNaturalidade = (e) => setEscolhaNaturalidade(naturalidade[e.target.value]);
@@ -56,7 +60,7 @@ function MainCadastro() {
     // Tipo Telefone SOS
     const tipoTelefonesos = ['Tipo Telefone', 'Móvel', 'Fixo'];
     const addphonesos = tipoTelefonesos.map(addphonesos => addphonesos);
-    const [escolhaTipoTelefoneSOS ,setEscolhaTipoTelefoneSOS] = useState('');
+    const [escolhaTipoTelefoneSOS, setEscolhaTipoTelefoneSOS] = useState('');
     const SelecioneTipoTelefoneSOS = (e) => setEscolhaTipoTelefoneSOS(tipoTelefonesos[e.target.value]);
 
     // Escolha Grau
@@ -80,7 +84,7 @@ function MainCadastro() {
     const [nome, setNome] = useState('');
     const [nomeSocial, setNomeSocial] = useState('');
     //CPF
-    const [cpf, setCPF] = useState('');
+    const [cpfPessoa, setCPF] = useState('');
     //DDD e Telefone
     const [DDD, setDDD] = useState('');
     const [numeroTelefone, setNumeroTelefone] = useState('');
@@ -124,7 +128,7 @@ function MainCadastro() {
     // cor 
     const [corPele, setCorPele] = useState('');
     // Filhos
-    const [filhos, setFilhos ] = useState(false);
+    const [filhos, setFilhos] = useState(false);
 
 
 
@@ -134,7 +138,7 @@ function MainCadastro() {
     const [convertTipoTelefone, setConvertTipoTelefone] = useState(0);
     const [convertTipoTelefoneSOS, setConvertTipoTelefoneSOS] = useState(0);
 
-    
+
     useEffect(() => {
         if (escolhaSexo === 'Feminino') {
             setConvertTagSexo('F')
@@ -146,9 +150,9 @@ function MainCadastro() {
         } else {
             setConvertTipoTelefone(2);
         }
-        if(escolhaTipoTelefoneSOS ==='Fixo'){
+        if (escolhaTipoTelefoneSOS === 'Fixo') {
             setConvertTipoTelefoneSOS(1)
-        } else{
+        } else {
             setConvertTipoTelefoneSOS(1)
         }
 
@@ -199,109 +203,123 @@ function MainCadastro() {
 
     }, [select]);
 
-    // POST NA API 
-    console.log(escolhaLogin)
-    console.log(convertTipoTelefone)
-    console.log(convertTipoTelefoneSOS)
-    async function CriarCadastroProfessorAdministrador() {
-        try {
-            const response = await api.post('/cadastro', {
-                cpf: cpf,
-                nome: nome,
-                nome_social: nomeSocial,
-                nome_tipo_login: escolhaLogin,
-                naturalidade: escolhaNaturalidade,
-                nascimento: date,
-                sexo: convertTagSexo,
-                ddd: DDD,
-                id_tipo_telefone: convertTipoTelefone,
-                numero_telefone: numeroTelefone,
-                cep: CEP,
-                estado: estado,
-                cidade: cidade,
-                bairro: bairro,
-                quadra: quadra,
-                numero_endereco: numeroCasa,
-                complemento: complemento,
-                grau_formacao: escolhaGrau,
-                especializacao: especializao,
-                numero_rg: rg,
-                orgao_emissor: orgaoEmissor,
-                uf: UF,
-                email: email,
-                senhaemail: senha
-            });
 
-            console.log(response)
-            return window.alert('deu certo')
-        } catch (error) {
-            console.log('error:', error)
+
+
+
+    async function CriarCadastroProfessorAdministrador() {
+        const validarSenha = senha === confirmaSenha;
+        if (validarSenha === false) {
+            alert("Senhas não se coincidem")
         }
+        if (validarSenha === true) {
+            if (
+                cpf.isValid(cpfPessoa) === true
+            ) {
+                alert('entrou')
+                try {
+                    const response = await api.post('/cadastro', {
+                        cpf: cpfPessoa,
+                        nome: nome,
+                        nome_social: nomeSocial,
+                        nome_tipo_login: escolhaLogin,
+                        naturalidade: escolhaNaturalidade,
+                        nascimento: date,
+                        sexo: convertTagSexo,
+                        ddd: DDD,
+                        id_tipo_telefone: convertTipoTelefone,
+                        numero_telefone: numeroTelefone,
+                        cep: CEP,
+                        estado: estado,
+                        cidade: cidade,
+                        bairro: bairro,
+                        quadra: quadra,
+                        numero_endereco: numeroCasa,
+                        complemento: complemento,
+                        grau_formacao: escolhaGrau,
+                        especializacao: especializao,
+                        numero_rg: rg,
+                        orgao_emissor: orgaoEmissor,
+                        uf: UF,
+                        email: email,
+                        senhaemail: senha
+                    });
+
+                    console.log(response)
+                    return window.alert('deu certo')
+                } catch (error) {
+                    console.log('error:', error)
+                }
+            }
+        }
+
     }
     async function CriarCadastroAluno() {
-        try {
-            console.log('ok')
-            const response = await api.post('/cadastro', {
-                cpf: cpf,
-                nome: nome,
-                nome_social: nomeSocial,
-                nome_tipo_login: escolhaLogin,
-                naturalidade: escolhaNaturalidade,
-                nascimento: date,
-                sexo: convertTagSexo,
-                ddd: DDD,
-                id_tipo_telefone: convertTipoTelefone,
-                numero_telefone: numeroTelefone,
-                cep: CEP,
-                estado: estado,
-                cidade: cidade,
-                bairro: bairro,
-                quadra: quadra,
-                numero_endereco: numeroCasa,
-                complemento: complemento,
-                grau_formacao: escolhaGrau,
-                especializacao: especializao,
-                numero_rg: rg,
-                orgao_emissor: orgaoEmissor,
-                uf: UF,
-                email: email,
-                senhaemail: senha,
-                tipo_telefone_sos: convertTipoTelefoneSOS,
-                ddd_SOS: dddSOS,
-                numero_SOS: telefoneSOS,
-                nome_SOS: nomeSOS,
-                estado_civil: estadoCivil,
-                raca: corPele,
-                moradia: moradia,
-                rendasalarial: mediaSalarial, //salario medio
-                adm_financeira: sobreFinancas,
-                locomacao: locomocao,
-                escolaridade: escolaridade,
-                situacao_economica: situacaoEconomica,
-                ocupacao: trabalho, //trabalhando atualmente
-                aposentado: aposentado,
-                ultima_profissao: CTPS, //ctps
-                prog_social: beneficiario, // É beneficiario(A) de Algum programa de governo ? *
-                atendimento: respostaAtendimento,// É atendido(a) em alguma unidade de atendimento?*
-                descricao_perfil: descricaoPerfil,
-                experiencia_profissional: expreriencaProfissional,
-                conhecimento_curso: saberCurso,
-                patologia: patologia,
-                autonomia: aiR,
-                filhos: filhos,
-                acessibilidade: sobreAcessibilidade,
-                dado_patologia: outrosPatologia,
-                dado_autonomia: outrosAir,
-                dado_acessibilidade: outroAcessibildiade
+      
+                try {
+                    alert('entrou')
+                    const response = await api.post('/cadastro', {
+                        cpf: cpfPessoa,
+                        nome: nome,
+                        nome_social: nomeSocial,
+                        nome_tipo_login: escolhaLogin,
+                        naturalidade: escolhaNaturalidade,
+                        nascimento: date,
+                        sexo: convertTagSexo,
+                        ddd: DDD,
+                        id_tipo_telefone: convertTipoTelefone,
+                        numero_telefone: numeroTelefone,
+                        cep: CEP,
+                        estado: estado,
+                        cidade: cidade,
+                        bairro: bairro,
+                        quadra: quadra,
+                        numero_endereco: numeroCasa,
+                        complemento: complemento,
+                        grau_formacao: escolhaGrau,
+                        especializacao: especializao,
+                        numero_rg: rg,
+                        orgao_emissor: orgaoEmissor,
+                        uf: UF,
+                        email: email,
+                        senhaemail: senha,
+                        tipo_telefone_sos: convertTipoTelefoneSOS,
+                        ddd_SOS: dddSOS,
+                        numero_SOS: telefoneSOS,
+                        nome_SOS: nomeSOS,
+                        estado_civil: estadoCivil,
+                        raca: corPele,
+                        moradia: moradia,
+                        rendasalarial: mediaSalarial, //salario medio
+                        adm_financeira: sobreFinancas,
+                        locomacao: locomocao,
+                        escolaridade: escolaridade,
+                        situacao_economica: situacaoEconomica,
+                        ocupacao: trabalho, //trabalhando atualmente
+                        aposentado: aposentado,
+                        ultima_profissao: CTPS, //ctps
+                        prog_social: beneficiario, // É beneficiario(A) de Algum programa de governo ? *
+                        atendimento: respostaAtendimento,// É atendido(a) em alguma unidade de atendimento?*
+                        descricao_perfil: descricaoPerfil,
+                        experiencia_profissional: expreriencaProfissional,
+                        conhecimento_curso: saberCurso,
+                        patologia: patologia,
+                        autonomia: aiR,
+                        filhos: filhos,
+                        acessibilidade: sobreAcessibilidade,
+                        dado_patologia: outrosPatologia,
+                        dado_autonomia: outrosAir,
+                        dado_acessibilidade: outroAcessibildiade
 
-            });
-  
-            console.log(response)
-            return window.alert('deu certo')
-        } catch (error) {
-            console.log('error:', error)
-        }
-    }
+                    });
+
+                    console.log(response)
+                    return window.alert('deu certo')
+                } catch (error) {
+                    console.log('error:', error)
+                }
+            }
+        
 
     if (loading) {
         return (
@@ -364,7 +382,7 @@ function MainCadastro() {
                             />
                         </div>
                         <div class="campo">
-                            <p>DDD:{escolhaNaturalidade}</p>
+                            <p>DDD:</p>
                             <input
                                 class="btn"
                                 id="DDD"
@@ -537,9 +555,9 @@ function MainCadastro() {
                                 id="rg"
                                 name="rg"
                                 required="required"
-                                type="number"
+                                type="text"
                                 placeholder="Ex.: 000000"
-                                maxlength={14}
+                                maxlength={7}
                                 onChange={({ target: { value } }) => setRG(value)}
                             />
                         </div>
@@ -875,7 +893,7 @@ function MainCadastro() {
                             required="required"
                             type="text"
                             placeholder="Ex.: 000000"
-                            maxLength={15}
+                            maxLength={7}
                             onChange={({ target: { value } }) => setRG(value)}
                         />
                     </div>
@@ -1050,7 +1068,6 @@ function MainCadastro() {
                             onChange={e => setMoradia(e.target.value)}
                         />
                         <label class="space-radio" for="adm3">ILPI’S (ASILOS)</label><br />
-                        <label>{moradia}</label>
                     </div>
                 </div>
                 <div class="column-flex">
@@ -1108,20 +1125,20 @@ function MainCadastro() {
                             maxLength={20}
                             onChange={({ target: { value } }) => setTelefoneSOS(value)}
                         />
-                
-                            <p>Tipo Telefone</p>
-                            <select
-                                onChange={e => SelecioneTipoTelefoneSOS(e)}
-                                class="btn select"
-                                id="telefoneSOS"
-                                name="telefoneSOS"
-                            >
-                                {
-                                    addphonesos.map((address, key) =>
-                                        <option value={key}>{address}</option>)
-                                }
-                            </select>
-                         
+
+                        <p>Tipo Telefone</p>
+                        <select
+                            onChange={e => SelecioneTipoTelefoneSOS(e)}
+                            class="btn select"
+                            id="telefoneSOS"
+                            name="telefoneSOS"
+                        >
+                            {
+                                addphonesos.map((address, key) =>
+                                    <option value={key}>{address}</option>)
+                            }
+                        </select>
+
 
                     </div>
                 </div>
@@ -1174,7 +1191,7 @@ function MainCadastro() {
                             onClick={() => setNone('none')}
                             onChange={({ target: { value } }) => setLocomocao(value)}
                         />
-                        <label class="space-radio" for="sal23">Bicicleta{locomocao}</label><br />
+                        <label class="space-radio" for="sal23">Bicicleta</label><br />
                         <input
                             type="radio"
                             id="sal34"
@@ -1202,7 +1219,7 @@ function MainCadastro() {
                         />
                     </div>
                     <div class="column">
-                        <p>Descrição do Perfil: {descricaoPerfil}</p>
+                        <p>Descrição do Perfil:</p>
                         <textarea
                             class="btn"
                             id="descricaoPerfil"
@@ -1217,7 +1234,7 @@ function MainCadastro() {
                 <div class="column-flex">
 
                     <div class="column">
-                        <p>Experiência Profissional: {expreriencaProfissional}</p>
+                        <p>Experiência Profissional:</p>
                         <textarea
                             class="btn"
                             id="experienciaprofissional"
@@ -1229,7 +1246,7 @@ function MainCadastro() {
                         />
                     </div>
                     <div class="column">
-                        <p>Estado Civil: {expreriencaProfissional}</p>
+                        <p>Estado Civil: </p>
                         <input
                             type="radio"
                             id="solteiro"
@@ -1260,7 +1277,7 @@ function MainCadastro() {
                 <div class="column-flex">
 
                     <div class="column">
-                        <p>Você se considera : {expreriencaProfissional}</p>
+                        <p>Você se considera : </p>
                         <input
                             type="radio"
                             id="Branco"
@@ -1288,7 +1305,7 @@ function MainCadastro() {
                         <label class="space-radio" for="Preto">Preto</label><br />
                     </div>
                     <div class="column">
-                    <p>Tem Filhos  : {filhos}</p>
+                        <p>Tem Filhos  : </p>
                         <input
                             type="radio"
                             id="simFilhos"
@@ -1305,7 +1322,7 @@ function MainCadastro() {
                             onChange={({ target: { value } }) => setFilhos(value)}
                         />
                         <label class="space-radio" for="filhosnao">Não</label><br />
-                        
+
                     </div>
                 </div>
                 <h2 class="stylesH2">Escolaridade*</h2>
@@ -1641,7 +1658,7 @@ function MainCadastro() {
                             onClick={() => setAcessibilidadeOcult('none')}
                             onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
                         />
-                        <label for="item7Acessibilidade">Deficiente visual{sobreAcessibilidade}</label><br />
+                        <label for="item7Acessibilidade">Deficiente visual</label><br />
                         <input
                             type="radio"
                             id="item8Acessibilidade"
@@ -1672,7 +1689,7 @@ function MainCadastro() {
                         />
                     </div>
                     <div class="column">
-                        <p>Patologia Pré Existentes * {patologia}</p>
+                        <p>Patologia Pré Existentes * </p>
                         <input
                             type="radio"
                             id="item1Patologia"
@@ -1962,7 +1979,7 @@ function MainCadastro() {
                         />
                     </div>
                     <div class="column">
-                        <p>Como ficou sabendo do Curso{saberCurso}</p>
+                        <p>Como ficou sabendo do Curso</p>
                         <input
                             type="radio"
                             id="Saber1"
@@ -2012,7 +2029,7 @@ function MainCadastro() {
                             name="resposta"
                             required="required"
                             type="text"
-                            onChange={({ target: {value} }) => setCurso(value)}
+                            onChange={({ target: { value } }) => setCurso(value)}
                             placeholder="sua resposta"
                         />
 
@@ -2022,10 +2039,10 @@ function MainCadastro() {
                 <div class="button-aluno">
 
                     <div class="">
-                        <input class="submit-aluno-cancel" type="button" value="Cancelar"  />
+                        <input class="submit-aluno-cancel" type="button" value="Cancelar" />
                     </div>
                     <div class="">
-                        <input class="submit-aluno-env" type="button" value="Enviar" onClick={() => CriarCadastroAluno()}/>
+                        <input class="submit-aluno-env" type="button" value="Enviar" onClick={CriarCadastroAluno} />
                     </div>
                 </div>
             </section>

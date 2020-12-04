@@ -5,7 +5,7 @@ import history from '../pages/history';
 const Context = createContext();
 
 function DisciplinaContext( { children } ){
-    const [id, setID] = useState(0);
+    const [idC, setID] = useState(0);
 
     async function SelecionaDisciplina(idD){
         localStorage.setItem('disciplina', JSON.stringify(idD));
@@ -21,7 +21,7 @@ function DisciplinaContext( { children } ){
     })
     return(
         <>
-            <Context.Provider value={{ SelecionaDisciplina , id}}>
+            <Context.Provider value={{ SelecionaDisciplina , idC}}>
                 {children}
             </Context.Provider>
         </>

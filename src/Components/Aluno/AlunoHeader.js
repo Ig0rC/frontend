@@ -12,7 +12,6 @@ export default function HeaderAluno() {
     return (
         <>
             <header class="header-menu">
-
                 <div class="flex-menu">
                     <div class='logo'>
                         <h1>SEJUS-DF</h1>
@@ -42,7 +41,6 @@ export default function HeaderAluno() {
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </header>
         </>

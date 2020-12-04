@@ -1,0 +1,27 @@
+.icon-lixeira-perfil{
+    display: flex;
+    margin: 0 auto;
+    max-width: 800px;
+    justify-content: space-between;
+    padding: 50px 20px 20px 20px;
+}
+
+.input-data{
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid blue !important;
+    border-left: 1px solid blue !important;
+    border-right: 1px solid blue !important;
+    border-radius: 3px;
+    border-bottom: 1px solid blue !important;
+    padding: 5px !important;
+    
+}
+
+.icon-save-one-perfil{
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px;
+}

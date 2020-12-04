@@ -18,7 +18,6 @@ function CursoContext( {children }){
     useEffect(()=> {
         const idc = localStorage.getItem('curso');
         if(idc){
-            console.log(`${JSON.parse(idc)}`)
             setIDc(`${JSON.parse(idc)}`);
         }
     })

@@ -1,26 +1,26 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import Menu from '../../../Components/administrador/header/header';
 import './Instituicao.css';
 import api from '../../../services/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEdit, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEdit, faLock, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ContextInstituicao } from '../../../Context/InstituicaoContext';
 import { Context } from '../../../Context/CursoContext';
 import { ContextTurma } from '../../../Context/TurmaContext';
+import history from '../../history'
 
 
 
 
 
 
-function InstituicaoPerfil({ children }) {
+function InstituicaoPerfil() {
     const { SelecionaTurma } = useContext(ContextTurma)
     const { perfilCursoIdc } = useContext(Context)
     const { id } = useContext(ContextInstituicao)
 
     //buscar Instituição Selecionada!
     const [buscarInstituicao, setBuscarInstituicao] = useState([]);
-    const [nome, setNome] = useState('');
 
 
 
@@ -35,7 +35,6 @@ function InstituicaoPerfil({ children }) {
 
     // Recarregar a pagina
     const [reload, setReload] = useState(true);
-    const [turmasVinculadas, setTurmasVinculadas] = useState([])
 
 
     //Buscar Cursos Vinculados a Instituicao #2
@@ -43,7 +42,6 @@ function InstituicaoPerfil({ children }) {
 
     //vincular Curso a Instituição
     const [curso, setCurso] = useState([]);
-    const [escolhaInstituicao, setEscolhaInstituicao] = useState(0);
     const [escolhaSituacao, setEscolhaSituacao] = useState('');
 
 
@@ -58,7 +56,7 @@ function InstituicaoPerfil({ children }) {
                 //Selecionar a insituticao
                 const response = await api.get(`/instituicao/perfil/${id}`)
                     setBuscarInstituicao(response.data)
-
+                console.log(response.data)
                 //Buscar Curso Para vincular a instituicao
                 const { data } = await api.get(`/instituicao/cursos/perfil`);
                     setCurso(data)
@@ -100,35 +98,7 @@ function InstituicaoPerfil({ children }) {
 
     }, [reload])
 
-    async function vincularCursoaTurma() {
-        console.log(escolhaTurno, escolhaTurma)
-        try {
-            // await api.post(`turmacurso/${escolhaTurma}/${idc}/${escolhaTurno}`);
-            alert('Vinculado');
-            if (reload === false) {
-                return setReload(true);
-            }
-            return setReload(false);
-        } catch (error) {
-            console.log(error)
-            alert('error! Verifique os campos.')
-        }
-
-    }
-    async function desvincularTurmadoCurso(idTurma) {
-        try {
-            //    await api.delete(`turmacurso/${idTurma}/${idc}`);
-            alert('Apagado com Sucesso');
-            if (reload === false) {
-                return setReload(true);
-            }
-            return setReload(false);
-        } catch (error) {
-            alert('Error')
-        }
-    }
-
-
+  
 
 
 
@@ -161,13 +131,7 @@ function InstituicaoPerfil({ children }) {
         }
     }
 
-    async function VincularTurmaCursoInstituicao() {
-        try {
-            alert('ok')
-        } catch (error) {
-
-        }
-    }
+ 
     async function CadastrarCursoInstituicao() {
         try {
             const response = await api.post(`/instituicao/cursos`, {
@@ -175,20 +139,26 @@ function InstituicaoPerfil({ children }) {
                 idInstituicao: id,
                 situacao_curso_instituicao: escolhaSituacao
             })
-            setReload(1);
-            alert('Cadastrado com sucesso')
+            if(reload === false){
+                return await setReload(true)
+            }
+            return await setReload(false)
         } catch (error) {
             console.log(error)
             alert('Faltou dados')
 
         }
     }
-    async function ExcluirCursoInstituicao(curso, instituicao) {
+    async function ExcluirCursoInstituicao(curso) {
         try {
-            const response = await api.delete(`/instituicao/cursos/${instituicao}/${curso}`);
-            await setReload(2);
-        
-            alert('apagado com sucesso');
+            await api.delete(`/instituicao/cursos/excluir/curso/${id}/${curso}/`);
+            if(reload === false){
+                alert('apagado com sucesso');
+                return await setReload(true)
+            }
+            alert('apagado com sucesso')
+            return await setReload(false)
+            
         } catch (error) {
             console.log(error)
         }
@@ -236,6 +206,61 @@ function InstituicaoPerfil({ children }) {
         }
     }     
 
+    //update
+
+    const nomeI = useRef(null);
+    const responsavel = useRef(null);
+    const unidade = useRef(null);
+    const email = useRef(null);
+    const ddd = useRef(null);
+    const numero_telefone = useRef(null);
+    const cep = useRef(null);
+    const estado = useRef(null);
+    const cidade = useRef(null);
+    const bairro = useRef(null);
+    const quadra = useRef(null);
+    const numero = useRef(null);
+    const complemento = useRef(null);
+
+
+    async function InstituicaoUpdate(idtelefone, idendereco){
+        try {
+            const response = await api.put(`/instituicao/${id}/${idtelefone}/${idendereco}`,{
+                nome: nomeI.current.value,
+                responsavel: responsavel.current.value,
+                unidade: unidade.current.value,
+                email: email.current.value,
+                ddd: ddd.current.value ,
+                numero_telefone: numero_telefone.current.value,
+                cep: cep.current.value,
+                estado: estado.current.value,
+                bairro: bairro.current.value,
+                quadra: quadra.current.value,
+                numero_endereco: numero.current.value,
+                complemento: complemento.current.value
+            })
+            console.log(response)
+            alert('Atualizado')
+        } catch (error) {
+            alert(error)
+            console.log(error)   
+        }
+    }
+
+    async function DeleteInstituicao(idtelefone, idendereco){
+        try {
+            const resposta = window.confirm("Tem certeza que quer excluir ?")
+            if(resposta === true){
+                const response = await api.delete(`/instituicao/excluir/cascade/delete/${id}/${idtelefone}/${idendereco}`);
+                console.log(response)
+                alert('Excluido com sucesso!');
+                history.push('/pesqinstituicao')
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
     return (
         <>
             <Menu />
@@ -251,93 +276,113 @@ function InstituicaoPerfil({ children }) {
                     <div class="flex-1">
                         <p>Nome da Instituição: </p>
                         <input
+                            ref={nomeI}
                             type="text"
                             defaultValue={instituicao.nome_instituicao}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Resposável: </p>
                         <input
+                            ref={responsavel}
                             type="text"
                             defaultValue={instituicao.responsavel}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Unidade: </p>
-                        <input
+                        <input 
+                            ref={unidade}
                             type="text"
                             defaultValue={instituicao.unidade}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>E-mail: </p>
                         <input
+                            ref={email}
                             type="text"
                             defaultValue={instituicao.email}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>DDI: </p>
                         <input
                             type="text"
-                            defaultValue={instituicao.ddi}
-                            onChange={({ target: { value } }) => setNome(value)}
+                            value={instituicao.ddi}
                         />
                         <p>DDD: </p>
                         <input
+                            ref={ddd}
                             type="text"
                             defaultValue={instituicao.ddd}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Número Telefone: </p>
                         <input
+                            ref={numero_telefone}
                             type="text"
                             defaultValue={instituicao.numero_telefone}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>CEP: </p>
                         <input
+                            ref={cep}
                             type="text"
                             defaultValue={instituicao.cep}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                     </div>
                     <div class="flex-1">
                         <p>Estado: </p>
                         <input
+                            ref={estado}
                             type="text"
                             defaultValue={instituicao.estado}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Cidade: </p>
                         <input
+                            ref={cidade}
                             type="text"
                             defaultValue={instituicao.cidade}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Bairro: </p>
                         <input
+                            ref={bairro}
                             type="text"
                             defaultValue={instituicao.bairro}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Quadra: </p>
                         <input
+                            ref={quadra}
                             type="text"
                             defaultValue={instituicao.quadra}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Número: </p>
                         <input
+                            ref={numero}
                             type="text"
                             defaultValue={instituicao.numero_endereco}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                         <p>Complemento: </p>
                         <input
+                            ref={complemento}
                             type="text"
                             defaultValue={instituicao.complemento}
-                            onChange={({ target: { value } }) => setNome(value)}
                         />
                     </div>
+                   
                 </section>
             ))}
+            <section>
+                {buscarInstituicao.map(int => (
+                <div className="icon-lixeira-perfil">
+                     <div>
+                         <a 
+                            onClick={() => DeleteInstituicao(int.id_telefone, int.id_endereco)} 
+                          >
+                             <FontAwesomeIcon icon={faTrash} size="3x" color="red" />
+                         </a>
+                     </div>
+                     <div>
+                         <a 
+                          onClick={() =>InstituicaoUpdate(int.id_telefone, int.id_endereco)}
+                        >
+                             <FontAwesomeIcon icon={faSave} size="3x" color="green" />
+                         </a>
+                     </div>   
+                </div>
+                ))}        
+            </section>
             <section>
                 <div class="linha-separado-instituicao-perfil">
                 </div>

@@ -14,7 +14,6 @@ export default function BuscarTurmas() {
     const [turmas, setTurmas] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
-    const [ pesq, setPesq] = useState('');
     const { SelecionaTurma } = useContext(ContextTurma)
 
     useEffect(() => {
@@ -24,6 +23,7 @@ export default function BuscarTurmas() {
 
             setTurmas(response.data)
             setTotalPage(response.headers.count);
+            console.debug('total', response.headers.count)
 
         };
         BuscarAll();
@@ -32,24 +32,15 @@ export default function BuscarTurmas() {
     }, []);
 
     useEffect(() => {
-        (async () => {
-            const response = await api.get(`/turma/${1}`,{
-                pesq: pesq 
-            })
-            setTurmas(response.data)
-        })();
-    }, [pesq])
+        let paginacao = totalPage / 5;
+        let Numeracao = totalPage % 5 === 0;
+        if (Numeracao === false) {
+            let salve = paginacao + 1
+            paginacao = Math.round(salve)
+        }
+        setI(paginacao)
 
-    // useEffect(() => {
-    //     let paginacao = totalPage / 5;
-    //     let Numeracao = totalPage % 5 === 0;
-    //     if (Numeracao === false) {
-    //         let salve = paginacao + 1
-    //         paginacao = Math.round(salve)
-    //     }
-    //     setI(paginacao)
-
-    // }, [totalPage])
+    }, [totalPage])
 
 
     async function nextTurma() {
@@ -57,24 +48,24 @@ export default function BuscarTurmas() {
         if (page < i) {
             let next = await page + 1;
             setPage(next);
-            const response = await api.get(`/turma/${1}`)
+            const response = await api.get(`/turma/${next}`)
             setTurmas(response.data)
         } else if (page === i) {
             alert('Já Chegou no Final')
         }
     }
 
-    // async function PrevInstituicao(){
-    //    console.log(page)
-    //    if(page === 1){
-    //        return alert('inicio')
-    //    }else{
-    //        let prev = await page - 1;
-    //        setPage(prev);
-    //        const response = await api.get(`/instituicao/${prev}`)
-    //        setInstituicao(response.data)
-    //    }
-    // }
+    async function prevTurma(){
+       if(page === 1){
+           return alert('inicio')
+       }else{
+           let prev = await page - 1;
+           setPage(prev);
+           const response = await api.get(`/turma/${prev}`)
+           setTurmas(response.data)
+       }
+    }
+
     return (
         <>
             <Menu />
@@ -82,14 +73,6 @@ export default function BuscarTurmas() {
                 <div class="flex-pesq-list-all">
                     <div class="tamanho-pesq-atributos">
                         <p class="titulo-aluno-list-all">Turmas</p>
-                    </div>
-                    <div class="tamanho-pesq-atributos">
-                        <input
-                            // onChange={ ({ target: { value }}) => setPesq(value)}
-                            placeholder="Pesquisar"
-                            class="pesquisa-aluno-list-all" />
-                    </div>
-                    <div class="tamanho-pesq-atributos">
                     </div>
                 </div>
             </div>
@@ -127,15 +110,15 @@ export default function BuscarTurmas() {
 
                 </table>
             </div>
-
             <div class="bg-footer">
-
                 <div class="flex-next-prev-list">
                     <button
+                        onClick={prevTurma}
                         class="back-button-list-all btn-list-color-voltar">
                         Voltar
                     </button>
                     <button
+                        onClick={nextTurma}
                         class="back-button-list-all btn-list-color-proximo">
                         Próximo
                     </button>

@@ -91,16 +91,6 @@ export default function BuscarInstituicoes() {
                     <div className="tamanho-pesq-atributos">
                         <p className="titulo-aluno-list-all">Instituições</p>
                     </div>
-                    <div className="tamanho-pesq-atributos">
-                        <input
-                        onChange={ ({ target: {value }}) => setPesq(value)}
-                            placeholder="Pesquisar"
-                            className="pesquisa-aluno-list-all" />
-
-                    </div>
-                    <div className="tamanho-pesq-atributos">
-
-                    </div>
                 </div>
             </div>
             <div className="list-instituicao-all-bg">

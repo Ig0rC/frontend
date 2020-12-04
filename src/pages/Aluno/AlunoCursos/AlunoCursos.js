@@ -8,14 +8,30 @@ import { AlunoInfoContext } from '../../../Context/AlunoInfoCursoContext'
 
 
 function AlunoCursos(){
+
     const { selecionaCurso  } = useContext(AlunoInfoContext)
-    const [curso, setCursos] = useState([]);
+
+
+
+    const [ curso, setCursos] = useState([]);
+
+
+    // ARROW FUNCTION 
     useEffect(() => {
+
         (async () => {
+            //CONST É UMA VARIAVEL 
             const response = await api.get(`/alunos/buscar/cursos`);
             setCursos(response.data)
+            console.debug('resposta', response.data)
+    
         })();
-    },[])
+        
+    }, [])
+
+    
+    
+
 
     return(
         <>
@@ -42,13 +58,13 @@ function AlunoCursos(){
                                 Informações
                             </th>
                         </tr>
-                          {curso.map( curso => (
+                          {curso.map(curso => (
                             <tr>
                                 <th>{curso.nome_curso}</th>
                                 <td>{curso.carga_horaria}</td>
                                 <td>{curso.nivel}</td>
                                 <td>{curso.nome_instituicao}</td>
-                                <td>{curso.cidade} {curso.id_curso}| {curso.estado}</td>
+                                <td>{curso.cidade} | {curso.estado}</td>
                                 <td>
                                     <a 
                                        onClick={() => selecionaCurso(curso.id_curso, curso.id_instituicao)}

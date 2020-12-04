@@ -62,7 +62,10 @@ import PerfilDisciplina from '../pages/Disciplina/PerfilDisciplina/PerfilDiscipl
 //Leciona
 import Leciona from '../pages/Leciona/Leciona';
 
-
+//ADMINISTRADOR 
+import AdministradorInativo from '../pages/Administrador/AdministradorInativo/AdministradorInativo.js';
+import AdministradorPerfil from '../pages/Administrador/AdministradorPerfil/AdministradorPerfil.js';
+import AdministradorLista from '../pages/Administrador/ListarAdministrador/ListaAdministrador.js';
 
 function CustomRoute({ isPrivate, ...rest}){
     const { loading, autorizacao } = useContext(Context);
@@ -119,9 +122,12 @@ function Routes (){
             <CustomRoute exact path='/professor-falta-turma' component={ProfessorFaltas} />
             <CustomRoute exact path='/minhas-notas-aluno' component={MinhasNotasAluno}/>
             <CustomRoute exact path='/minhas-faltas-aluno' component={MinhaFaltas}/>
+            <CustomRoute exact path='/administrador-inativos' component={AdministradorInativo}/>
+            <CustomRoute exact path='/administrador-perfil' component={AdministradorPerfil}/>
+            <CustomRoute exact path='/administrador-lista' component={AdministradorLista}/>
+
         </Switch>
   )
 }
 
-MinhaFaltas
 export default Routes;

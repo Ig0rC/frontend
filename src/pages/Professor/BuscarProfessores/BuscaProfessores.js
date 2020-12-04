@@ -70,15 +70,6 @@ export default function BuscarProfessores() {
                     <div className="tamanho-pesq-atributos">
                         <p className="titulo-aluno-list-all">Professores</p>
                     </div>
-                    <div className="tamanho-pesq-atributos">
-                        <input
-                            placeholder="Pesquisar"
-                            className="pesquisa-aluno-list-all" />
-
-                    </div>
-                    <div className="tamanho-pesq-atributos">
-
-                    </div>
                 </div>
             </div>
             <div className="list-instituicao-all-bg">

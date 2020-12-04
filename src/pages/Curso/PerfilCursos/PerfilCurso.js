@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import Menu from '../../../Components/administrador/header/header';
 import { Context } from '../../../Context/CursoContext';
 import api from '../../../services/api';
 import './PerfilCurso.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {  faEdit, faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -32,15 +32,7 @@ export default function PerfilCurso() {
             setDisciplinasVinculadas(responseDisciplinasVinculadas.data);
         })();
     }, [idc])
-    
 
-    // useEffect(() =>{
-    //     (async() =>{
-    //         const responseTableTurma = await api.get(`/turma/curso/${idc}`)
-    //         setTurmasVinculadas(responseTableTurma.data);
-         
-    //     })();
-    // }, [reload])
 
     useEffect(() =>{
         (async() =>{
@@ -76,6 +68,28 @@ export default function PerfilCurso() {
             alert('error')
         }
     }
+
+    const nomeCurso = useRef(null);
+    const duracaoSemestre = useRef(null);
+    const periodo = useRef(null);
+    const nivelRef = useRef(null);
+    const cargaHoraria = useRef(null);
+
+    async function updateCurso(){
+        try {
+           await api.put(`/cursos/atualizar/dados/${idc}`,{
+                nome_curso: nomeCurso.current.value,
+                duracao_semestres: duracaoSemestre.current.value,
+                periodo: periodo.current.value,
+                nivel: nivelRef.current.value,
+                carga_horaria: cargaHoraria.current.value
+            });
+            window.alert("Atualizado Com sucesso")
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <Menu />
@@ -97,15 +111,16 @@ export default function PerfilCurso() {
 
 
                             <p>Código do Curso: <strong>{curso.id_curso}</strong></p>
-                            <p>Resposável: </p>
+                            <p>Nome Curso: </p>
                             <input
+                                ref={nomeCurso}
                                 class="input-styles-IT"
                                 type="text"
                                 defaultValue={curso.nome_curso}
-                            // onChange={({ target: { value } }) => setNome(value)}
                             />
                             <p>Duração do Curso em Semestre: </p>
                             <input
+                                ref={duracaoSemestre}
                                 class="input-styles-IT"
                                 type="text"
                                 defaultValue={curso.duracao_semestres}
@@ -113,6 +128,7 @@ export default function PerfilCurso() {
                             />
                             <p>Período: </p>
                             <input
+                                ref={periodo}
                                 class="input-styles-IT"
                                 type="text"
                                 defaultValue={curso.periodo}
@@ -120,12 +136,14 @@ export default function PerfilCurso() {
                             />
                             <p>Nível: </p>
                             <input
+                                ref={nivelRef}
                                 class="input-styles-IT"
                                 type="text"
                                 defaultValue={curso.nivel}
                             />
                             <p>Carga Horária: </p>
                             <input
+                                ref={cargaHoraria}
                                 class="input-styles-IT"
                                 type="text"
                                 defaultValue={curso.carga_horaria}
@@ -139,7 +157,17 @@ export default function PerfilCurso() {
          
          
             </div>
-            
+            <section>
+                <div className="icon-lixeira-perfil">
+                     <div>
+                         <a 
+                            onClick={updateCurso}
+                        >
+                             <FontAwesomeIcon icon={faSave} size="3x" color="green" />
+                         </a>
+                     </div>   
+                </div>
+            </section>
       
       
             <section>

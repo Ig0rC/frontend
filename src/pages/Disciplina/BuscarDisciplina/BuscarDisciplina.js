@@ -75,16 +75,6 @@ export default function BuscarDisciplinas(){
                             <div class="tamanho-pesq-atributos">
                                 <p class="titulo-aluno-list-all">Disciplinas</p>
                             </div>
-                            <div class="tamanho-pesq-atributos">
-                                <input
-                                    placeholder="Pesquisar"
-                                    class="pesquisa-aluno-list-all" />
-                            </div>
-                            <div class="tamanho-pesq-atributos">
-                                <button class="back-button-list-all btn-list-color-proximo">
-                                        Próximo
-                                    </button>
-                            </div>
                     </div>
         </div>
         <div class="list-cursos-all-bg">

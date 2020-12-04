@@ -12,6 +12,7 @@ import { AlunoContext } from '../Context/AlunoContext';
 import { ProfessorContext } from '../Context/ProfessorContext';
 import { ProfessorNotaTurma  } from '../Context/ProfessorNotaContext';
 import { AlunoInfo } from '../Context/AlunoInfoCursoContext';
+import { AdministradorPerfilContext } from '../Context/AdministradorPerfilContext';
 
 
 
@@ -27,9 +28,11 @@ function Root(){
                                     <ProfessorContext>
                                         <ProfessorNotaTurma>
                                             <AlunoInfo>
-                                                <Router history={history}>
-                                                    <Routes />
-                                                </Router>
+                                                <AdministradorPerfilContext>
+                                                    <Router history={history}>
+                                                        <Routes />
+                                                    </Router>
+                                                </AdministradorPerfilContext>
                                             </AlunoInfo>
                                         </ProfessorNotaTurma>
                                     </ProfessorContext>

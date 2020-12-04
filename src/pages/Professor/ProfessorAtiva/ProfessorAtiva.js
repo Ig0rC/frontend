@@ -78,14 +78,6 @@ export default function AtivarProfessor(){
                             <div class="tamanho-pesq-atributos">
                                 <p class="titulo-aluno-list-all">Professores Inativados</p>
                             </div>
-                            <div class="tamanho-pesq-atributos">
-                                <input
-                                    placeholder="Pesquisar"
-                                    class="pesquisa-aluno-list-all" />
-                            </div>
-                            <div class="tamanho-pesq-atributos">
-                                
-                            </div>
                     </div>
             </div>
             <div class="list-instituicao-all-bg">

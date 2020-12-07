@@ -2,6 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './MainCadastro.css';
 import api from '../../../services/api';
 import { cpf } from 'cpf-cnpj-validator';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+import '../../../CSS/global.css'
+
+
+
+
+
+var validator = require("email-validator");
+
 
 
 function MainCadastro() {
@@ -10,7 +25,13 @@ function MainCadastro() {
 
 
 
-    //chamada da API
+    //Data
+    const [date, setDate] = React.useState(new Date('Fri Jan 01 1900 12:48:00 GMT-0300 '));
+
+    const handleDateChange = (date) => {
+        setDate(date);
+    };
+
 
 
     // Regras de Telas
@@ -41,7 +62,7 @@ function MainCadastro() {
 
 
     // Sexo
-    const sexo = ['Selecione Sexo', 'Masculino', 'Feminino'];
+    const sexo = ['', 'Masculino', 'Feminino'];
     const AddSexo = sexo.map(Add => Add);
     const [escolhaSexo, setEscolhaSexo] = useState('');
     const SelecioneSexo = (e) => setEscolhaSexo(sexo[e.target.value]);
@@ -52,13 +73,13 @@ function MainCadastro() {
     const [escolhaNaturalidade, setEscolhaNaturalidade] = useState('');
     const SelecioneNaturalidade = (e) => setEscolhaNaturalidade(naturalidade[e.target.value]);
     // TipoTelefone
-    const tipoTelefone = ['Tipo Telefone', 'Móvel', 'Fixo'];
+    const tipoTelefone = ['', 'Móvel', 'Fixo'];
     const AddTelefone = tipoTelefone.map(AddTelefone => AddTelefone);
     const [escolhaTipoTelefone, setEscolhaTipoTelefone] = useState('');
     const SelecioneTipoTelefone = (e) => setEscolhaTipoTelefone(tipoTelefone[e.target.value]);
 
     // Tipo Telefone SOS
-    const tipoTelefonesos = ['Tipo Telefone', 'Móvel', 'Fixo'];
+    const tipoTelefonesos = ['', 'Móvel', 'Fixo'];
     const addphonesos = tipoTelefonesos.map(addphonesos => addphonesos);
     const [escolhaTipoTelefoneSOS, setEscolhaTipoTelefoneSOS] = useState('');
     const SelecioneTipoTelefoneSOS = (e) => setEscolhaTipoTelefoneSOS(tipoTelefonesos[e.target.value]);
@@ -68,16 +89,15 @@ function MainCadastro() {
     const grau = ['', 'Graduado', 'Ensino Médio Completo', 'Mestrado', 'Doutorado']
     const AddGrau = grau.map(AddGrau => AddGrau);
     const SelecioneGrau = (e) => setEscolhaGrau(grau[e.target.value])
-    console.log(escolhaGrau)
 
     //Escolaridade
     const [escolaridade, setEscolaridade] = useState('');
     //Situação Economica
     const [situacaoEconomica, setSituacaoEconomica] = useState('');
     //aposentando:
-    const [aposentado, setAposentado] = useState(false);
+    const [aposentado, setAposentado] = useState('');
     //esta trabalhando atualmente ?
-    const [trabalho, setTrabalho] = useState(false);
+    const [trabalho, setTrabalho] = useState('');
     //Especialização;
     const [especializao, setEspecializao] = useState('');
     //Nome e Nome Social;
@@ -101,8 +121,6 @@ function MainCadastro() {
     const [rg, setRG] = useState('');
     const [orgaoEmissor, setOrgaoEmissor] = useState('');
     const [UF, setUF] = useState('');
-    //data nascimento
-    const [date, setDate] = useState('');
     //email
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('')
@@ -114,11 +132,11 @@ function MainCadastro() {
     //É atendido(a) em alguma unidade de atendimento?*
     const [respostaAtendimento, setRespostaAtendimento] = useState('');
     //Sobre Acessibilidade *
-    const [sobreAcessibilidade, setSobreAcessibilidade] = useState(0)
+    const [sobreAcessibilidade, setSobreAcessibilidade] = useState('')
     //Patologia:
-    const [patologia, setPatologia] = useState(0);
+    const [patologia, setPatologia] = useState('');
     //AI
-    const [aiR, setAir] = useState(0);
+    const [aiR, setAir] = useState('');
     //descrição de Perfil
     const [descricaoPerfil, setDescriçaoPerfil] = useState('');
     // expriência profissional
@@ -128,7 +146,7 @@ function MainCadastro() {
     // cor 
     const [corPele, setCorPele] = useState('');
     // Filhos
-    const [filhos, setFilhos] = useState(false);
+    const [filhos, setFilhos] = useState('');
 
 
 
@@ -142,18 +160,18 @@ function MainCadastro() {
     useEffect(() => {
         if (escolhaSexo === 'Feminino') {
             setConvertTagSexo('F')
-        } else {
+        } else if (escolhaSexo === 'Masculino') {
             setConvertTagSexo('M')
         }
         if (escolhaTipoTelefone === 'Fixo') {
             setConvertTipoTelefone(1);
-        } else {
+        } else if (escolhaTipoTelefone === 'Móvel') {
             setConvertTipoTelefone(2);
         }
         if (escolhaTipoTelefoneSOS === 'Fixo') {
             setConvertTipoTelefoneSOS(1)
-        } else {
-            setConvertTipoTelefoneSOS(1)
+        } else if (escolhaTipoTelefoneSOS === 'Móvel') {
+            setConvertTipoTelefoneSOS(2)
         }
 
     }, [escolhaSexo, escolhaTipoTelefone])
@@ -208,118 +226,377 @@ function MainCadastro() {
 
 
     async function CriarCadastroProfessorAdministrador() {
-        const validarSenha = senha === confirmaSenha;
-        if (validarSenha === false) {
-            alert("Senhas não se coincidem")
-        }
-        if (validarSenha === true) {
-            if (
-                cpf.isValid(cpfPessoa) === true
-            ) {
-                alert('entrou')
-                try {
-                    const response = await api.post('/cadastro', {
-                        cpf: cpfPessoa,
-                        nome: nome,
-                        nome_social: nomeSocial,
-                        nome_tipo_login: escolhaLogin,
-                        naturalidade: escolhaNaturalidade,
-                        nascimento: date,
-                        sexo: convertTagSexo,
-                        ddd: DDD,
-                        id_tipo_telefone: convertTipoTelefone,
-                        numero_telefone: numeroTelefone,
-                        cep: CEP,
-                        estado: estado,
-                        cidade: cidade,
-                        bairro: bairro,
-                        quadra: quadra,
-                        numero_endereco: numeroCasa,
-                        complemento: complemento,
-                        grau_formacao: escolhaGrau,
-                        especializacao: especializao,
-                        numero_rg: rg,
-                        orgao_emissor: orgaoEmissor,
-                        uf: UF,
-                        email: email,
-                        senhaemail: senha
-                    });
 
-                    console.log(response)
-                    return window.alert('deu certo')
-                } catch (error) {
-                    console.log('error:', error)
-                }
-            }
+        const validarSenha = senha === confirmaSenha;
+
+        if (validarSenha === false || senha === '') {
+            return alert("Senhas não se coincidem")
+        }
+        else if (validator.validate(email) === false) {
+            return alert('Email inválido')
+        }
+        else if (
+            cpf.isValid(cpfPessoa) === true &&
+            !nome === false &&
+            !nomeSocial === false &&
+            !escolhaNaturalidade === false &&
+            !date === false &&
+            !convertTagSexo === false &&
+            !DDD === false &&
+            convertTipoTelefone !== 0 &&
+            !numeroTelefone === false &&
+            !CEP === false &&
+            !estado === false &&
+            !cidade === false &&
+            !bairro === false &&
+            !quadra === false &&
+            !numeroCasa === false &&
+            !complemento === false &&
+            !escolhaGrau === false &&
+            !especializao === false &&
+            !rg === false &&
+            !orgaoEmissor === false &&
+            !UF === false &&
+            !email === false
+        ) {
+            console.log('entrou')
+
+            await api.post('/cadastro', {
+                cpf: cpfPessoa,
+                nome: nome,
+                nome_social: nomeSocial,
+                nome_tipo_login: escolhaLogin,
+                naturalidade: escolhaNaturalidade,
+                nascimento: date,
+                sexo: convertTagSexo,
+                ddd: DDD,
+                id_tipo_telefone: convertTipoTelefone,
+                numero_telefone: numeroTelefone,
+                cep: CEP,
+                estado: estado,
+                cidade: cidade,
+                bairro: bairro,
+                quadra: quadra,
+                numero_endereco: numeroCasa,
+                complemento: complemento,
+                grau_formacao: escolhaGrau,
+                especializacao: especializao,
+                numero_rg: rg,
+                orgao_emissor: orgaoEmissor,
+                uf: UF,
+                email: email,
+                senhaemail: senha
+            });
+            return window.alert('deu certo')
+
+        }
+        else if (cpf.isValid(cpfPessoa) === false) {
+            alert('CPF inválido')
+        } else if (nome === '') {
+            alert('Digite seu nome')
+        } else if (nomeSocial === '') {
+            alert('Digite seu nome social ou digite Nenhum')
+        } else if (escolhaNaturalidade === '') {
+            alert('Escolha uma Naturalidade')
+        } else if (date === '') {
+            alert('Preencha seu nascimento')
+        } else if (convertTagSexo === '') {
+            alert('Escolha seu sexo')
+        } else if (DDD === '') {
+            alert('Digite o DDD do seu Telefone')
+        } else if (convertTipoTelefone === 0) {
+            alert('Selecione o tipo de Telefone!')
+        } else if (numeroTelefone === '') {
+            alert('Digite seu número de Telefone!')
+        } else if (CEP === '') {
+            alert('Digite seu CEP!')
+        } else if (estado === '') {
+            alert('Digite seu Estado!')
+        } else if (cidade === '') {
+            alert('Digite sua Cidade!')
+        } else if (bairro === '') {
+            alert('Digite seu bairro!')
+        } else if (quadra === '') {
+            alert('Digite sua quadra!')
+        } else if (numeroCasa === '') {
+            alert('Digite número da sua casa!')
+        } else if (complemento === '') {
+            alert('Digite complemento da sua casa!')
+        } else if (escolhaGrau === '') {
+            alert('Digite escolha um Grau de Formação')
+        } else if (especializao === '') {
+            alert('Digite uma Especialização se não houver, digite Nenhum!')
+        } else if (rg === '') {
+            alert('Digite o seu RG')
+        } else if (orgaoEmissor === '') {
+            alert('Digite o Orgão de Emissor do RG')
+        } else if (UF === '') {
+            alert('Digite a UF do RG')
+        } else if (email === '') {
+            alert('Digite a o seu Email')
+        }
+    }
+
+    console.log(convertTipoTelefoneSOS)
+
+    async function CriarCadastroAluno() {
+        console.debug('filhos',   !filhos === false)
+    
+
+        const validarSenha = senha === confirmaSenha;
+        if (validarSenha === false || senha === '') {
+            return alert("Senhas não se coincidem")
+        }
+        else if (validator.validate(email) === false) {
+            return alert('Email inválido')
+        }
+        else if (
+            cpf.isValid(cpfPessoa) === true &&
+            !nome === false &&
+            !nomeSocial === false &&
+            !escolhaNaturalidade === false &&
+            !date === false &&
+            !convertTagSexo === false &&
+            !DDD === false &&
+            convertTipoTelefone !== 0 &&
+            !numeroTelefone === false &&
+            !CEP === false &&
+            !estado === false &&
+            !cidade === false &&
+            !bairro === false &&
+            !quadra === false &&
+            !numeroCasa === false &&
+            !complemento === false &&
+            !rg === false &&
+            !orgaoEmissor === false &&
+            !UF === false &&
+            !email === false &&
+            !mediaSalarial === false &&
+            !moradia === false &&
+            !sobreFinancas === false &&
+            !nomeSOS === false &&
+            !dddSOS === false &&
+            convertTipoTelefoneSOS !== 0 &&
+            !locomocao === false &&
+            !descricaoPerfil === false &&
+            !expreriencaProfissional === false &&
+            !estadoCivil === false &&
+            !corPele === false &&
+            !filhos === false &&
+            !escolaridade === false &&
+            !situacaoEconomica === false &&
+            !aposentado === false &&
+            !trabalho === false &&
+            !CTPS === false &&
+            !beneficiario === false &&
+            !respostaAtendimento === false &&
+            !saberCurso === false &&
+            !patologia === false &&
+            !aiR === false &&
+            !sobreAcessibilidade === false
+        ) {
+            alert('entrou')
+            const response = await api.post('/cadastro', {
+                cpf: cpfPessoa,
+                nome: nome,
+                nome_social: nomeSocial,
+                nome_tipo_login: escolhaLogin,
+                naturalidade: escolhaNaturalidade,
+                nascimento: date,
+                sexo: convertTagSexo,
+                ddd: DDD,
+                id_tipo_telefone: convertTipoTelefone,
+                numero_telefone: numeroTelefone,
+                cep: CEP,
+                estado: estado,
+                cidade: cidade,
+                bairro: bairro,
+                quadra: quadra,
+                numero_endereco: numeroCasa,
+                complemento: complemento,
+                numero_rg: rg,
+                orgao_emissor: orgaoEmissor,
+                uf: UF,
+                email: email,
+                senhaemail: senha,
+                tipo_telefone_sos: convertTipoTelefoneSOS,
+                ddd_SOS: dddSOS,
+                numero_SOS: telefoneSOS,
+                nome_SOS: nomeSOS,
+                estado_civil: estadoCivil,
+                raca: corPele,
+                moradia: moradia,
+                rendasalarial: mediaSalarial, //salario medio
+                adm_financeira: sobreFinancas,
+                locomacao: locomocao,
+                escolaridade: escolaridade,
+                situacao_economica: situacaoEconomica,
+                ocupacao: trabalho, //trabalhando atualmente
+                aposentado: aposentado,
+                ultima_profissao: CTPS, //ctps
+                prog_social: beneficiario, // É beneficiario(A) de Algum programa de governo ? *
+                atendimento: respostaAtendimento,// É atendido(a) em alguma unidade de atendimento?*
+                descricao_perfil: descricaoPerfil,
+                experiencia_profissional: expreriencaProfissional,
+                conhecimento_curso: saberCurso,
+                patologia: patologia,
+                autonomia: aiR,
+                filhos: filhos,
+                acessibilidade: sobreAcessibilidade,
+                dado_patologia: outrosPatologia,
+                dado_autonomia: outrosAir,
+                dado_acessibilidade: outroAcessibildiade
+
+            });
+            console.log(response)
+            return window.alert('deu certo')
+        }
+        else if (cpf.isValid(cpfPessoa) === false) {
+            alert('CPF inválido')
+        }
+        else if (nome === '') {
+            alert('Digite seu nome')
+        }
+        else if (nomeSocial === '') {
+            alert('Digite seu nome social ou digite Nenhum')
+        }
+        else if (escolhaNaturalidade === '') {
+            alert('Escolha uma Naturalidade')
+        }
+        else if (date === '') {
+            alert('Preencha seu nascimento')
+        }
+        else if (convertTagSexo === '') {
+            alert('Escolha seu sexo')
+        }
+        else if (DDD === '') {
+            alert('Digite o DDD do seu Telefone')
+        }
+        else if (convertTipoTelefone === 0) {
+            alert('Selecione o tipo de Telefone!')
+        }
+        else if (numeroTelefone === '') {
+            alert('Digite seu número de Telefone!')
+        }
+        else if (CEP === '') {
+            alert('Digite seu CEP!')
+        }
+        else if (estado === '') {
+            alert('Digite seu Estado!')
+        }
+        else if (cidade === '') {
+            alert('Digite sua Cidade!')
+        }
+        else if (bairro === '') {
+            alert('Digite seu bairro!')
+        }
+        else if (quadra === '') {
+            alert('Digite sua quadra!')
+        }
+        else if (numeroCasa === '') {
+            alert('Digite número da sua casa!')
+        }
+        else if (complemento === '') {
+            alert('Digite complemento da sua casa!')
+        }
+        else if (rg === '') {
+            alert('Digite o seu RG')
+        }
+        else if (orgaoEmissor === '') {
+            alert('Digite o Orgão de Emissor do RG')
+        }
+        else if (UF === '') {
+            alert('Digite a UF do RG')
+        }
+        else if (email === '') {
+            alert('Digite a o seu Email')
+        }
+        else if (mediaSalarial === '') {
+            alert('Marque sua media salarial')
+        }
+        else if (moradia === '') {
+            alert('Marque sua moradia')
+        }
+        else if (sobreFinancas === '') {
+            alert('Marque sobre Finanças')
+        }
+        else if (nomeSOS === '') {
+            alert('Digite um nome do contato de Emergência')
+        }
+        else if (dddSOS === '') {
+            alert('Digite o DDD do contato de Emergência')
+        }
+        else if (telefoneSOS === '') {
+            alert('Digite o número do telefone do contato de Emergência')
+        }
+        else if (convertTipoTelefoneSOS === 0) {
+            alert('Escolha o tipo telefone do contato de Emergência')
+        }
+        else if (locomocao === '') {
+            alert('Selecione a sua locomoçao')
+        }
+        else if (descricaoPerfil === '') {
+            alert('Preencha o campo Descrição do Perfil')
+        }
+        else if (expreriencaProfissional === '') {
+            alert('Preencha o Campo da experiência profissional, caso não tenha digite nenhum.')
+        }
+        else if (estadoCivil === '') {
+            alert('Selecione a seu estado cívil')
+        }
+        else if (corPele === '') {
+            alert('Selecione "Você se considera"')
+        }
+        else if (filhos === '') {
+            alert('Marque a uma opção sobre Filhos')
+        }
+        else if (escolaridade === '') {
+            alert('Marque sua Escolaridade')
+        }
+        else if (situacaoEconomica === '') {
+            alert('Selecione a sua situação econômica')
+        }
+        else if (aposentado === '') {
+            alert('Marque a uma opção sobre aposentadoria')
+        }
+        else if (trabalho === '') {
+            alert('Selecione Esta trabalhando atualmente ? *')
+        }
+        else if (CTPS === '') {
+            alert('Selecione Ultima Profissão registrada na carteira de trabalho e previdencia social - CTPS ? *')
+        }
+        else if (beneficiario === '') {
+            alert('É beneficiario(a) de Algum programa de governo ? *')
+        }
+        else if (respostaAtendimento === '') {
+            alert('Selecione alguma alternativa da pergunta É atendido(a) em alguma unidade de atendimento?*')
+        }
+        else if (saberCurso === '') {
+            alert('Selecione de como você ficou sabendo sobre o Curso!')
+        }
+        else if (patologia === '') {
+            alert('Selecione sobre Patologia')
+        }
+        else if (aiR === '') {
+            alert('autonomia')
+
+            alert('Selecione sobre Autonômia')
+        }
+        else if (sobreAcessibilidade === '') {
+            alert('acessibilidade')
         }
 
     }
-    async function CriarCadastroAluno() {
-      
-                try {
-                    alert('entrou')
-                    const response = await api.post('/cadastro', {
-                        cpf: cpfPessoa,
-                        nome: nome,
-                        nome_social: nomeSocial,
-                        nome_tipo_login: escolhaLogin,
-                        naturalidade: escolhaNaturalidade,
-                        nascimento: date,
-                        sexo: convertTagSexo,
-                        ddd: DDD,
-                        id_tipo_telefone: convertTipoTelefone,
-                        numero_telefone: numeroTelefone,
-                        cep: CEP,
-                        estado: estado,
-                        cidade: cidade,
-                        bairro: bairro,
-                        quadra: quadra,
-                        numero_endereco: numeroCasa,
-                        complemento: complemento,
-                        grau_formacao: escolhaGrau,
-                        especializacao: especializao,
-                        numero_rg: rg,
-                        orgao_emissor: orgaoEmissor,
-                        uf: UF,
-                        email: email,
-                        senhaemail: senha,
-                        tipo_telefone_sos: convertTipoTelefoneSOS,
-                        ddd_SOS: dddSOS,
-                        numero_SOS: telefoneSOS,
-                        nome_SOS: nomeSOS,
-                        estado_civil: estadoCivil,
-                        raca: corPele,
-                        moradia: moradia,
-                        rendasalarial: mediaSalarial, //salario medio
-                        adm_financeira: sobreFinancas,
-                        locomacao: locomocao,
-                        escolaridade: escolaridade,
-                        situacao_economica: situacaoEconomica,
-                        ocupacao: trabalho, //trabalhando atualmente
-                        aposentado: aposentado,
-                        ultima_profissao: CTPS, //ctps
-                        prog_social: beneficiario, // É beneficiario(A) de Algum programa de governo ? *
-                        atendimento: respostaAtendimento,// É atendido(a) em alguma unidade de atendimento?*
-                        descricao_perfil: descricaoPerfil,
-                        experiencia_profissional: expreriencaProfissional,
-                        conhecimento_curso: saberCurso,
-                        patologia: patologia,
-                        autonomia: aiR,
-                        filhos: filhos,
-                        acessibilidade: sobreAcessibilidade,
-                        dado_patologia: outrosPatologia,
-                        dado_autonomia: outrosAir,
-                        dado_acessibilidade: outroAcessibildiade
+    async function maxLengthCheck (object) {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+        }
 
-                    });
 
-                    console.log(response)
-                    return window.alert('deu certo')
-                } catch (error) {
-                    console.log('error:', error)
-                }
-            }
-        
+    useEffect(() =>{
+        console.log(date)
+    }, [date])
 
     if (loading) {
         return (
@@ -375,9 +652,10 @@ function MainCadastro() {
                                 id="cpf"
                                 name="cpf"
                                 required="required"
-                                type="text"
-                                placeholder="Ex.: 000.000.000-00"
-                                maxlength={14}
+                                type="number"
+                                placeholder="Ex.: 00000000000"
+                                onInput={maxLengthCheck}
+                                maxLength={19}
                                 onChange={({ target: { value } }) => setCPF(value)}
                             />
                         </div>
@@ -388,9 +666,10 @@ function MainCadastro() {
                                 id="DDD"
                                 name="ddd"
                                 required="required"
-                                type="tel"
-                                placeholder="(00)"
-                                maxlength={3}
+                                type="number"
+                                onInput={maxLengthCheck}
+                                maxLength={3}
+                                placeholder="(00)"                     
                                 onChange={({ target: { value } }) => setDDD(value)}
                             />
                         </div>
@@ -415,9 +694,10 @@ function MainCadastro() {
                                 id="telefone"
                                 name="telefone"
                                 required="required"
-                                type="tel"
+                                type="number"
                                 placeholder="0000-0000"
-                                maxlength={12}
+                                maxLength={15}
+                                onInput={maxLengthCheck}
                                 onChange={({ target: { value } }) => setNumeroTelefone(value)}
                             />
                         </div>
@@ -428,9 +708,10 @@ function MainCadastro() {
                                 id="cep"
                                 name="cep"
                                 required="required"
-                                type="text"
-                                placeholder="Ex.: 00000-000"
-                                maxlength={8}
+                                type="number"
+                                placeholder="Ex.: 72620680"
+                                maxLength={8}
+                                onInput={maxLengthCheck}
                                 onChange={({ target: { value } }) => setCEP(value)}
                             />
                         </div>
@@ -487,9 +768,11 @@ function MainCadastro() {
                             <input
                                 class="btn"
                                 id="numero"
-                                name="numero"
+                                name="number"
+                                type="number"
                                 required="required"
-                                type="text"
+                                maxLength={20}
+                                onInput={maxLengthCheck}
                                 placeholder="09"
                                 onChange={({ target: { value } }) => setNumeroCasa(value)}
                             />
@@ -531,6 +814,8 @@ function MainCadastro() {
                                 name="especializacao"
                                 required="especializacao"
                                 type="text"
+                                maxLength={15}
+
                                 onChange={({ target: { value } }) => setEspecializao(value)}
                             />
                         </div>
@@ -552,12 +837,13 @@ function MainCadastro() {
                             <p>RG</p>
                             <input
                                 class="btn"
-                                id="rg"
+                                id="num"
                                 name="rg"
                                 required="required"
-                                type="text"
+                                type="number"
                                 placeholder="Ex.: 000000"
-                                maxlength={7}
+                                onInput={maxLengthCheck}
+                                maxLength={7}
                                 onChange={({ target: { value } }) => setRG(value)}
                             />
                         </div>
@@ -569,6 +855,7 @@ function MainCadastro() {
                                 name="OrgEmissor"
                                 required="required"
                                 type="text"
+                                maxLength={6}
                                 placeholder="Ex: SSP"
                                 onChange={({ target: { value } }) => setOrgaoEmissor(value)}
                             />
@@ -582,13 +869,29 @@ function MainCadastro() {
                                 required="required"
                                 type="text"
                                 placeholder="Ex: DF"
-                                maxlength={2}
+                                maxLength={2}
                                 onChange={({ target: { value } }) => setUF(value)}
                             />
                         </div>
                         <div class="campo">
                             <p>Data Nascimento</p>
-                            <input
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <Grid container justify="space-around">
+                                    <KeyboardDatePicker
+                                        className="input-data"
+                                        margin="normal"
+                                        id="date-picker-dialog"
+                                        format="dd/MM/yyyy"
+                                        value={date}
+                                        onChange={handleDateChange}
+                                        // ref={nascimento_ok}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </Grid>
+                            </MuiPickersUtilsProvider>
+                            {/* <input
                                 type="date"
                                 class="btn"
                                 placeholder="Ex.: dd/mm/aaaa"
@@ -599,7 +902,7 @@ function MainCadastro() {
                                 name="data"
                                 required="required"
                                 onChange={({ target: { value } }) => setDate(value)}
-                            />
+                            /> */}
                         </div>
                         <div class="campo">
                             <p>E-mail</p>
@@ -654,7 +957,7 @@ function MainCadastro() {
                                     class="submit-env"
                                     type="button"
                                     value="Enviar"
-                                    onClick={() => CriarCadastroProfessorAdministrador()}
+                                    onClick={CriarCadastroProfessorAdministrador}
                                 />
 
                             </div>
@@ -712,21 +1015,24 @@ function MainCadastro() {
                             id="cpf"
                             name="cpf"
                             required="required"
-                            type="text"
-                            placeholder="Ex.: 000.000.000-00"
+                            type="number"
+                            placeholder="Ex.: 00000000000"
+                            onInput={maxLengthCheck}
                             maxLength={19}
                             onChange={({ target: { value } }) => setCPF(value)}
                         />
                     </div>
                     <div class="campo">
-                        <p>DDD2:</p>
+                        <p>DDD:</p>
                         <input
                             class="btn"
                             id="DDD"
                             name="ddd"
                             required="required"
-                            type="tel"
-                            placeholder="(00)"
+                            placeholder="00"
+                    
+                            type="number"
+                            onInput={maxLengthCheck}
                             maxLength={3}
                             onChange={({ target: { value } }) => setDDD(value)}
                         />
@@ -752,8 +1058,9 @@ function MainCadastro() {
                             id="telefone"
                             name="telefone"
                             required="required"
-                            type="tel"
-                            placeholder="0000-0000"
+                            type="number"
+                            maxLength={15}
+                            onInput={maxLengthCheck}
                             onChange={({ target: { value } }) => setNumeroTelefone(value)}
                         />
                     </div>
@@ -764,9 +1071,10 @@ function MainCadastro() {
                             id="cep"
                             name="cep"
                             required="required"
-                            type="text"
-                            placeholder="Ex.: 00000-000"
-                            maxlength={8}
+                            type="number"
+                            placeholder="Ex.: 72620680"
+                            maxLength={8}
+                            onInput={maxLengthCheck}
                             onChange={({ target: { value } }) => setCEP(value)}
                         />
                     </div>
@@ -818,20 +1126,28 @@ function MainCadastro() {
                             onChange={({ target: { value } }) => setQuadra(value)}
                         />
                     </div>
+
+
+
+                </div>
+                <div class="column-2">
+                  
                     <div class="campo">
-                        <p>Número2</p>
+                        <p>Número</p>
                         <input
                             class="btn"
                             id="numero"
                             name="numero"
                             required="required"
-                            type="text"
+                            type="number"
                             placeholder="09"
+                            maxLength={20}
+                            onInput={maxLengthCheck}
                             onChange={({ target: { value } }) => setNumeroCasa(value)}
                         />
                     </div>
                     <div class="campo">
-                        <p>Complemnto</p>
+                        <p>Complemento</p>
                         <input
                             class="btn"
                             id="numero"
@@ -843,33 +1159,6 @@ function MainCadastro() {
                         />
                     </div>
 
-                </div>
-                <div class="column-2">
-                    <div class="campo">
-                        <p>Grau de Formação</p>
-                        <select
-                            onChange={e => SelecioneGrau(e)}
-                            class="btn select"
-                            id="tipo_login"
-                            name="login"
-                        >
-                            {
-                                AddGrau.map((address, key) =>
-                                    <option value={key}>{address}</option>)
-                            }
-                        </select>
-                    </div>
-                    <div class="campo">
-                        <p>Especialização</p>
-                        <input
-                            class="btn"
-                            id="especializacao"
-                            name="especializacao"
-                            required="especializacao"
-                            type="text"
-                            onChange={({ target: { value } }) => setEspecializao(value)}
-                        />
-                    </div>
                     <div class="campo">
                         <p>Naturalidade2</p>
                         <select
@@ -891,8 +1180,9 @@ function MainCadastro() {
                             id="rg"
                             name="rg"
                             required="required"
-                            type="text"
+                            type="number"
                             placeholder="Ex.: 000000"
+                            onInput={maxLengthCheck}
                             maxLength={7}
                             onChange={({ target: { value } }) => setRG(value)}
                         />
@@ -905,6 +1195,7 @@ function MainCadastro() {
                             name="OrgEmissor"
                             required="required"
                             type="text"
+                            maxLength={6}
                             placeholder="Ex: SSP"
                             onChange={({ target: { value } }) => setOrgaoEmissor(value)}
 
@@ -925,18 +1216,22 @@ function MainCadastro() {
                     </div>
                     <div class="campo">
                         <p>Data Nascimento</p>
-                        <input
-                            type="date"
-                            class="btn"
-                            placeholder="Ex.: dd/mm/aaaa"
-                            data-mask="00/00/0000"
-                            maxlength="10"
-                            autocomplete="off"
-                            id="data"
-                            name="data"
-                            required="required"
-                            onChange={({ target: { value } }) => setDate(value)}
-                        />
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <Grid container justify="space-around">
+                                    <KeyboardDatePicker
+                                        className="input-data"
+                                        margin="normal"
+                                        id="date-picker-dialog"
+                                        format="dd/MM/yyyy"
+                                        value={date}
+                                        onChange={handleDateChange}
+                                        // ref={nascimento_ok}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </Grid>
+                            </MuiPickersUtilsProvider>
                     </div>
                     <div class="campo">
                         <p>E-mail</p>
@@ -1063,7 +1358,7 @@ function MainCadastro() {
                         <input
                             type="radio"
                             id="adm3"
-                            name="qsm"
+                            name="moradia"
                             value="ILPI’S (ASILOS)"
                             onChange={e => setMoradia(e.target.value)}
                         />
@@ -1100,10 +1395,13 @@ function MainCadastro() {
                             required="required"
                             type="text"
                             placeholder="Nome Completo"
-                            onChange={({ target: { value } }) => setNomeSOS(value)}
+                            onChange={
+                                ({ target: { value } }) =>
+                                    setNomeSOS(value)
+                            }
 
                         />
-                        <p>DDD2:</p>
+                        <p>DDD:</p>
                         <input
                             class="btn"
                             id="DDD"
@@ -1111,8 +1409,11 @@ function MainCadastro() {
                             required="required"
                             type="tel"
                             placeholder="(00)"
-                            maxlength={3}
-                            onChange={({ target: { value } }) => setDddSOS(value)}
+                            maxLength={3}
+                            onChange={
+                                ({ target: { value } }) =>
+                                    setDddSOS(value)
+                            }
                         />
                         <p>telefone:</p>
                         <input
@@ -1126,7 +1427,7 @@ function MainCadastro() {
                             onChange={({ target: { value } }) => setTelefoneSOS(value)}
                         />
 
-                        <p>Tipo Telefone</p>
+                        <p>Tipo Telefone:</p>
                         <select
                             onChange={e => SelecioneTipoTelefoneSOS(e)}
                             class="btn select"
@@ -1226,6 +1527,8 @@ function MainCadastro() {
                             name="descricaoPerfil"
                             required="required"
                             type="text"
+                            maxLength={200}
+
                             placeholder="Fale um pouco de você"
                             onChange={({ target: { value } }) => setDescriçaoPerfil(value)}
                         />
@@ -1241,6 +1544,7 @@ function MainCadastro() {
                             name="experienciaprofissional"
                             required="required"
                             type="text"
+                            maxLength={200}
                             placeholder="Quais são suas experiências profissionais"
                             onChange={({ target: { value } }) => setExpreriencaProfissional(value)}
                         />
@@ -1446,7 +1750,7 @@ function MainCadastro() {
                             value={false}
                             onChange={({ target: { value } }) => setAposentado(value)}
                         />
-                        <label class="space-radio" for="sal23">{aposentado}Não</label><br />
+                        <label class="space-radio" for="sal23">Não</label><br />
                     </div>
                 </div>
 
@@ -1487,7 +1791,7 @@ function MainCadastro() {
                 </div>
                 <div class="column-flex">
                     <div class="column">
-                        <p>É beneficiario(A) de Algum programa de governo ? *</p>
+                        <p>É beneficiario(a) de Algum programa de governo ? *</p>
                         <input
                             type="radio"
                             id="BolsaFamilia"
@@ -1518,7 +1822,7 @@ function MainCadastro() {
                             onChange={({ target: { value } }) => setBeneficiario(value)}
 
                         />
-                        <label class="space-radio" for="sal23">DF sem miséria</label><br />
+                        <label class="space-radio" for="sal23">DF sem miséria: </label><br />
                         <input
                             type="radio"
                             id="sal34"
@@ -1828,7 +2132,7 @@ function MainCadastro() {
                     </div>
                 </div>
 
-                <h2 class="stylesH2">Autonomia e Independência * {aiR}</h2>
+                <h2 class="stylesH2">Autonomia e Independência * </h2>
 
                 <div class="column-flex">
                     <div class="column">

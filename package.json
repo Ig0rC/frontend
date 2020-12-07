@@ -19,6 +19,8 @@
     "br-validator": "^4.1.0",
     "cpf-cnpj-validator": "^1.0.3",
     "date-fns": "^2.16.1",
+    "date-util": "^1.2.1",
+    "email-validator": "^2.0.4",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

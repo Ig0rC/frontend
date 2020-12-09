@@ -1,6 +1,7 @@
 import React, {useEffect , useState} from 'react';
 import Menu from '../../Components/administrador/header/header';
 import api from '../../services/api';
+import './leciona.css'
 
 
 
@@ -30,6 +31,35 @@ export default function Leciona(){
     const [ escolhaDisciplina, setEscolhaDisciplina ] = useState(0);
 
    
+    function validarCampos(){
+        if(
+            !disciplina === false 
+            && 
+            idInstituicao !== 0 
+            && 
+            idCurso !== 0 
+            && 
+            !diaSemana === false
+            &&
+            !horarioAula === false
+            &&
+            !escolhaSemestre === false
+            &&
+            !escolhaAno === false
+            && 
+            !escolhaProfessor === false
+            &&
+            escolhaDisciplina !== 0
+            &&
+            escolhaTurma !== 0
+            ){
+                criarLeciona();
+            }
+        else {
+            alert("Preencha todos os campos")
+        }
+    }
+    
 
 
 
@@ -52,10 +82,12 @@ export default function Leciona(){
             
         })();
     }, [escolhaSemestre, escolhaAno]);
-    
+
+
+
     async function criarLeciona(){
         try {
-            const response = await api.post(`/leciona`,{
+            await api.post(`/leciona`,{
                 disciplina: escolhaDisciplina,
                 cpf_professor: escolhaProfessor,
                 id_turma: escolhaTurma,
@@ -90,30 +122,30 @@ export default function Leciona(){
     return(
         <>
             <Menu />
-            <div class="titulo-styles-cadastrar-cursos">
-                    <h1>Cadastrar Leciona</h1>
+       
+            <div class="perfil-instituicao-bg" >
+                    <div class="perfil-titulo">
+                        <h2>Cadastrar Leciona</h2>
+                    </div>
             </div>
-            <div class="columns-flex-cadastrar-cursos">
-                <div class="column-div-instituicao-cadastro">
-                    <div>
-                            <p>Escolha Instituição:</p>
-                            <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+
+            <div class="flex-leciona-cadastrar">
+                    <p>Escolha Instituição:</p>
+                        <select 
+                            class="styles-select-global"
                             onChange={({ target: {value }}) => setIdInstituicao(value)}
-                           > 
-                            <option></option>
-                               {instituicao.map(instituicao =>(
-                                    <option value={instituicao.id_instituicao}>
-                                       Código: {instituicao.id_instituicao} ||
-                                       Nome: {instituicao.nome_instituicao}
-                                    </option>
+                        > 
+                        <option></option>
+                            {instituicao.map(instituicao =>(
+                                <option value={instituicao.id_instituicao}>
+                                    Código: {instituicao.id_instituicao} ||
+                                    Nome: {instituicao.nome_instituicao}
+                                </option>
                                ))} 
                           </select>
-                    </div>
-                    <div>
                         <p>Escolha o Curso:</p>
                         <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            class="styles-select-global"
                             onChange={({ target: {value }}) => setIdCurso(value)}
                         > 
                             <option></option>
@@ -121,11 +153,9 @@ export default function Leciona(){
                                    <option value={cursoInstituicao.id_curso}>{cursoInstituicao.nome_curso}</option>
                                ))} 
                         </select>
-                    </div>
-                    <div>
                         <p>Escolha a Disciplina:</p>
                         <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            class="styles-select-global"
                             onChange={({ target: {value }}) => setEscolhaDisciplina(value)}
                         > 
                             <option></option>
@@ -133,13 +163,9 @@ export default function Leciona(){
                                    <option value={disciplina.id_disciplina}>{disciplina.nome_disciplina}</option>
                                ))} 
                         </select>
-                    </div>
-                    <div>
-            
                         <p>Escolha a Turma:</p>
-        
                             <select 
-                                class="input-styles-IT text-aling-center-cadastrar-curso"
+                                class="styles-select-global"
                                 onChange={({ target: {value }}) => setEscolhaTurma(value)}
                             > 
                                 <option></option>
@@ -148,83 +174,66 @@ export default function Leciona(){
                                         Nome:{turmaPIC.nome_turma} || 
                                         Turno: {turmaPIC.turno}</option>
                                       ))} 
-                            </select>
-          
-                    </div>
-                <div>
-                    <p>Escolha o Professor(a):</p>
+                        </select>
+                        <p>Escolha o Professor(a):</p>
                             <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            class="styles-select-global"
                             onChange={({ target: {value }}) => setEscolhaProfessor(value)}
                            > 
                             <option></option>
                                {professor.map(professor =>(
                                    <option value={professor.cpf}>{professor.nome}</option>
                                ))} 
-                          </select>
-                    </div>
-                    <div>
-                    <p>Semestre:</p>
-                           <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                        </select>
+                        <p>Semestre:</p>
+                            <select 
+                            class="styles-select-global"
                             onChange={({ target: {value }}) => setEscolhaSemestre(value)}
-                           > 
+                            > 
                             <option></option>
                                {Semestre.map(Semestre =>(
                                    <option value={Semestre.semestre}>{Semestre.semestre}</option>
                                ))} 
-                                   
-                            
-        
-                          </select>
-                    </div>
-                   
-                    <div>
-                    <p>Ano:</p>
-                           <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
-                            onChange={({ target: { value }}) => setEscolhaAno(value)}
-                           > 
+                            </select>
+                            <p>Ano:</p>
+                            <select 
+                                class="styles-select-global"
+                                onChange={({ target: { value }}) => setEscolhaAno(value)}
+                            > 
                             <option></option>
                                {ano.map(ano =>(
                                    <option>{ano.ano}</option>
                                ))} 
-                          </select>
-                    </div>
-                     
-                    <div>
-                        <p>Horário da Aula:</p>
-                        <input
-                            class="input-styles-IT"
-                            type="text"
-                            onChange={({ target: { value }}) => setHorarioAula(value)}
-                        />
-                    </div>
-    
-                    <div>
-                        <p>Dia da Semana:</p>
-                        <select
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
-                            onChange={({ target: { value } }) => setDiaSemana(value)}
-                        >
-                            <option ></option>
-                            <option value="Segunda-Feira">Segunda-Feira</option>
-                            <option value="Terça-Feira">Terça-Feira</option>
-                            <option value="Quarta-Feira">Quarta-Feira</option>
-                            <option value="Quinta-Feira">Quinta-Feira</option>
-                            <option value="Sexta-Feira">Sexta-Feira</option>
-                            <option value="Sábado">Sábado</option>
-                            <option value="Domingo">Domingo</option>
-                        </select>
-                    </div>
-                </div>    
+                            </select>
+                            <p>Horário da Aula:</p>
+                            <input
+                                class="input-leciona-entrada"
+                                type="text"
+                                onChange={({ target: { value }}) => setHorarioAula(value)}
+                            />
+                             <p>Dia da Semana:</p>
+                            <select
+                                class="styles-select-global"
+                                onChange={({ target: { value } }) => setDiaSemana(value)}
+                            >
+                                <option ></option>
+                                <option value="Segunda-Feira">Segunda-Feira</option>
+                                <option value="Terça-Feira">Terça-Feira</option>
+                                <option value="Quarta-Feira">Quarta-Feira</option>
+                                <option value="Quinta-Feira">Quinta-Feira</option>
+                                <option value="Sexta-Feira">Sexta-Feira</option>
+                                <option value="Sábado">Sábado</option>
+                                <option value="Domingo">Domingo</option>
+                            </select>
+                            
+                            <button    
+                            onClick={validarCampos}
+                            class="styles-button-instituicao-env">Cadastrar
+                            </button>
             </div>
-            <div class="flex-button-cadastrar-cursos">
-                    <button    
-                    onClick={criarLeciona}
-                    class="styles-button-instituicao-env">Cadastrar
-                    </button>
-            </div>
+
+   
+           
         </>
     )
 }

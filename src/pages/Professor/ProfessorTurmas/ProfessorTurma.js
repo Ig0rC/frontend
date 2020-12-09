@@ -58,14 +58,6 @@ export default function ProfessorTurma(){
                             Lançar Falta        
                         </th>
                     </tr>
-                {/* 
-                MINHA VARIAVEL CONST TURMA ELA VIROU UMA JSON OBJECT DENTRO DE UM ARRAY
-                [{}, {}, {}, {}]
-                METODO MAP ELE AJUDA PECORRER ESSE JSON
-                {turmas.map(ok => (
-
-                ))}
-                */}
                 {turmas.map( turmas => (
                         <tr key={turmas.id_turma}>
                         <td>{turmas.id_turma}</td>

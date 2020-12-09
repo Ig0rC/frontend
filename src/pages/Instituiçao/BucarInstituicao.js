@@ -17,7 +17,7 @@ export default function BuscarInstituicoes() {
     const [instituicao, setInstituicao] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState();
-    const [ pesq, setPesq ] = useState('');
+    const [pesq, setPesq] = useState('');
 
 
 
@@ -43,7 +43,7 @@ export default function BuscarInstituicoes() {
             await setInstituicao(response.data)
             console.log(response.data)
         })();
-     
+
     }, [pesq])
 
     useEffect(() => {
@@ -93,7 +93,8 @@ export default function BuscarInstituicoes() {
                     </div>
                 </div>
             </div>
-            <div className="list-instituicao-all-bg">
+            <section className="list-instituicao-all-bg  display-none-desktop">
+            <div >
                 <table >
                     <tr >
                         <th scope="col">
@@ -142,13 +143,62 @@ export default function BuscarInstituicoes() {
                         onClick={() => PrevInstituicao()}
                         className="back-button-list-all btn-list-color-voltar">
                         Voltar
-                        </button>
+                     </button>
                     <button onClick={() => nextInstituicao()}
                         className="back-button-list-all btn-list-color-proximo">
                         Próximo
                         </button>
                 </div>
             </div>
+        </section>
+
+            <section className=" diplay-none-mobile">
+                {instituicao.map(instituicao => (
+                    <div className="mobile-table">
+                        <div>
+                            <p><strong>Código: </strong>{instituicao.id_instituicao}</p>
+                        </div>
+                        <div>
+                            <p><strong>Nome Instituição:</strong> {instituicao.nome_instituicao}</p>
+                        </div>
+                        <div>
+                            <p><strong>Unidade:</strong> {instituicao.unidade}</p>
+                        </div>
+                        <div>
+                            <p><strong>Responsável:</strong> {instituicao.responsavel}</p>
+                        </div>
+                        <div class="editar-instituicao-mobile">
+                            <p className="border-none-instituicao">
+                                <strong>Editar / Visualizar:  </strong>
+                            </p>
+                            <a
+                                onClick={() => SaveID(instituicao.id_instituicao)}>
+                                <FontAwesomeIcon icon={faEdit} size="lg" color="#0060EB" />
+                            </a>
+                        </div>
+                    </div>
+                ))}
+                <div className="mobile-teste-global">
+                    <div class="bg-footer">
+                        <div class="flex-next-prev-list">
+                            <button
+                                onClick={() => PrevInstituicao()}
+                                class="back-button-list-all btn-list-color-voltar">
+                                Voltar
+                        </button>
+                            <button
+                                onClick={() => nextInstituicao()}
+                                class="back-button-list-all btn-list-color-proximo">
+                                Próximo
+                        </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+
 
 
 

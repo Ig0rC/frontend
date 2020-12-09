@@ -69,11 +69,6 @@ export default function MenuAdm() {
                                             </a>
                                     </li>
                                     <li className="c-dropdown_submenu-item space-bottom">
-                                        <a href="/alunos" className="c-dropdown_submenu-link">
-                                            Administradores
-                                            </a>
-                                    </li>
-                                    <li className="c-dropdown_submenu-item space-bottom">
                                         <a href="/cadastrar-semestre" className="c-dropdown_submenu-link">
                                             Semestre
                                             </a>

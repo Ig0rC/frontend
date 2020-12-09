@@ -9,6 +9,16 @@ function CadastrarSemestre(){
     const [semestre, setSemestre] = useState('');
     const [ ano , setAno ] = useState('');
 
+
+    function validarCampos(){
+        if(!semestre === false && !ano === false ){
+            EnvCadastrarSemestre();
+        }
+        else{
+            alert('Preencha todos os campos!')
+        }
+    }
+
     async function EnvCadastrarSemestre(){
         try{
             const response = await api.post('/semestre',{
@@ -25,36 +35,33 @@ function CadastrarSemestre(){
     return(
         <>
         <Menu />
-            <div class='container-meio-cadastrar'>
-                <div>
-                    <label>Semestre</label>
-                </div>
-                <div class="container-input-cadastrar-semestre">
+            <div class="perfil-instituicao-bg" >
+                    <div class="perfil-titulo">
+                        <h2>Cadastrar Semestre e Ano</h2>
+                    </div>
+            </div>
+            <div className="cadastrar-turma-flex-80vh">
+             
+                    <p>Ano</p>
+                    <input 
+                            class="input-global-css-entrada"
+                            type='text' 
+                            maxLength={10} 
+                            placeholder="Ex: 2020"
+                            onChange={ ( { target: { value }}) => setAno(value)}
+                            />
+           
+            
+                    <p>Semestre</p>
+                    <input 
+                            class="input-global-css-entrada" 
+                            type='text' 
+                            maxLength={10} 
+                            placeholder="Ex: 2"
+                            onChange={ ( { target: { value }}) => setSemestre(value)}
+                    />
               
-                    <input 
-                        class="input-cadastrar-semestre-entrada-text" 
-                        type='text' 
-                        maxLength={10} 
-                        placeholder="Ex: 2"
-                        onChange={ ( { target: { value }}) => setSemestre(value)}
-                        />
-                </div>
-                <div>
-                    <label>Ano</label>
-                </div>
-                <div class="container-input-cadastrar-semestre">
-                    <input 
-                        class="input-cadastrar-semestre-entrada-text"
-                        type='text' 
-                        maxLength={10} 
-                        placeholder="Ex: 2020"
-                        onChange={ ( { target: { value }}) => setAno(value)}
-                        />
-                      
-                </div>
-                <div class="container-input-cadastrar-semestre">
-                    <button onClick={EnvCadastrarSemestre} class="button-cadastrar-semestre-env">Cadastrar</button>
-                </div>
+                <button onClick={validarCampos} class="button-cadastrar-semestre-env">Cadastrar</button>
             </div>
         </>
     )

@@ -97,7 +97,7 @@ export default function AlunoAtivar() {
                             </div>
                     </div>
             </div>
-            <div class="list-instituicao-all-bg">
+            <div class="list-instituicao-all-bg display-none-desktop">
                 <table>
                         <tr >
                             <th scope="col">
@@ -146,10 +146,7 @@ export default function AlunoAtivar() {
                             </tr>
                         ))}
                 </table> 
-            </div>
-            
-            <div class="bg-footer">
-                    
+                <div class="bg-footer">     
                     <div class="flex-next-prev-list">
                         <button 
                             onClick={prevPage}
@@ -161,7 +158,52 @@ export default function AlunoAtivar() {
                             Próximo
                         </button>
                     </div>
+                </div>
             </div>
+
+
+            <section className="diplay-none-mobile">
+            {alunos.map(alunos => (
+                <div  className="mobile-table">
+                    <div>
+                        <p><strong>CPF: </strong>{alunos.cpf}</p>
+                    </div>
+                    <div>
+                        <p><strong>Nome Professor:</strong>{alunos.nome}</p>
+                    </div>
+                    <div>
+                        <p><strong>E-mail:</strong> {alunos.email}</p>
+                    </div>
+                    <div>
+                        <p><strong>Situação:</strong> {alunos.situacao}</p>
+                    </div>
+                    <div class="option-div-mobile">
+                        <div class="editar-instituicao-mobile">
+                            <p className="border-none-instituicao">
+                                <strong>Ativar  </strong>
+                            </p>
+                            <a
+                                onClick={() => ativarAluno(alunos.cpf)}>
+                                <FontAwesomeIcon icon={faUserLock} size="lg"  color="green" />
+                            </a> 
+                        </div>
+                        <div class="editar-instituicao-mobile">
+                            <p className="border-none-instituicao">
+                                <strong>Pesquisar</strong>
+                            </p>
+                            <a
+                               onClick={() => selecionarAluno(alunos.cpf)}>
+                                <FontAwesomeIcon icon={faSearch} size="lg"  color="#0060EB" />
+                            </a> 
+                        </div>
+                    </div>
+                </div>
+            ))}
+
+            </section>
+            
+            
+        
         </>
     )
 }

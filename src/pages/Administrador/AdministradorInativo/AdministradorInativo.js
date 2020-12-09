@@ -38,7 +38,7 @@ export default function AdministradorInativo(){
                     </div>
                 </div>
             </div>
-            <div class="list-instituicao-all-bg">
+            <div class="list-instituicao-all-bg display-none-desktop">
                 <table>
                     <tr >
                         <th scope="col">
@@ -87,8 +87,7 @@ export default function AdministradorInativo(){
                             </tr>
                         ))} 
                 </table> 
-            </div>
-            <div class="bg-footer">
+                <div class="bg-footer">
                     
                     <div class="flex-next-prev-list">
                         <button 
@@ -102,7 +101,56 @@ export default function AdministradorInativo(){
                             Próximo
                         </button>
                     </div>
+                </div>
             </div>
+
+            <section className="diplay-none-mobile">
+                {administrador.map(administrador => (
+                    <div className="mobile-table">
+                        <div>
+                            <p><strong>CPF: </strong>{administrador.cpf}</p>
+                        </div>
+                        <div>
+                            <p><strong>Nome:</strong> {administrador.nome}</p>
+                        </div>
+                        <div>
+                            <p><strong>Telefone:</strong> ({administrador.ddd}) {administrador.numero_telefone}</p>
+                        </div>
+                        <div>
+                            <p><strong>E-mail:</strong> {administrador.email}</p>
+                        </div>
+
+                        <div class="editar-instituicao-mobile">
+                            <p className="border-none-instituicao">
+                                <strong>Editar / Visualizar:  </strong>
+                            </p>
+                            <a
+                                onClick={() => SelecionarAdministrador(administrador.id_disciplina)}>
+                                <FontAwesomeIcon size="lg" icon={faEdit} color="#0060EB" />
+                            </a>
+                        </div>
+                    </div>
+                ))}
+
+                <div className="mobile-teste-global">
+                    <div class="bg-footer">
+                        <div class="flex-next-prev-list">
+                            <button
+                                // onClick={prevDisciplina}
+                                class="back-button-list-all btn-list-color-voltar">
+                                Voltar
+                        </button>
+                            <button
+                                //   onClick={nextDisciplina} 
+                                class="back-button-list-all btn-list-color-proximo">
+                                Próximo
+                        </button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+          
         
         </>
     )

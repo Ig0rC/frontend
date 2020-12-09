@@ -1,12 +1,15 @@
-import React, { useEffect , useState } from 'react';
+import React, { useEffect , useState, useContext } from 'react';
 import Menu from '../../../Components/administrador/header/header';
 import api from '../../../services/api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faEdit, faTrash, faSearch, faUserLock } from '@fortawesome/free-solid-svg-icons';
+import '../../../CSS/global.css';
+import { Context } from '../../../Context/ProfessorContext'
 
 
 export default function AtivarProfessor(){
 
+    const { SelecionarProfessor } = useContext(Context)
     const [ professorInativados, setProfessoresInativados ] = useState([]);
     const [ reload, setReload ] = useState(false);
     const [ totalPage, setTotalPage ] = useState(false);
@@ -80,7 +83,8 @@ export default function AtivarProfessor(){
                             </div>
                     </div>
             </div>
-            <div class="list-instituicao-all-bg">
+         
+            <div class="list-instituicao-all-bg display-none-desktop">
                 <table>
                         <tr >
                             <th scope="col">
@@ -111,7 +115,7 @@ export default function AtivarProfessor(){
                                 <td>{professor.nome}</td>
                                 <td>{professor.numero_telefone}</td>
                                 <td>{professor.email}</td>
-                                <td>{professor.situacao}</td>
+                                <td>{professor.situacao === false ? "Inativo": "Ativo"}</td>
                                 <td>
                                     <a 
                                         onClick={() => AtivarProfessor(professor.cpf)}
@@ -121,7 +125,7 @@ export default function AtivarProfessor(){
                                 </td>
                                 <td>
                                     <a 
-                                        // onClick={() => selecionarAluno(professor.cpf)}
+                                        onClick={() => SelecionarProfessor(professor.cpf)}
                                     >
                                         <FontAwesomeIcon icon={faSearch} size="lg" color="green" />
                                     </a>
@@ -129,9 +133,62 @@ export default function AtivarProfessor(){
                             </tr>
                         ))}
                 </table> 
+                    <div class="bg-footer">
+                        
+                        <div class="flex-next-prev-list">
+                            <button 
+                                onClick={prevPage}
+                                class="back-button-list-all btn-list-color-voltar">
+                                Voltar
+                            </button>
+                            <button 
+                                onClick={nextPage}
+                            class="back-button-list-all btn-list-color-proximo">
+                                Próximo
+                            </button>
+                        </div>
+                </div>
             </div>
-            
-            <div class="bg-footer">
+
+
+            <section className="diplay-none-mobile">
+            {professorInativados.map(professorInativados => (
+                <div  className="mobile-table">
+                    <div>
+                        <p><strong>CPF: </strong>{professorInativados.cpf}</p>
+                    </div>
+                    <div>
+                        <p><strong>Nome Professor:</strong>{professorInativados.nome}</p>
+                    </div>
+                    <div>
+                        <p><strong>E-mail:</strong> {professorInativados.email}</p>
+                    </div>
+                    <div>
+                        <p><strong>Situação:</strong> {professorInativados.situacao}</p>
+                    </div>
+                    <div class="option-div-mobile">
+                        <div class="editar-instituicao-mobile">
+                            <p className="border-none-instituicao">
+                                <strong>Ativar  </strong>
+                            </p>
+                            <a
+                                onClick={() => AtivarProfessor(professorInativados.cpf)}>
+                                <FontAwesomeIcon icon={faUserLock} size="lg"  color="green" />
+                            </a> 
+                        </div>
+                        <div class="editar-instituicao-mobile">
+                            <p className="border-none-instituicao">
+                                <strong>Pesquisar</strong>
+                            </p>
+                            <a
+                                onClick={() => AtivarProfessor(professorInativados.cpf)}>
+                                <FontAwesomeIcon icon={faSearch} size="lg"  color="#0060EB" />
+                            </a> 
+                        </div>
+                    </div>
+                </div>
+            ))}
+               <div class="bg-footer">
                     
                     <div class="flex-next-prev-list">
                         <button 
@@ -146,6 +203,10 @@ export default function AtivarProfessor(){
                         </button>
                     </div>
             </div>
+
+            </section>
+            
+     
         </>
     )
 }

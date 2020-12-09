@@ -76,57 +76,105 @@ export default function BuscarDisciplinas(){
                                 <p class="titulo-aluno-list-all">Disciplinas</p>
                             </div>
                     </div>
-        </div>
-        <div class="list-cursos-all-bg">
-        <table >
-                    <tr >
-                        <th scope="col">
-                            Código
-                        </th>
-                        <th scope="col">
-                            Nome Disciplina
-                        </th>
-                        <th scope="col">
-                            Carga Horária           
-                        </th>
-                        <th scope="col">
-                            Editar / Visualizar           
-                        </th>
-                    </tr>
-                     {disciplina.map(disciplina =>(
-                        <tr>
-                            <th>{disciplina.id_disciplina}</th>
-                            <td>{disciplina.nome_disciplina}</td>
-                            <td>{disciplina.horas}</td>
-                            <td>
-                                <a onClick={() => SelecionaDisciplina(disciplina.id_disciplina)}>
-                                    <FontAwesomeIcon icon={faEdit} color="#0060EB" />
-                                </a>
-                            </td>
+            </div>
+            <section className="display-none-desktop">
+                <div class="list-cursos-all-bg ">
+                <table >
+                        <tr >
+                            <th scope="col">
+                                Código
+                            </th>
+                            <th scope="col">
+                                Nome Disciplina
+                            </th>
+                            <th scope="col">
+                                Carga Horária           
+                            </th>
+                            <th scope="col">
+                                Editar / Visualizar           
+                            </th>
                         </tr>
+                        {disciplina.map(disciplina =>(
+                            <tr>
+                                <th>{disciplina.id_disciplina}</th>
+                                <td>{disciplina.nome_disciplina}</td>
+                                <td>{disciplina.horas}</td>
+                                <td>
+                                    <a onClick={() => SelecionaDisciplina(disciplina.id_disciplina)}>
+                                        <FontAwesomeIcon icon={faEdit} color="#0060EB" />
+                                    </a>
+                                </td>
+                            </tr>
 
 
-                    ))} 
-           
+                        ))} 
+            
 
-                  </table> 
-               
-        </div>
-        <div class="bg-footer">
-                    
+                    </table> 
+                
+            </div>
+
+            <div class="bg-footer">
+                        
+                        <div class="flex-next-prev-list">
+                            <button 
+                                onClick={prevDisciplina}
+                                class="back-button-list-all btn-list-color-voltar">
+                                Voltar
+                            </button>
+                            <button 
+                            onClick={nextDisciplina} 
+                            class="back-button-list-all btn-list-color-proximo">
+                                Próximo
+                            </button>
+                    </div>
+            </div>
+        </section>
+        <section className="diplay-none-mobile">
+            {disciplina.map(disciplina => (
+                <div  className="mobile-table">
+                    <div>
+                        <p><strong>Código: </strong>{disciplina.id_disciplina}</p>
+                    </div>
+                    <div>
+                        <p><strong>Nome disciplina:</strong> {disciplina.nome_disciplina}</p>
+                    </div>
+                    <div>
+                        <p><strong>Unidade:</strong> {disciplina.horas}</p>
+                    </div>
+            
+                    <div class="editar-instituicao-mobile">
+                        <p className="border-none-instituicao">
+                            <strong>Editar / Visualizar:  </strong>
+                        </p>
+                        <a
+                           onClick={() => SelecionaDisciplina(disciplina.id_disciplina)}>
+                           <FontAwesomeIcon size="lg" icon={faEdit} color="#0060EB" />
+                        </a> 
+                    </div>
+                </div>
+            ))}
+              <div className="mobile-teste-global">
+                <div class="bg-footer">     
                     <div class="flex-next-prev-list">
                         <button 
-                            onClick={prevDisciplina}
+                                       onClick={prevDisciplina}
                             class="back-button-list-all btn-list-color-voltar">
                             Voltar
                         </button>
                          <button 
-                          onClick={nextDisciplina} 
+                               onClick={nextDisciplina} 
                         class="back-button-list-all btn-list-color-proximo">
                             Próximo
                         </button>
                     </div>
-        </div>
+                </div>
+            </div>
+
+        </section>
+      
+             
+     
         </>
     )
 }

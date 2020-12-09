@@ -9,9 +9,10 @@ import api from '../../../services/api';
 export default function CadastrarCursos(){
 
     const [nome, setNome ] = useState('');
-    const [ semestre, setSemestre ] =useState(0)
+    const [ semestre, setSemestre ] =useState('')
     const [periodo, setPeriodo] = useState('');
     const [nivel, setNivel] = useState('')
+    const [horario, setHorario] = useState('');
     const [time, setTime ] = useState([]);
 
   
@@ -31,11 +32,19 @@ export default function CadastrarCursos(){
 
 
 
-    const [horario, setHorario] = useState('');
+
     
 
+    function validarCampos(){
+        if(!nome === false && !semestre === false && !periodo === false && !nivel === false && !horario === false){
+            cadastrarback();
+        }
+        else {
+            alert("Preencha todos campos!")
+        }
+    }
 
-    async function cadatrarback(){
+    async function cadastrarback(){
         try {
             const response = await api.post('/cursos',{
                 nome_curso: nome,
@@ -53,72 +62,58 @@ export default function CadastrarCursos(){
      return(
     <>
     <Menu />
-                <div class="titulo-styles-cadastrar-cursos">
-                    <h1>Cadastrar Cursos</h1>
+             <div class="perfil-instituicao-bg" >
+                    <div class="perfil-titulo">
+                        <h2>Cadastrar Cursos</h2>
+                    </div>
+            </div>
+                <div class="titulo-styles-cadastrar-cursos">         
                 </div>
-                <div class="columns-flex-cadastrar-cursos">
-                    <div class="column-div-instituicao-cadastro">
-                        <div>
+                    <div class="cadastrar-turma-flex-80vh">
                             <p>Nome do Curso:</p>
                             <input
-                                class="input-styles-IT"
+                                class="input-global-css-entrada"
                                 type="text"
                                 onChange={({ target: { value }}) => setNome(value)}
                             />
-                        </div>
-                        <div>
+           
+
                             <p>Duração do curso em Semestres:</p>
                             <input
-                                class="input-styles-IT"
+                                class="input-global-css-entrada"
                                 type="text"
                                 onChange={({ target: { value }}) => setSemestre(value)}
            
                             />
-                        </div>
-                        <div>
-                        <p>período:</p>
+                            <p>período:</p>
                             <input
-                                class="input-styles-IT"
+                                class="input-global-css-entrada"
                                 type="text"
                                 onChange={({ target: { value }}) => setPeriodo(value)}
                             />
-                        </div>
-                        <div>
-                        <p>Nível:</p>
+                            <p>Nível:</p>
                             <input 
-                            class="input-styles-IT" 
+                            class="input-global-css-entrada" 
                             type="text" 
                             onChange={({ target: { value }}) => setNivel(value)}
-                        />
-                        </div>
-                        <div>
-                        <p>Carga Horária:</p>
+                            />
+                
+             
+                            <p>Carga Horária:</p>
                            <select 
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            class="input-global-css-entrada styles-select-global"
                             onChange={({ target: {value }}) => setHorario(value)}
                            > 
                             <option></option>
                                {time.map(time =>(
                                    <option>{time.horas}</option>
-                               ))} 
-                                   
-                            
-        
+                               ))}   
                           </select>
-                        </div>
-                    </div>
-                    <div class="flex-button-IT">
-                 
-                </div>
-                
                 </div>
                 <div class="flex-button-cadastrar-cursos">
                     <button 
-                 
-                    class="styles-button-instituicao-cancel" >Cancelar</button>
-                    <button 
                          
-                    class="styles-button-instituicao-env" onClick={() => cadatrarback()}>Cadastrar</button>
+                    class="styles-button-instituicao-env" onClick={validarCampos}>Cadastrar</button>
                 </div>
          
     </>

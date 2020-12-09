@@ -174,7 +174,7 @@ function MainCadastro() {
             setConvertTipoTelefoneSOS(2)
         }
 
-    }, [escolhaSexo, escolhaTipoTelefone])
+    }, [escolhaSexo, escolhaTipoTelefone, escolhaTipoTelefoneSOS])
 
 
 

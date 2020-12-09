@@ -274,11 +274,11 @@ export default function AdministradorPerfil() {
                             className="input-styles-IT text-aling-center-cadastrar-curso"
                             ref={tipo_telefone}
                         >
-                            <option value={administrador.nome_tipo_telefone === 'MOVEL' ? "MOVEL" : "FIXO"}>
-                                {administrador.nome_tipo_telefone === 'MOVEL' ? "MOVEL" : "FIXO"}
+                            <option value={administrador.nome_tipo_telefone === 'MOVEL' ? "Móvel" : "Fixo"}>
+                                {administrador.nome_tipo_telefone === 'MOVEL' ? "Móvel" : "Fixo"}
                             </option>
-                            <option value={administrador.sexo === 'MOVEL' ? "FIXO" : "MOVEL"}>
-                                {administrador.nome_tipo_telefone === 'MOVEL' ? "FIXO" : "MOVEL"}
+                            <option value={administrador.sexo === 'MOVEL' ? "Fixo" : "Móvel"}>
+                                {administrador.nome_tipo_telefone === 'MOVEL' ? "Fixo" : "Móvel"}
                             </option>
                         </select>
                         <label>Número RG:</label>

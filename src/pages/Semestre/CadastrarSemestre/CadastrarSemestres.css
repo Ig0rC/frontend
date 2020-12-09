@@ -28,3 +28,9 @@
     font-weight: 500;
     height: 35px;
 }
+
+@media (max-width:500px){
+    .button-cadastrar-semestre-env{
+        width: 80%;
+    }
+}

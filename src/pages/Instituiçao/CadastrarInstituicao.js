@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Menu from '../../Components/administrador/header/header.js';
-import Container from '../../Components/administrador/container/containerAdministrador.js';
 import './CadastrarInstituicao.css';
-import api from '../../services/api'
+import api from '../../services/api';
+import history from '../history';
+const validator = require("email-validator");
+
 
 export default function CadastrarInstituicao() {
 
@@ -39,6 +41,45 @@ export default function CadastrarInstituicao() {
         }
     },[escolhaTipoTelefone])
 
+
+
+    async function ValidarInputs(){
+        if(
+            !nome === false
+            &&
+            !responsavel === false
+            && 
+            !unidade === false
+            &&
+            !email === false
+            &&
+            !cep === false
+            &&
+            !bairro === false
+            &&
+            !quadra === false
+            &&
+            !numero_endereco === false
+            &&
+            !Complemento === false
+            &&
+            !numero_telefone === false
+            &&
+            !ddd === false
+            &&
+            !cidade === false
+            &&
+            !escolhaTipoTelefone === false
+            &&
+            validator.validate(email) === true
+            ){
+                EnviarCadastro();
+            }
+        else{
+            alert("preenche todos os campos corretamente!")
+        }
+    }
+
     async function EnviarCadastro() {
       try {
         const response = await api.post('/instituicao', {
@@ -57,25 +98,35 @@ export default function CadastrarInstituicao() {
             complemento: Complemento,
             id_tipo_telefone: convertTipoTelefone
         });
+
         console.log(response)
         window.alert('Criado')
+        history.push('/pesqinstituicao')
       } catch (error) {
           console.log(error)
       }
-        
-        
     }
+
+    async function maxLengthCheck (object) {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+        }
+    
     return (
         <>
             <Menu />
-            <Container>
+                <div class="perfil-instituicao-bg" >
+                    <div class="perfil-titulo">
+                        <h2>Cadastrar Instituição</h2>
+                    </div>
+                </div>
                 <div>
-                    <h1 class="titulo-styles-administrador">Cadastrar Instituição</h1>
                 </div>
                 <div class="columns-flex">
                     <div class="column-div-instituicao-cadastro">
                         <div>
-                            <p>Nome instituição:{nome}</p>
+                            <p>Nome instituição:</p>
                             <input
                                 class="input-styles-IT"
                                 type="text"
@@ -83,7 +134,7 @@ export default function CadastrarInstituicao() {
                             />
                         </div>
                         <div>
-                            <p>Responsável:{responsavel}</p>
+                            <p>Responsável:</p>
                             <input
                                 class="input-styles-IT"
                                 type="text"
@@ -91,7 +142,7 @@ export default function CadastrarInstituicao() {
                             />
                         </div>
                         <div>
-                        <p>Estado:{estado}</p>
+                        <p>Estado:</p>
                             <input
                                 class="input-styles-IT"
                                 type="text"
@@ -99,7 +150,7 @@ export default function CadastrarInstituicao() {
                             />
                         </div>
                         <div>
-                        <p>Unidade:{unidade}</p>
+                        <p>Unidade:</p>
                             <input 
                             class="input-styles-IT" 
                             type="text" 
@@ -107,32 +158,15 @@ export default function CadastrarInstituicao() {
                         />
                         </div>
                         <div>
-                        <p>CEP:{cep}</p>
+                        <p>CEP:</p>
                             <input 
                                 class="input-styles-IT" 
-                                type="text" 
+                                type="number"
+                                onInput={maxLengthCheck}
                                 maxLength={8}
                                 onChange={ ({ target: {value}}) => setCEP(value)}
                             />
                         </div>
-                        <div>
-                        <p>Endereço: {numero_endereco}</p>
-                            <input 
-                                class="input-styles-IT" 
-                                type="text" 
-                                onChange={ ({ target: {value}}) => setNumeroEnedereco(value)}    
-                            />
-                        </div>
-                        <div>
-                            <p>Bairro:</p>
-                            <input 
-                                class="input-styles-IT" 
-                                type="text" 
-                                onChange={ ({ target: {value}}) => setBairro(value)}
-                            />
-                        </div>
-                    </div>
-                    <div class="column-div-instituicao-cadastro">
                         <div>
                             <p>Cidade:</p>
                             <input 
@@ -142,11 +176,29 @@ export default function CadastrarInstituicao() {
                             />
                         </div>
                         <div>
+                            <p>Bairro:</p>
+                            <input 
+                                class="input-styles-IT" 
+                                type="text" 
+                                onChange={ ({ target: {value}}) => setBairro(value)}
+                            />
+                        </div>         
+                    </div>
+                    <div class="column-div-instituicao-cadastro">                      
+                        <div>
                             <p>Quadra:</p>
                             <input 
                                 class="input-styles-IT" 
                                 type="text"
                                 onChange={({ target: {value}}) => setQuadra(value)} 
+                            />
+                        </div>
+                        <div>
+                        <p>Número:</p>
+                            <input 
+                                class="input-styles-IT" 
+                                type="text" 
+                                onChange={ ({ target: {value}}) => setNumeroEnedereco(value)}    
                             />
                         </div>
                         <div>
@@ -157,25 +209,28 @@ export default function CadastrarInstituicao() {
                         />
                         </div>
                         <div>
-                            <p>DDD: {ddd}</p>
+                            <p>DDD:</p>
                             <input 
                                 class="input-styles-IT" 
-                                type="text" 
+                                type="number"
+                                onInput={maxLengthCheck}
                                 maxLength={3}
                                 onChange={({ target: {value}}) => setDDD(value)}
                             />
                         </div>
                         <div>
-                            <p>Telefone:{numero_telefone}</p>
+                            <p>Telefone:</p>
                             <input 
                                 class="input-styles-IT" 
-                                type="text" 
+                                type="number"
+                                onInput={maxLengthCheck}
+                                maxLength={20} 
                                 onChange={({ target: {value}}) => setNumeroTelefone(value)}
                             />
                             
                         </div>
-                        <div>
-                        <p>Telefone:{escolhaTipoTelefone}</p>
+                        <div className="margin-select-zero">
+                        <p>Tipo Telefone:</p>
                           <select
                                 onChange={e => SelecioneTipoTelefone(e)}
                                 class="input-styles-IT"
@@ -189,7 +244,7 @@ export default function CadastrarInstituicao() {
                             </select>
                         </div>
                         <div>
-                            <p>E-mail:{email}</p>
+                            <p>E-mail:</p>
                             <input 
                                 class="input-styles-IT" 
                                 type="text" 
@@ -201,15 +256,11 @@ export default function CadastrarInstituicao() {
                 </div>
                 <div class="flex-button-IT">
                     <button 
-                 
-                    class="styles-button-instituicao-cancel">Cancelar</button>
-                    <button 
-                           onClick={() => EnviarCadastro()}
+                           onClick={ValidarInputs}
                     class="styles-button-instituicao-env">Cadastrar</button>
                 </div>
 
 
-            </Container>
         </>
     )
 }

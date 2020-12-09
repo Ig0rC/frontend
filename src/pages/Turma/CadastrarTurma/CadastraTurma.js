@@ -1,7 +1,8 @@
 import React, { useState }from 'react';
 import Menu from '../../../Components/administrador/header/header';
 import './CadastraTurma.css';
-import api from '../../../services/api'
+import api from '../../../services/api';
+import '../../../CSS/global.css'
 
 
 
@@ -14,15 +15,15 @@ export default function CadastrarTurma() {
 
     async function criarTurma(){
         try{
-            if(!nomeTurma || !dataIngresso){
-                return alert('Não Escreveu o nome a turma ou Data')
+            if(!nomeTurma && !dataIngresso){
+                return alert('Preencha Todos campos')
             }
             const response = await api.post('/turma',{
                 nome_turma: nomeTurma,
                 data_ingresso: dataIngresso
             })
             console.log(response)
-            alert('CADASTRADO')
+            alert('Cadastrado com sucesso!')
         } catch(error){
             console.log(error)
         }
@@ -32,18 +33,20 @@ export default function CadastrarTurma() {
     return(
         <>
             <Menu />
-            <div class="cadastrar-turma-flex-20vh" >
-                 <h1>Cadastrar Turma</h1>
+            <div class="perfil-instituicao-bg" >
+                    <div class="perfil-titulo">
+                        <h2>Cadastrar Turma</h2>
+                    </div>
             </div>
-            <div class="cadastrar-turma-flex-80vh ">
+            <div class="cadastrar-turma-flex-80vh">
                 <label>Nome da Turma</label>
                 <input 
                     onChange={( {target: { value }}) => setNomeTurma(value)}
-                    class="input-cadastrar-turma-margin" type="text" maxLength={20}/>
+                    class="input-global-css-entrada" type="text" maxLength={20}/>
                 <label>Data Ingresso</label>
                 <input 
                     onChange={({ target: {value } } ) => setDataIngresso(value)}
-                    class="input-cadastrar-turma-margin" type="text" maxLength={20}/>
+                    class="input-global-css-entrada" type="text" maxLength={20}/>
                 <button onClick={criarTurma}
                     class="button-cadastrar-semestre-env">Cadastrar</button>
             </div>

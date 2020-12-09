@@ -116,7 +116,8 @@ export default function ProfessorPerfil() {
                         <input
                             className="input-styles-IT"
                             type="text"
-                            defaultValue={professor.cpf}
+                            value={professor.cpf}
+                            readOnly={professor.cpf}
                         />
                         <label>Nome:</label>
                         <input
@@ -132,12 +133,17 @@ export default function ProfessorPerfil() {
                             defaultValue={professor.nome_social}
                         />
                         <label>Naturalidade:</label>
-                        <input
+                        <select
+                            className="input-styles-IT text-aling-center-cadastrar-curso"
                             ref={naturalidade}
-                            className="input-styles-IT"
-                            type="text"
-                            defaultValue={professor.naturalidade}
-                        />
+                        >
+                            <option value={professor.naturalidade === 'Brasileiro' ? "Brasileiro" : "Estrangeiro"}>
+                                {professor.naturalidade === 'Brasileiro' ? "Brasileiro" : "Estrangeiro"}
+                            </option>
+                            <option value={professor.naturalidade === "Brasileiro" ? "Estrangeiro" : "Brasileiro"}>
+                                {professor.naturalidade === "Brasileiro" ? "Estrangeiro" : "Brasileiro"}
+                            </option>
+                        </select>
                         <label>Nascimento:</label>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <Grid container justify="space-around">
@@ -157,12 +163,17 @@ export default function ProfessorPerfil() {
                         </MuiPickersUtilsProvider>
 
                         <label>Sexo:</label>
-                        <input
+                        <select
+                            className="input-styles-IT text-aling-center-cadastrar-curso"
                             ref={sexo}
-                            className="input-styles-IT"
-                            type="text"
-                            defaultValue={professor.sexo}
-                        />
+                        >
+                            <option value={professor.sexo === 'F' ? "F" : "M"}>
+                                {professor.sexo === 'F' ? "F" : "M"}
+                            </option>
+                            <option value={professor .sexo === 'F' ? "M" : "F"}>
+                                {professor.sexo === 'F' ? "M" : "F"}
+                            </option>
+                        </select>
                         <label>RG:</label>
                         <input
                             ref={numero_rg}

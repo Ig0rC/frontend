@@ -19,10 +19,17 @@
 }
 
 .button-cadastrar-carga-horaria{
+    margin-top: 20px;
     width: 200px;
     border-radius: 20px;
     height: 30px;
     color: white;
     background: #0060EB;
     border: none;
+}
+
+@media (max-width: 500px){
+    .button-cadastrar-carga-horaria{
+        width: 100%;
+    }
 }

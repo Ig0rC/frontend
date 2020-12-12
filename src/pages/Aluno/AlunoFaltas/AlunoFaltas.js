@@ -30,9 +30,10 @@ export default function AlunoFaltas(){
 
     useEffect(() =>{
         (async () => {
-            const response = await api.get(`/alunos/minha/faltas/cursos`)
+            const response = await api.get(`/alunos/minhas/faltas/cursos/do/curso/mhq`)
+
             setNotas(response.data)
-            console.log(response.data)
+            console.log(response)
         })();
     }, [])
 

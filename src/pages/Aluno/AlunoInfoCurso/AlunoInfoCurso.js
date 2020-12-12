@@ -36,7 +36,7 @@ export default function AlunoInfoCurso(){
     async function CadastrarNoCurso (idTurma){
         try {
             await api.post(`/turmaAluno/${idTurma}`)
-            alert('Sucesso! Sua Dados da sua turma irá aparecer no Acadêmico')
+            alert('Sucesso! Grade Horária irá aparece nas minhas Faltas e Minhas Notas')
         } catch (error) {
             alert('error')
         }

@@ -4,6 +4,10 @@
     max-width: 800px;
     justify-content: space-between;
     padding: 50px 20px 20px 20px;
+    flex-wrap: wrap;
+}
+.icon-lixeira-perfil div{
+    margin: 5px 5px;
 }
 
 .input-data{

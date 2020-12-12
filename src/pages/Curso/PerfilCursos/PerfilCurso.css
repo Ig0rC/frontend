@@ -1,3 +1,53 @@
 .perfil-curso-div-center{
     text-align: center;
 }
+
+.input-curso-entrada{
+    border: 2px solid blue;
+    border-radius: 5px;
+    padding: 10px 5px;
+    width: 250px;
+}
+
+@media (max-width: 300px){
+    .input-curso-entrada{
+        width: 90%;
+    }
+}
+
+.mobile-section-on-off-perfil-curso{
+    display: none;
+}
+
+.option-update-curso-perfil{
+    text-align: center;
+    padding: 20px 20px;
+}
+
+
+@media (max-width: 395px){
+    .mobile-section-on-off-perfil-curso{
+        padding: 15px 15px;
+        display: block;
+    }
+    .desktop-on-off-perfil-turma{
+        display: none;
+    }
+    .div-mobile-perfil-curso{
+        padding: 10px 10px;
+        border: 2px solid blue;
+        border-radius: 5px;
+        margin: 15px 0px;
+      
+    }
+    .div-mobile-perfil-curso p{
+        margin: 5px 0px !important;
+        font-weight: 600;
+        
+    }
+    .div-mobile-option-perfil-curso{
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+    }
+}

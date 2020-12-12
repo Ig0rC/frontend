@@ -16,8 +16,22 @@
     max-width: 1400px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around !important;
+    flex-wrap: wrap;
+    padding: 20px 5px;
 }
+
+.perfil-dados-flex div{
+    margin: 0px 50px;
+}
+
+@media (max-width: 400px){
+    .perfil-dados-flex div{
+        margin: 0px 10px !important;
+    }
+    
+}
+
 
 .linha-separado-instituicao-perfil{
     background: #0060EB;
@@ -29,6 +43,8 @@
 .cadastrar-curso-a-instituicao-titulo{
     text-align: center;
 }
+
+
 .input-cadastrar-curso-a-instituicao{
     display: flex;
     max-width: 1400px;
@@ -43,4 +59,62 @@
 
 .button-cadastrar-curso-a-instituicao-div{
     text-align: center;
+}
+
+
+
+.input-styles-instituicao-perfil{
+    border: 2px solid #0060EB;
+    border-radius: 3px;
+    padding: 10px 10px;
+    width: 100%;
+}
+
+
+/* MOBILE */
+
+.mobile-off{
+    display: none;
+}
+
+/* media mobile */
+@media (max-width: 600px){
+    .mobile-off{
+        display: block;
+    }
+    .mobile-table-div{
+        margin: 15px 20px;
+        border: 2px solid #0060EB;
+        padding: 5px;
+    }
+    .mobile-table-div p{
+        margin: 10px 0px !important;
+        font-weight: 600;
+    }
+    .mobile-table-instituicao{
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .mobile-table-instituicao a{
+        padding: 20px;
+    }
+    .mobile-table-instituicao div{
+        margin: 5px 5px;
+        text-align: center;
+    }
+    
+    
+}
+
+/* @media desktop */
+
+@media (max-width: 600px){
+    .cadastrar-curso-a-instituicao-titulo h1{
+        font-size: 20px !important;
+    }
+    .table-desktop-off{
+        display: none;
+    }
+    
 }

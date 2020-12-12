@@ -142,7 +142,7 @@ export default function BuscarTurmas() {
                                 <strong>Editar / Visualizar:  </strong>
                             </p>
                             <a
-                                onClick={() => SelecionaTurma(turmas.id_turmaid_turma)}>
+                                onClick={() => SelecionaTurma(turmas.id_turma)}>
                                 <FontAwesomeIcon icon={faEdit} size="lg" color="#0060EB" />
                             </a>
                         </div>

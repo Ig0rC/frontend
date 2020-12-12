@@ -90,46 +90,54 @@ export default function PerfilCurso() {
         }
     }
 
+    async function maxLengthCheck (object) {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+        }
+
     return (
         <>
             <Menu />
             <div>
-                <div class="perfil-instituicao-bg" >
+                <div className="perfil-instituicao-bg" >
 
-                    <div class="perfil-titulo">
+                    <div className="perfil-titulo">
 
                         <h2>Dados do Curso</h2>
                     </div>
                 </div>
-
-
+                </div>
+                <section>
                 {curso.map(curso => (
-                    <section>
+          
 
 
-                        <div key={curso.id_curso} class="perfil-curso-div-center">
+                        <div key={curso.id_curso} className="perfil-curso-div-center">
 
 
                             <p>Código do Curso: <strong>{curso.id_curso}</strong></p>
                             <p>Nome Curso: </p>
                             <input
                                 ref={nomeCurso}
-                                class="input-styles-IT"
+                                className="input-curso-entrada"
                                 type="text"
                                 defaultValue={curso.nome_curso}
                             />
                             <p>Duração do Curso em Semestre: </p>
                             <input
                                 ref={duracaoSemestre}
-                                class="input-styles-IT"
-                                type="text"
+                                className="input-curso-entrada"
+                                type="number"
+                                onInput={maxLengthCheck}
+                                maxLength={3}
                                 defaultValue={curso.duracao_semestres}
 
                             />
                             <p>Período: </p>
                             <input
                                 ref={periodo}
-                                class="input-styles-IT"
+                                className="input-curso-entrada"
                                 type="text"
                                 defaultValue={curso.periodo}
 
@@ -137,14 +145,14 @@ export default function PerfilCurso() {
                             <p>Nível: </p>
                             <input
                                 ref={nivelRef}
-                                class="input-styles-IT"
+                                className="input-curso-entrada"
                                 type="text"
                                 defaultValue={curso.nivel}
                             />
                             <p>Carga Horária: </p>
                             <input
                                 ref={cargaHoraria}
-                                class="input-styles-IT"
+                                className="input-curso-entrada"
                                 type="text"
                                 defaultValue={curso.carga_horaria}
 
@@ -152,13 +160,14 @@ export default function PerfilCurso() {
                         </div>
 
 
-                    </section>
+                
                 ))}
          
          
-            </div>
+        
+            </section>
             <section>
-                <div className="icon-lixeira-perfil">
+                <div className="option-update-curso-perfil">
                      <div>
                          <a 
                             onClick={updateCurso}
@@ -168,24 +177,23 @@ export default function PerfilCurso() {
                      </div>   
                 </div>
             </section>
-      
-      
             <section>
-                <div class="linha-separado-instituicao-perfil">
+                <div className="linha-separado-instituicao-perfil">
                 </div>
-                <div class="cadastrar-curso-a-instituicao-titulo">
-                    <h1>Vincular Disciplinas</h1>
+                <div className="cadastrar-curso-a-instituicao-titulo">
+                        <h1>Vincular Disciplinas</h1>
                 </div>
-                <div class="input-cadastrar-curso-a-instituicao">
-                    <div class="input-cadastrar-curso-a-instituicao-div">
+                <div className="input-cadastrar-curso-a-instituicao">
+                    <div className="input-cadastrar-curso-a-instituicao-div">
                         <p>Disciplinas:</p>
                         <select
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            className="input-styles-IT text-aling-center-cadastrar-curso"
                             onChange={({ target: { value } }) => setEscolhaDisciplina(value)}
                         >
                             <option></option>
                             {disciplinas.map(disciplinas => (
-                                <option value={disciplinas.id_disciplina}>
+                                <option key={disciplinas.id_disciplina}
+                                    value={disciplinas.id_disciplina}>
                                     Código: {disciplinas.id_disciplina} ||
                                                     Nome: {disciplinas.nome_disciplina}
 
@@ -194,16 +202,18 @@ export default function PerfilCurso() {
                         </select>
                     </div>
                 </div>
-                <div class="button-cadastrar-curso-a-instituicao-div">
+                <div className="button-cadastrar-curso-a-instituicao-div">
                     <button 
                         onClick={VincularDisciplina}
-                        class="button-cadastrar-semestre-env">Cadastrar
+                        className="button-cadastrar-semestre-env">Cadastrar
                     </button>
                 </div>
-                <section>
-                <div class="linha-separado-instituicao-perfil">
+            </section>  
+
+            <section className="desktop-on-off-perfil-turma">
+                <div className="linha-separado-instituicao-perfil">
                 </div>
-                <div class="list-cursos-all-bg">
+                <div className="list-cursos-all-bg">
                     <table >
                         <tr>
                             <th scope="col">
@@ -244,6 +254,30 @@ export default function PerfilCurso() {
                     </table>
                 </div>
             </section>
+
+            <section className="mobile-section-on-off-perfil-curso">
+            {disciplinasVinculadas.map(disciplinasVinculadas => (
+                <div className="div-mobile-perfil-curso"key={disciplinasVinculadas.id_disciplina}>
+                    <p>Código: {disciplinasVinculadas.id_disciplina}</p>
+                    <p>Nome: {disciplinasVinculadas.nome_disciplina} </p>
+                    <p>Carga Horária:{disciplinasVinculadas.horas} </p>
+                    <div className="div-mobile-option-perfil-curso">
+                        <div>
+                            <p>Excluir: </p>
+                            <a onClick={() => DesvincularDisciplina(disciplinasVinculadas.id_disciplina)}>
+                                    <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
+                            </a>
+                        </div>
+                        <div>
+                            <p>Visualizar: </p>
+                            <a>
+                                    <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+            ))}
             </section>
         </>
 

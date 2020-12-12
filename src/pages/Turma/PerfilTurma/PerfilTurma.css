@@ -1,0 +1,45 @@
+.input-perfil-turma{
+    width: 300px;
+    border: 2px solid #0060EB;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+@media(max-width: 360px){
+    .input-perfil-turma{
+        width: 90%;
+        margin: 10px 5px;
+    }
+}
+
+.mobile-section-off-on{
+    display: none;
+}
+
+
+@media (max-width: 550px){
+    .desktop-section-off-on-perfil-turma{
+        display: none !important;
+    }
+    .mobile-section-off-on{
+        display: block;
+        padding: 20px 20px;
+   
+    }
+    .mobile-div-styles-perfil-turma{
+        margin: 30px 0px;
+        border: 2px solid #0060EB;
+        padding: 15px;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+    .mobile-div-styles-perfil-turma div{
+        margin-top: 10px !important;
+        text-align: center
+    }
+    .mobile-div-styles-perfil-turma p{
+        font-size: 16px;
+        margin: 4px !important;
+        
+    }
+}

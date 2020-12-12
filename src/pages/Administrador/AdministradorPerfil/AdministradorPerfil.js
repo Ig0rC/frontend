@@ -20,7 +20,7 @@ import '../../../CSS/global.css'
 
 export default function AdministradorPerfil() {
 
-    const { idAdmin } = useContext(AdministradorContext);
+    const { admin } = useContext(AdministradorContext);
     const [administrador, setAdministrador] = useState([]);
     const [reload, setReload] = useState(false);
 
@@ -53,10 +53,9 @@ export default function AdministradorPerfil() {
 
     useEffect(() => {
         (async () => {
-            console.log(idAdmin)
-            const response = await api.get(`/administrador/${idAdmin}`)
+            const response = await api.get(`/administrador/${admin}`)
             setAdministrador(response.data)
-            console.log(response.data)
+            console.debug(response.data)
         })();
     }, [reload])
 
@@ -69,7 +68,7 @@ export default function AdministradorPerfil() {
     async function enviar() {
         try {
       
-            const response = await api.put(`/administrador/${idAdmin}`,{
+            const response = await api.put(`/administrador/${admin}`,{
                 nome: name.current.value,
                 nome_social: nome_social.current.value,
                 sexo: sexo.current.value,

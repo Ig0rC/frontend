@@ -7,7 +7,9 @@ import { faTrash, faEdit, faLock, faSave } from '@fortawesome/free-solid-svg-ico
 import { ContextInstituicao } from '../../../Context/InstituicaoContext';
 import { Context } from '../../../Context/CursoContext';
 import { ContextTurma } from '../../../Context/TurmaContext';
-import history from '../../history'
+import history from '../../history';
+var validator = require("email-validator");
+
 
 
 
@@ -224,7 +226,13 @@ function InstituicaoPerfil() {
 
 
     async function InstituicaoUpdate(idtelefone, idendereco){
+
+        if(validator.validate(email.current.value) === false){
+            return alert('E-mail inválido')
+        }
         try {
+            console.debug(id, idtelefone, 'endereco', idendereco)
+            console.log('ok')
             const response = await api.put(`/instituicao/${id}/${idtelefone}/${idendereco}`,{
                 nome: nomeI.current.value,
                 responsavel: responsavel.current.value,
@@ -239,8 +247,8 @@ function InstituicaoPerfil() {
                 numero_endereco: numero.current.value,
                 complemento: complemento.current.value
             })
-            console.log(response)
-            alert('Atualizado')
+
+            alert("Atualizado com sucesso")
         } catch (error) {
             alert(error)
             console.log(error)   
@@ -261,6 +269,13 @@ function InstituicaoPerfil() {
         }
     }
 
+    async function maxLengthCheck (object) {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+    }
+
+
     return (
         <>
             <Menu />
@@ -270,99 +285,122 @@ function InstituicaoPerfil() {
                     <h2>Dados do Perfil</h2>
                 </div>
             </div>
+            <section >
             {buscarInstituicao.map(instituicao => (
 
-                <section key={instituicao.id_instituicao} class="perfil-dados-flex">
-                    <div class="flex-1">
+            
+                <div key={instituicao.id_instituicao}  class="perfil-dados-flex">
+                    <div>
                         <p>Nome da Instituição: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={nomeI}
                             type="text"
                             defaultValue={instituicao.nome_instituicao}
                         />
                         <p>Resposável: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={responsavel}
                             type="text"
                             defaultValue={instituicao.responsavel}
                         />
                         <p>Unidade: </p>
                         <input 
+                            className="input-styles-instituicao-perfil"
                             ref={unidade}
                             type="text"
                             defaultValue={instituicao.unidade}
                         />
                         <p>E-mail: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={email}
                             type="text"
                             defaultValue={instituicao.email}
                         />
-                        <p>DDI: </p>
-                        <input
-                            type="text"
-                            value={instituicao.ddi}
-                        />
                         <p>DDD: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={ddd}
-                            type="text"
+                            type="number"
+                            onInput={maxLengthCheck}
+                            maxLength={3}
                             defaultValue={instituicao.ddd}
                         />
                         <p>Número Telefone: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={numero_telefone}
-                            type="text"
+                            type="number"
+                            onInput={maxLengthCheck}
+                            maxLength={10}
                             defaultValue={instituicao.numero_telefone}
                         />
                         <p>CEP: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={cep}
-                            type="text"
+                            type="number"
+                            onInput={maxLengthCheck}
+                            maxLength={8}
                             defaultValue={instituicao.cep}
                         />
                     </div>
-                    <div class="flex-1">
+                    <div>
                         <p>Estado: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={estado}
                             type="text"
                             defaultValue={instituicao.estado}
                         />
                         <p>Cidade: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={cidade}
                             type="text"
                             defaultValue={instituicao.cidade}
                         />
                         <p>Bairro: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={bairro}
                             type="text"
                             defaultValue={instituicao.bairro}
                         />
                         <p>Quadra: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={quadra}
                             type="text"
                             defaultValue={instituicao.quadra}
                         />
                         <p>Número: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={numero}
-                            type="text"
+                            type="number"
+                            onInput={maxLengthCheck}
+                            maxLength={4}
                             defaultValue={instituicao.numero_endereco}
                         />
                         <p>Complemento: </p>
                         <input
+                            className="input-styles-instituicao-perfil"
                             ref={complemento}
                             type="text"
                             defaultValue={instituicao.complemento}
                         />
                     </div>
-                   
-                </section>
+                </div>     
+            
             ))}
+            </section>
+
+
+
+
             <section>
                 {buscarInstituicao.map(int => (
                 <div className="icon-lixeira-perfil">
@@ -393,7 +431,7 @@ function InstituicaoPerfil() {
                     <div class="input-cadastrar-curso-a-instituicao-div">
                         <p>Curso</p>
                         <select
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            class="input-styles-instituicao-perfil"
                             onChange={({ target: { value } }) => setEscolhaCurso(value)}
                         >
                             <option></option>
@@ -410,7 +448,7 @@ function InstituicaoPerfil() {
                     <div class="input-cadastrar-curso-a-instituicao-div">
                         <p>Situação</p>
                         <select
-                            class="input-styles-IT text-aling-center-cadastrar-curso"
+                            class="input-styles-instituicao-perfil"
                             onChange={({ target: { value } }) => setEscolhaSituacao(value)}
                         >
                             <option></option>
@@ -423,10 +461,13 @@ function InstituicaoPerfil() {
                 <div class="button-cadastrar-curso-a-instituicao-div">
                     <button class="button-cadastrar-semestre-env" onClick={CadastrarCursoInstituicao}>Cadastrar</button>
                 </div>
-            </section>
-            <section>
-                <div class="linha-separado-instituicao-perfil">
-                </div>
+            </section> 
+            
+            <div class="linha-separado-instituicao-perfil">
+            </div>
+            {/* DESKTOP */}
+            <section class="table-desktop-off">
+               
                 <div class="list-cursos-all-bg">
                     <table >
                         <tr>
@@ -486,6 +527,52 @@ function InstituicaoPerfil() {
                     </table>
                 </div>
             </section>
+
+            {/* MOBILE */}
+   
+            <section className="mobile-off">
+            {cursoInstituicao.map(cursoInstituicao => (
+                <div key={cursoInstituicao.id_curso} className="mobile-table-div">
+                    <p>Código do Curso: {cursoInstituicao.id_curso}</p>
+                    <p>Nome Curso: {cursoInstituicao.nome_curso} </p>
+                    <p>Situação: {cursoInstituicao.situacao_curso_instituicao}</p> 
+                    <div className="mobile-table-instituicao">
+                        <div>
+                            <p>Visualizar: </p>
+                            <a
+                                    onClick={() => perfilCursoIdc(cursoInstituicao.id_curso)}
+                                >
+                                    <FontAwesomeIcon icon={faEdit} size="lg" color="#0060EB" />
+                            </a>
+                        </div>
+                        <div>
+                            <p>Excluir: </p>
+                            <a
+                                onClick={() => ExcluirCursoInstituicao(cursoInstituicao.id_curso, id)}
+                                    >
+                                    <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
+                                </a>  
+                            
+                        </div>
+                        <div>
+                            <p>Ativar / Inativar: </p>  
+                            <a
+                                onClick={() =>
+                                DesativaCursoInstituicao
+                                (id, cursoInstituicao.id_curso, cursoInstituicao.situacao_curso_instituicao)
+                                }
+                                >
+                                <FontAwesomeIcon icon={faLock} size="lg" color="green" />
+                            </a>          
+                        </div>
+           
+                    </div>
+                </div>
+            ))}
+            </section>
+
+
+
             <div class="linha-separado-instituicao-perfil">
             </div>
             <div class="cadastrar-curso-a-instituicao-titulo">
@@ -554,59 +641,94 @@ function InstituicaoPerfil() {
             </div>
             <div class="linha-separado-instituicao-perfil">
             </div>
-            <div class="cadastrar-curso-a-instituicao-titulo">
-                <h1>Turmas</h1>
-            </div>
-            <section>
-                <div class="list-cursos-all-bg">
-                    <table >
-                        <tr>
-                            <th scope="col">
-                                Código da Turma
-                            </th>
-                            <th scope="col">
-                                Nome da Turma
-                            </th>
-                            <th scope="col">
-                                Turno
-                            </th>
-                            <th scope="col">
-                                Curso
-                            </th>
-                            <th scope="col">
-                                Visualizar
-                            </th>
-                            <th scope="col">
-                                Excluir
-                            </th>
-                        </tr>
-
-
-                        {buscarTurmaVI.map(buscarTurmaVI => (
-                            <tr key={buscarTurmaVI.id_turma}>
-                                <td>{buscarTurmaVI.id_turma}</td>
-                                <td>{buscarTurmaVI.nome_turma}</td>
-                                <td>{buscarTurmaVI.turno}</td>
-                                <td>{buscarTurmaVI.nome_curso}</td>
-                                <td>
-                                    <a onClick={() => SelecionaTurma(buscarTurmaVI.id_turma)}>
-                                        <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
-                                    </a>
-                                </td>
-                                <td>
-                                <a onClick={
-                                        () => CursoTurmaInstituicaoDelete(buscarTurmaVI.id_curso,buscarTurmaVI.id_turma)
-                                    }
-                                >
-                                        <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
-                                    </a>                  
-                                </td>
-                            </tr>
-                        ))}
-                    </table>
+            <section className="table-desktop-off">
+                <div class="cadastrar-curso-a-instituicao-titulo">
+                    <h1>Turmas</h1>
                 </div>
+                <section>
+                    <div class="list-cursos-all-bg">
+                        <table >
+                            <tr>
+                                <th scope="col">
+                                    Código da Turma
+                                </th>
+                                <th scope="col">
+                                    Nome da Turma
+                                </th>
+                                <th scope="col">
+                                    Turno
+                                </th>
+                                <th scope="col">
+                                    Curso
+                                </th>
+                                <th scope="col">
+                                    Visualizar
+                                </th>
+                                <th scope="col">
+                                    Excluir
+                                </th>
+                            </tr>
+
+
+                            {buscarTurmaVI.map(buscarTurmaVI => (
+                                <tr key={buscarTurmaVI.id_turma}>
+                                    <td>{buscarTurmaVI.id_turma}</td>
+                                    <td>{buscarTurmaVI.nome_turma}</td>
+                                    <td>{buscarTurmaVI.turno}</td>
+                                    <td>{buscarTurmaVI.nome_curso}</td>
+                                    <td>
+                                        <a onClick={() => SelecionaTurma(buscarTurmaVI.id_turma)}>
+                                            <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
+                                        </a>
+                                    </td>
+                                    <td>
+                                    <a onClick={
+                                            () => CursoTurmaInstituicaoDelete(buscarTurmaVI.id_curso,buscarTurmaVI.id_turma)
+                                        }
+                                    >
+                                            <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
+                                        </a>                  
+                                    </td>
+                                </tr>
+                            ))}
+                        </table>
+                    </div>
+                </section>
+            </section>
+            {/*  mobile */}
+
+            <section className="mobile-off">
+            {buscarTurmaVI.map(buscarTurmaVI => (
+                <div key={buscarTurmaVI.id_turma} className="mobile-table-div">
+                    <p>Código da Turma: {buscarTurmaVI.id_turma}</p>
+                    <p>Nome da Turma: {buscarTurmaVI.nome_turma}</p>
+                    <p>Turno: {buscarTurmaVI.turno}</p> 
+                    <p>Curso: {buscarTurmaVI.nome_curso}</p> 
+                    <div className="mobile-table-instituicao">
+                        <div>
+                            <p>Visualizar: </p>
+                            <a onClick={() => SelecionaTurma(buscarTurmaVI.id_turma)}>
+                                            <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
+                             </a>
+                        </div>
+                        <div>
+                            <p>Excluir: </p>
+                            <a onClick={
+                                () => CursoTurmaInstituicaoDelete(buscarTurmaVI.id_curso,buscarTurmaVI.id_turma)
+                                }
+                                    >
+                                <FontAwesomeIcon icon={faTrash} size="lg" color="red" />
+                            </a>     
+                        </div>
+           
+                    </div>
+                </div>
+            ))}
             </section>
         </>
+
+
+
     );
 }
 

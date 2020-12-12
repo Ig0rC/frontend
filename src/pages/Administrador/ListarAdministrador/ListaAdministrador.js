@@ -26,15 +26,15 @@ export default function ListaAdministrador() {
     return (
         <>
             <Menu />
-            <div class="flex-list-all-bg">
-                <div class="flex-pesq-list-all">
-                    <div class="tamanho-pesq-atributos">
-                        <p class="titulo-aluno-list-all">Administrador</p>
+            <div className="flex-list-all-bg">
+                <div className="flex-pesq-list-all">
+                    <div className="tamanho-pesq-atributos">
+                        <p className="titulo-aluno-list-all">Administrador</p>
                     </div>
                 </div>
             </div>
             <section className="display-none-desktop">
-                <div class="list-instituicao-all-bg ">
+                <div className="list-instituicao-all-bg ">
                     <table>
                         <tr >
                             <th scope="col">
@@ -67,16 +67,16 @@ export default function ListaAdministrador() {
                             </tr>
                         ))}
                     </table>
-                    <div class="bg-footer">
-                        <div class="flex-next-prev-list">
+                    <div className="bg-footer">
+                        <div className="flex-next-prev-list">
                             <button
                                 // onClick={prevDisciplina}
-                                class="back-button-list-all btn-list-color-voltar">
+                                className="back-button-list-all btn-list-color-voltar">
                                 Voltar
                             </button>
                             <button
                                 //   onClick={nextDisciplina} 
-                                class="back-button-list-all btn-list-color-proximo">
+                                className="back-button-list-all btn-list-color-proximo">
                                 Próximo
                             </button>
                         </div>
@@ -100,12 +100,12 @@ export default function ListaAdministrador() {
                             <p><strong>E-mail:</strong> {administrador.email}</p>
                         </div>
 
-                        <div class="editar-instituicao-mobile">
+                        <div className="editar-instituicao-mobile">
                             <p className="border-none-instituicao">
                                 <strong>Editar / Visualizar:  </strong>
                             </p>
                             <a
-                                onClick={() => SelecionarAdministrador(administrador.id_disciplina)}>
+                                onClick={() => SelecionarAdministrador(administrador.cpf)}>
                                 <FontAwesomeIcon size="lg" icon={faEdit} color="#0060EB" />
                             </a>
                         </div>
@@ -117,12 +117,12 @@ export default function ListaAdministrador() {
                         <div class="flex-next-prev-list">
                             <button
                                 // onClick={prevDisciplina}
-                                class="back-button-list-all btn-list-color-voltar">
+                                className="back-button-list-all btn-list-color-voltar">
                                 Voltar
                         </button>
                             <button
                                 //   onClick={nextDisciplina} 
-                                class="back-button-list-all btn-list-color-proximo">
+                                className="back-button-list-all btn-list-color-proximo">
                                 Próximo
                         </button>
                         </div>

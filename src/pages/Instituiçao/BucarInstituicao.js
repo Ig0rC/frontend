@@ -24,44 +24,39 @@ export default function BuscarInstituicoes() {
     useEffect(() => {
 
         async function BuscarAll() {
-            const response = await api.get(`/instituicao/${1}/null`)
+            const response = await api.get(`/instituicao/${1}`)
             setInstituicao(response.data)
             setTotalPage(response.headers.count);
-
-
         };
 
         BuscarAll();
 
 
     }, []);
-    console.log(pesq)
-    useEffect(() => {
-        (async () => {
-            const response = await api.get(`/instituicao/${1}/${pesq}`)
-
-            await setInstituicao(response.data)
-            console.log(response.data)
-        })();
-
-    }, [pesq])
+ 
 
     useEffect(() => {
         let paginacao = totalPage / 5;
+        console.log(paginacao)
+
         let Numeracao = totalPage % 5 === 0;
         if (Numeracao === false) {
             let salve = paginacao + 1
             paginacao = Math.round(salve)
         }
+        console.log(paginacao)
         setI(paginacao)
 
     }, [totalPage])
+
     async function nextInstituicao() {
-        console.log(i, 'next')
+
+        console.log(i)
         if (page < i) {
             let next = await page + 1;
             setPage(next);
             const response = await api.get(`/instituicao/${next}`)
+            console.log('ok')
             setInstituicao(response.data)
         } else if (page === i) {
             alert('Já Chegou no Final')
@@ -80,7 +75,7 @@ export default function BuscarInstituicoes() {
         }
     }
 
-
+   
 
 
     return (
@@ -167,7 +162,7 @@ export default function BuscarInstituicoes() {
                         <div>
                             <p><strong>Responsável:</strong> {instituicao.responsavel}</p>
                         </div>
-                        <div class="editar-instituicao-mobile">
+                        <div className="editar-instituicao-mobile">
                             <p className="border-none-instituicao">
                                 <strong>Editar / Visualizar:  </strong>
                             </p>
@@ -179,16 +174,16 @@ export default function BuscarInstituicoes() {
                     </div>
                 ))}
                 <div className="mobile-teste-global">
-                    <div class="bg-footer">
-                        <div class="flex-next-prev-list">
+                    <div className="bg-footer">
+                        <div className="flex-next-prev-list">
                             <button
                                 onClick={() => PrevInstituicao()}
-                                class="back-button-list-all btn-list-color-voltar">
+                                className="back-button-list-all btn-list-color-voltar">
                                 Voltar
                         </button>
                             <button
                                 onClick={() => nextInstituicao()}
-                                class="back-button-list-all btn-list-color-proximo">
+                                className="back-button-list-all btn-list-color-proximo">
                                 Próximo
                         </button>
                         </div>

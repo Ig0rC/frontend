@@ -6,6 +6,7 @@ import history from '../history';
 const validator = require("email-validator");
 
 
+
 export default function CadastrarInstituicao() {
 
     const [nome, setNome] = useState('');
@@ -82,7 +83,7 @@ export default function CadastrarInstituicao() {
 
     async function EnviarCadastro() {
       try {
-        const response = await api.post('/instituicao', {
+        await api.post('/instituicao', {
             nome_instituicao: nome,
             responsavel: responsavel,
             unidade: unidade, 
@@ -99,8 +100,7 @@ export default function CadastrarInstituicao() {
             id_tipo_telefone: convertTipoTelefone
         });
 
-        console.log(response)
-        window.alert('Criado')
+        window.alert('Criado com Sucesso!')
         history.push('/pesqinstituicao')
       } catch (error) {
           console.log(error)

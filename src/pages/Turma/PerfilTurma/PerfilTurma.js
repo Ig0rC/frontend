@@ -5,6 +5,8 @@ import api from '../../../services/api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Context } from '../../../Context/AlunoContext';
+import './PerfilTurma.css'
+
 
 export default function PerfilTurma() {
 
@@ -63,20 +65,21 @@ export default function PerfilTurma() {
                 <div  class="perfil-curso-div-center">
                     <p>Código da Turma: </p>
                        <input
-                           class="input-styles-IT"
+                            readOnly={turma.id_turma}
+                           class="input-perfil-turma"
                            type="text"
                            value={turma.id_turma}
                        />
                     <p>Nome da Turma: </p>
                        <input
-                           class="input-styles-IT"
+                           class="input-perfil-turma"
                            type="text"
                            ref={turmaEnv}
                            defaultValue={turma.nome_turma}
                        />
                     <p>Data Ingresso: </p>
                        <input
-                           class="input-styles-IT"
+                           class="input-perfil-turma"
                            type="text"
                            ref={data_ingresso}
                            defaultValue={turma.data_ingresso}
@@ -111,7 +114,7 @@ export default function PerfilTurma() {
             </div>
 
             {/* table */}
-            <section>
+            <section className="desktop-section-off-on-perfil-turma">
                 <div class="linha-separado-instituicao-perfil">
                 </div>
                 <div class="list-cursos-all-bg">
@@ -140,7 +143,7 @@ export default function PerfilTurma() {
                             <td>{alunos.cpf_aluno}</td>
                             <td>{alunos.nome}</td>
                             <td>{alunos.email}</td>
-                            <td>({alunos.ddd}){alunos.numero_telefone}</td>
+                            <td> ({alunos.ddd}){alunos.numero_telefone} </td>
                           
                             <td> 
                                 <a onClick={() => selecionarAluno(alunos.cpf_aluno)}>
@@ -151,6 +154,23 @@ export default function PerfilTurma() {
                         ))} 
                     </table>
                 </div>
+            </section>
+
+            <section className="mobile-section-off-on">
+            {alunos.map(alunos => (
+                <div className="mobile-div-styles-perfil-turma">
+                    <p>CPF: {alunos.cpf_aluno}</p>
+                    <p>Nome: {alunos.nome}</p>
+                    <p>E-mail: {alunos.email}</p>
+                    <p>Telefone: ({alunos.ddd}) {alunos.numero_telefone} </p>
+                    <div>
+                        <p>Visualizar: </p>
+                        <a onClick={() => selecionarAluno(alunos.cpf_aluno)}>
+                            <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
+                        </a>
+                    </div>
+                </div>
+            ))}
             </section>
         </>
     )

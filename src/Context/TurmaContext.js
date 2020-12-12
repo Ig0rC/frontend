@@ -16,7 +16,7 @@ function ContextTurmaPerfil({ children }){
     useEffect(()=>{
         const id = localStorage.getItem('turma');
         if(id){
-            setID(JSON.parse(id))
+            setID(`${JSON.parse(id)}`)
         }
     })
     return(

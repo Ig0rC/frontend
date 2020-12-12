@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import history from '../pages/history'
+import history from '../pages/history.js'
 
 
 
@@ -9,21 +9,25 @@ const AdministradorContext = createContext();
 
 function AdministradorPerfilContext ( {children} ) {
 
-    const [idAdmin, setID] = useState([]);
+    const [admin, setID] = useState();
 
     async function SelecionarAdministrador(cpf){
-        await setID(cpf)
-        localStorage.setItem('administrador', JSON.stringify(cpf));
-        history.push('/administrador-perfil')
+        await  localStorage.setItem('administrador', JSON.stringify(cpf));
+       await  setID(cpf)
+       history.push('/administrador-perfil')
+
     }
+   
+
 
     useEffect(() =>{
         const id = localStorage.getItem('administrador');
-        setID(JSON.parse(id))
+        setID(`${JSON.parse(id)}`)
     })
 
+   
     return(
-        <AdministradorContext.Provider value= {{ SelecionarAdministrador, idAdmin}}>
+        <AdministradorContext.Provider value= {{ SelecionarAdministrador, admin}}>
             {children}
         </AdministradorContext.Provider>
     )

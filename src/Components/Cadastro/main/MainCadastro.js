@@ -287,7 +287,7 @@ function MainCadastro() {
                 email: email,
                 senhaemail: senha
             });
-            return window.alert('deu certo')
+            return window.alert('Cadastrado com Sucesso!')
 
         }
         else if (cpf.isValid(cpfPessoa) === false) {
@@ -336,12 +336,9 @@ function MainCadastro() {
             alert('Digite a o seu Email')
         }
     }
-
-    console.log(convertTipoTelefoneSOS)
-
     async function CriarCadastroAluno() {
-        console.debug('filhos',   !filhos === false)
-    
+        console.debug('filhos', !filhos === false)
+
 
         const validarSenha = senha === confirmaSenha;
         if (validarSenha === false || senha === '') {
@@ -395,8 +392,7 @@ function MainCadastro() {
             !aiR === false &&
             !sobreAcessibilidade === false
         ) {
-            alert('entrou')
-            const response = await api.post('/cadastro', {
+            await api.post('/cadastro', {
                 cpf: cpfPessoa,
                 nome: nome,
                 nome_social: nomeSocial,
@@ -448,8 +444,7 @@ function MainCadastro() {
                 dado_acessibilidade: outroAcessibildiade
 
             });
-            console.log(response)
-            return window.alert('deu certo')
+            return window.alert('Cadastrado com Sucesso!')
         }
         else if (cpf.isValid(cpfPessoa) === false) {
             alert('CPF inválido')
@@ -587,14 +582,14 @@ function MainCadastro() {
         }
 
     }
-    async function maxLengthCheck (object) {
+    async function maxLengthCheck(object) {
         if (object.target.value.length > object.target.maxLength) {
-         object.target.value = object.target.value.slice(0, object.target.maxLength)
-          }
+            object.target.value = object.target.value.slice(0, object.target.maxLength)
         }
+    }
 
 
-    useEffect(() =>{
+    useEffect(() => {
         console.log(date)
     }, [date])
 
@@ -604,7 +599,7 @@ function MainCadastro() {
                 <p>Opção de Usuário</p>
                 <select
                     onChange={e => handleAddrTypeChange(e)}
-                    class="btn select"
+                    class="input-global-cadastro-first-entrada select"
                     id="tipo_login"
                     name="login"
                 >
@@ -619,12 +614,12 @@ function MainCadastro() {
     if (CadastroOne) {
         return (
             <>
-                <div class='flex'>
-                    <div class='column-1'>
+                <div class='flex-admin-professor'>
+                    <div class='coluna-cadastro-first-admin'>
                         <div class="campo">
-                            <p>Nome  </p>
+                            <p>Nome </p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="nome"
                                 name="nome"
                                 required="required"
@@ -636,7 +631,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Possui um nome Social ?</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="nome_social"
                                 name="nome_social"
                                 required="required"
@@ -648,7 +643,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>CPF</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="cpf"
                                 name="cpf"
                                 required="required"
@@ -662,14 +657,14 @@ function MainCadastro() {
                         <div class="campo">
                             <p>DDD:</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="DDD"
                                 name="ddd"
                                 required="required"
                                 type="number"
                                 onInput={maxLengthCheck}
                                 maxLength={3}
-                                placeholder="(00)"                     
+                                placeholder="(00)"
                                 onChange={({ target: { value } }) => setDDD(value)}
                             />
                         </div>
@@ -677,7 +672,7 @@ function MainCadastro() {
                             <p>Tipo Telefone</p>
                             <select
                                 onChange={e => SelecioneTipoTelefone(e)}
-                                class="btn select"
+                                class="input-global-cadastro-first-entrada"
                                 id="tipoTelefoneOne"
                                 name="tipoTelefoneOne"
                             >
@@ -690,7 +685,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>telefone</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="telefone"
                                 name="telefone"
                                 required="required"
@@ -704,7 +699,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>CEP</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="cep"
                                 name="cep"
                                 required="required"
@@ -718,7 +713,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Estado</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="estado"
                                 name="estado"
                                 required="required"
@@ -731,7 +726,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Cidade</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="Cidade"
                                 name="Cidade"
                                 required="required"
@@ -743,7 +738,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Bairro</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="Bairro"
                                 name="Bairro"
                                 required="required"
@@ -754,7 +749,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Quadra</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="quadra"
                                 name="quadra"
                                 required="required"
@@ -766,7 +761,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Número</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="numero"
                                 name="number"
                                 type="number"
@@ -780,7 +775,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Complemento</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="numero"
                                 name="numero"
                                 required="required"
@@ -788,15 +783,12 @@ function MainCadastro() {
                                 onChange={({ target: { value } }) => setComplemento(value)}
                             />
                         </div>
-
-                    </div>
-                    <div class="column-2">
                         <div class="campo">
                             <p>Grau de Formação</p>
                             <select
 
                                 onChange={e => SelecioneGrau(e)}
-                                class="btn select"
+                                class="input-global-cadastro-first-entrada"
                                 id="tipo_login"
                                 name="login"
                             >
@@ -809,7 +801,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Especialização</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="especializacao"
                                 name="especializacao"
                                 required="especializacao"
@@ -823,7 +815,7 @@ function MainCadastro() {
                             <p>Naturalidade </p>
                             <select
                                 onChange={e => SelecioneNaturalidade(e)}
-                                class="btn select"
+                                class="input-global-cadastro-first-entrada"
                                 id="naturalidade"
                                 name="naturalidade"
                             >
@@ -836,7 +828,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>RG</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="num"
                                 name="rg"
                                 required="required"
@@ -850,7 +842,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Orgão de Emissor</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="OrgEmissor"
                                 name="OrgEmissor"
                                 required="required"
@@ -863,7 +855,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>UF</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="UF"
                                 name="UF"
                                 required="required"
@@ -891,24 +883,12 @@ function MainCadastro() {
                                     />
                                 </Grid>
                             </MuiPickersUtilsProvider>
-                            {/* <input
-                                type="date"
-                                class="btn"
-                                placeholder="Ex.: dd/mm/aaaa"
-                                data-mask="00/00/0000"
-                                maxlength="10"
-                                autocomplete="off"
-                                id="data"
-                                name="data"
-                                required="required"
-                                onChange={({ target: { value } }) => setDate(value)}
-                            /> */}
                         </div>
                         <div class="campo">
                             <p>E-mail</p>
                             <input
                                 type="text"
-                                class="btn2"
+                                class="input-global-cadastro-first-entrada"
                                 placeholder="exemplo@gmail.com"
                                 onChange={({ target: { value } }) => setEmail(value)}
                             />
@@ -916,7 +896,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Senha</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="senha"
                                 name="senha"
                                 required="required"
@@ -928,7 +908,7 @@ function MainCadastro() {
                         <div class="campo">
                             <p>Confirmação senha:</p>
                             <input
-                                class="btn"
+                                class="input-global-cadastro-first-entrada"
                                 id="confirmasenha"
                                 name="confirmasenha"
                                 required="required"
@@ -941,7 +921,7 @@ function MainCadastro() {
                             <p>Sexo</p>
                             <select
                                 onChange={e => SelecioneSexo(e)}
-                                class="btn select"
+                                class="input-global-cadastro-first-entrada"
                                 id="tipo_login"
                                 name="login"
                             >
@@ -971,7 +951,6 @@ function MainCadastro() {
                         </div>
 
 
-
                     </div>
                 </div>
             </>
@@ -982,12 +961,12 @@ function MainCadastro() {
 
     return (
         <>
-            <div class='flex'>
-                <div class='column-1'>
+            <div className='flex-admin-professor'>
+                <div class='coluna-cadastro-first-admin'>
                     <div class="campo">
                         <p>Nome</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="nome"
                             name="nome"
                             required="required"
@@ -999,7 +978,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Possui um nome Social ?</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="nome_social"
                             name="nome_social"
                             required="required"
@@ -1011,7 +990,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>CPF</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="cpf"
                             name="cpf"
                             required="required"
@@ -1025,12 +1004,12 @@ function MainCadastro() {
                     <div class="campo">
                         <p>DDD:</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="DDD"
                             name="ddd"
                             required="required"
                             placeholder="00"
-                    
+
                             type="number"
                             onInput={maxLengthCheck}
                             maxLength={3}
@@ -1041,7 +1020,7 @@ function MainCadastro() {
                         <p>Tipo Telefone</p>
                         <select
                             onChange={e => SelecioneTipoTelefone(e)}
-                            class="btn select"
+                            class="input-global-cadastro-first-entrada select"
                             id="tipo_login"
                             name="login"
                         >
@@ -1054,7 +1033,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>telefone</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="telefone"
                             name="telefone"
                             required="required"
@@ -1067,7 +1046,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>CEP</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="cep"
                             name="cep"
                             required="required"
@@ -1081,7 +1060,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Estado</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="estado"
                             name="estado"
                             required="required"
@@ -1093,7 +1072,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Cidade</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="Cidade"
                             name="Cidade"
                             required="required"
@@ -1105,7 +1084,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Bairro</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="Bairro"
                             name="Bairro"
                             required="required"
@@ -1117,7 +1096,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Quadra</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="quadra"
                             name="quadra"
                             required="required"
@@ -1127,15 +1106,10 @@ function MainCadastro() {
                         />
                     </div>
 
-
-
-                </div>
-                <div class="column-2">
-                  
                     <div class="campo">
                         <p>Número</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="numero"
                             name="numero"
                             required="required"
@@ -1149,7 +1123,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Complemento</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="numero"
                             name="numero"
                             required="required"
@@ -1163,7 +1137,7 @@ function MainCadastro() {
                         <p>Naturalidade2</p>
                         <select
                             onChange={e => SelecioneNaturalidade(e)}
-                            class="btn select"
+                            class="input-global-cadastro-first-entrada select"
                             id="naturalidade"
                             name="naturalidade"
                         >
@@ -1176,7 +1150,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>RG</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="rg"
                             name="rg"
                             required="required"
@@ -1190,8 +1164,8 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Orgão de Emissor</p>
                         <input
-                            class="btn"
-                            id="OrgEmissor"
+                            className="input-global-cadastro-first-entrada"
+                            id="OrgEinput-global-cadastro-first-entradamissor"
                             name="OrgEmissor"
                             required="required"
                             type="text"
@@ -1204,7 +1178,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>UF</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="UF"
                             name="UF"
                             required="required"
@@ -1217,27 +1191,27 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Data Nascimento</p>
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <Grid container justify="space-around">
-                                    <KeyboardDatePicker
-                                        className="input-data"
-                                        margin="normal"
-                                        id="date-picker-dialog"
-                                        format="dd/MM/yyyy"
-                                        value={date}
-                                        onChange={handleDateChange}
-                                        // ref={nascimento_ok}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </Grid>
-                            </MuiPickersUtilsProvider>
+                            <Grid container justify="space-around">
+                                <KeyboardDatePicker
+                                    className="input-data"
+                                    margin="normal"
+                                    id="date-picker-dialog"
+                                    format="dd/MM/yyyy"
+                                    value={date}
+                                    onChange={handleDateChange}
+                                    // ref={nascimento_ok}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </Grid>
+                        </MuiPickersUtilsProvider>
                     </div>
                     <div class="campo">
                         <p>E-mail</p>
                         <input
                             type="text"
-                            class="btn2"
+                            class="input-global-cadastro-first-entrada"
                             placeholder="exemplo@gmail.com"
                             onChange={({ target: { value } }) => setEmail(value)}
                         />
@@ -1245,7 +1219,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Senha</p>
                         <input
-                            class="btn"
+                            class="input-global-cadastro-first-entrada"
                             id="senha"
                             name="senha"
                             required="required"
@@ -1258,7 +1232,7 @@ function MainCadastro() {
                     <div class="campo">
                         <p>Confirmação senha:</p>
                         <input
-                            class="btn"
+                            className="input-global-cadastro-first-entrada"
                             id="confirmasenha"
                             name="confirmasenha"
                             required="required"
@@ -1267,11 +1241,11 @@ function MainCadastro() {
                             onChange={({ target: { value } }) => setConfirmaSenha(value)}
                         />
                     </div>
-                    <div class="campo">
+                    <div className="campo">
                         <p>Sexo</p>
                         <select
                             onChange={e => SelecioneSexo(e)}
-                            class="btn select"
+                            class="input-global-cadastro-first-entrada select"
                             id="sexo"
                             name="sexo"
                         >
@@ -1281,235 +1255,213 @@ function MainCadastro() {
                             }
                         </select>
                     </div>
-                </div>
-            </div>
-            {/* Preenchimento Obrigátorio */}
-            <section class="style-section-one">
-                <h2 class="stylesH2">Preenchimento obrigatório</h2>
-                <div class="column-flex">
-                    <div class="column">
+                    <div className="preenchimento-obrigatorio">
+                        <h2 className="stylesH2">Preenchimento obrigatório</h2>
                         <p>Qual sua média salarial?*</p>
-                        <input
-                            type="radio"
-                            id="sal1"
-                            name="qms"
-                            value="Até 1 Salário minímo"
-                            onChange={({ target: { value } }) => setMediaSalarial(value)}
-                        />
-                        <label class="space-radio" for="sal1">Até 1 salários minímo</label><br />
-                        <input
-                            type="radio"
-                            id="sal23"
-                            name="qms"
-                            value="de 2 à 3 salários minimos"
-                            onChange={e => setMediaSalarial(e.target.value)}
-                        />
-                        <label class="space-radio" for="sal23">De 2 à 3 salários minímos</label><br />
-                        <input
-                            type="radio"
-                            id="sal34"
-                            name="qms"
-                            value="De 3 a 4 Salario Minimos"
-                            onChange={e => setMediaSalarial(e.target.value)}
-                        />
-                        <label class="space-radio" for="sal23">De 3 a 4 Salario Minimos</label><br />
-                        <input
-                            type="radio" id="sal34"
-                            name="qms"
-                            value="A cima de 5 Salarios Minimos"
-                            onChange={e => setMediaSalarial(e.target.value)}
-                        />
-                        <label class="space-radio" for="sal23">A cima de 5 Salarios Minimos</label><br />
-                    </div>
-                    <div class="column">
+                        <label for="m1">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m1"
+                                name="qms"
+                                value="Até 1 Salário minímo"
+                                onChange={({ target: { value } }) => setMediaSalarial(value)}
+                            />
+                            Até 1 salários minímo</label>
+                        <label for="m2">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m2"
+                                name="qms"
+                                value="de 2 à 3 salários minimos"
+                                onChange={e => setMediaSalarial(e.target.value)}
+                            />
+                                De 2 à 3 salários minímos
+                            </label>
+                        <label for="m3">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m3"
+                                name="qms"
+                                value="De 3 a 4 Salario Minimos"
+                                onChange={e => setMediaSalarial(e.target.value)}
+                            />
+                                De 3 a 4 Salario Minimos
+                            </label>
+                        <label for="m4">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m4"
+                                name="qms"
+                                value="A cima de 5 Salarios Minimos"
+                                onChange={e => setMediaSalarial(e.target.value)}
+                            />
+                                A cima de 5 Salarios Minimos
+                            </label>
+
                         <p>Qual sua moradia?* *</p>
-                        <input
-                            type="radio"
-                            id="adm1"
-                            name="moradia"
-                            value="Casa própria"
-                            onChange={e => setMoradia(e.target.value)}
-                        />
-                        <label class="space-radio" for="adm1">Casa própria</label><br />
-                        <input
-                            type="radio"
-                            id="adm3"
-                            name="moradia"
-                            value="Casa Alugada"
-                            onChange={e => setMoradia(e.target.value)}
-                        />
-                        <label class="space-radio" for="adm3">Casa Alugada</label><br />
-                        <input
-                            type="radio"
-                            id="adm3"
-                            name="moradia"
-                            value="Casa financiada"
-                            onChange={e => setMoradia(e.target.value)}
-                        />
-                        <label class="space-radio" for="adm3">Casa financiada</label><br />
-                        <input
-                            type="radio"
-                            id="adm3"
-                            name="moradia"
-                            value="Mora na casa de filhos / parentes"
-                            onChange={e => setMoradia(e.target.value)}
-                        />
-                        <label class="space-radio" for="adm3">Mora na casa de filhos / parentes</label><br />
-                        <input
-                            type="radio"
-                            id="adm3"
-                            name="moradia"
-                            value="ILPI’S (ASILOS)"
-                            onChange={e => setMoradia(e.target.value)}
-                        />
-                        <label class="space-radio" for="adm3">ILPI’S (ASILOS)</label><br />
-                    </div>
-                </div>
-                <div class="column-flex">
-                    <div class="column">
+                        <label for="m5">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m5"
+                                name="moradia"
+                                value="Casa própria"
+                                onChange={e => setMoradia(e.target.value)}
+                            />
+                                Casa própria</label>
+                        <label for="m6">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m6"
+                                name="moradia"
+                                value="Casa Alugada"
+                                onChange={e => setMoradia(e.target.value)}
+                            />
+                                Casa Alugada</label>
+
+                        <label for="m7">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m7"
+                                name="moradia"
+                                value="Casa financiada"
+                                onChange={e => setMoradia(e.target.value)}
+                            />
+                                    Casa financiada</label>
+
+                        <label for="m8">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m8"
+                                name="moradia"
+                                value="Mora na casa de filhos / parentes"
+                                onChange={e => setMoradia(e.target.value)}
+                            />
+                                    Mora na casa de filhos / parentes
+                                </label>
+                        <label for="m9">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m9"
+                                name="moradia"
+                                value="ILPI’S (ASILOS)"
+                                onChange={e => setMoradia(e.target.value)}
+                            />
+                                ILPI’S (ASILOS)</label>
                         <p>Sobre as proprias finanças. *</p>
-                        <input
-                            type="radio"
-                            id="sal1"
-                            name="SobreFinancas"
-                            value="Administrar as proprias finanças"
-                            onChange={e => setSobreFinancas(e.target.value)}
-                        />
-                        <label class="space-radio" for="sal1">Administrar as proprias finanças</label><br />
-                        <input
-                            type="radio"
-                            id="sal23"
-                            name="SobreFinancas"
-                            value="Finanças administrada por terceiros"
-                            onChange={e => setSobreFinancas(e.target.value)}
-                        />
-                        <label class="space-radio" for="sal23">Finanças administrada por terceiros.</label><br />
-                    </div>
-                    <div class="column">
-                        <p>Em caso de emergência avisar: *</p>
-                        <p>nome:</p>
-                        <input
-                            class="btn"
-                            id="nome"
-                            name="nome_sos"
-                            required="required"
-                            type="text"
-                            placeholder="Nome Completo"
-                            onChange={
-                                ({ target: { value } }) =>
-                                    setNomeSOS(value)
-                            }
+                        <label for="m10">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m10"
+                                name="SobreFinancas"
+                                value="Administrar as proprias finanças"
+                                onChange={e => setSobreFinancas(e.target.value)}
+                            />
+                                    Administrar as proprias finanças
+                                </label>
+                        <label for="m11">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m11"
+                                name="SobreFinancas"
+                                value="Finanças administrada por terceiros"
+                                onChange={e => setSobreFinancas(e.target.value)}
+                            />
+                                    Finanças administrada por terceiros.
+                                </label>
 
-                        />
-                        <p>DDD:</p>
-                        <input
-                            class="btn"
-                            id="DDD"
-                            name="ddd"
-                            required="required"
-                            type="tel"
-                            placeholder="(00)"
-                            maxLength={3}
-                            onChange={
-                                ({ target: { value } }) =>
-                                    setDddSOS(value)
-                            }
-                        />
-                        <p>telefone:</p>
-                        <input
-                            class="btn"
-                            id="telefone"
-                            name="telefone_sos"
-                            required="required"
-                            type="tel"
-                            placeholder="Ex.: (00) 0000-0000"
-                            maxLength={20}
-                            onChange={({ target: { value } }) => setTelefoneSOS(value)}
-                        />
-
-                        <p>Tipo Telefone:</p>
-                        <select
-                            onChange={e => SelecioneTipoTelefoneSOS(e)}
-                            class="btn select"
-                            id="telefoneSOS"
-                            name="telefoneSOS"
-                        >
-                            {
-                                addphonesos.map((address, key) =>
-                                    <option value={key}>{address}</option>)
-                            }
-                        </select>
-
-
-                    </div>
-                </div>
-                <div class="column-flex">
-
-                    <div class="column">
+                        {/* locomoção */}
                         <p>Assinale o tipo de locomoção que costuma utilizar.</p>
-                        <input
-                            type="radio"
-                            id="carro-proprio"
-                            name="transporte"
-                            value="Carro Proprio"
-                            onClick={() => setNone('none')}
-                            onChange={({ target: { value } }) => setLocomocao(value)}
+                        <label for="m12">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m12"
+                                name="transporte"
+                                value="Carro Proprio"
+                                onClick={() => setNone('none')}
+                                onChange={({ target: { value } }) => setLocomocao(value)}
 
-                        />
-                        <label class="space-radio" for="sal1">Carro Próprio.</label><br />
-                        <input
-                            type="radio"
-                            id="ccpf"
-                            name="transporte"
-                            value="Carro Conduzido por Familiares"
-                            onClick={() => setNone('none')}
-                            onChange={({ target: { value } }) => setLocomocao(value)}
-                        />
-                        <label class="space-radio" for="sal23">Carro Conduzido por Familiares</label><br />
-                        <input
-                            type="radio"
-                            id="Moto"
-                            name="transporte"
-                            value="Moto"
-                            onClick={() => setNone('none')}
-                            onChange={({ target: { value } }) => setLocomocao(value)}
-                        />
-                        <label class="space-radio" for="sal23">Moto</label><br />
-                        <input
-                            type="radio"
-                            id="transportep"
-                            name="transporte"
-                            value="Transporte Público"
-                            onClick={() => setNone('none')}
-                            onChange={({ target: { value } }) => setLocomocao(value)}
-                        />
-                        <label class="space-radio" for="sal23">Transporte Público</label><br />
-                        <input
-                            type="radio"
-                            id="biciclieta"
-                            name="transporte"
-                            value="Bicicleta"
-                            onClick={() => setNone('none')}
-                            onChange={({ target: { value } }) => setLocomocao(value)}
-                        />
-                        <label class="space-radio" for="sal23">Bicicleta</label><br />
-                        <input
-                            type="radio"
-                            id="sal34"
-                            name="transporte"
-                            value="taxi-uber"
-                            onClick={() => setNone('none')}
-                            onChange={({ target: { value } }) => setLocomocao(value)}
-                        />
-                        <label class="space-radio" for="sal23">Taxi / Uber</label><br />
-                        <input
-                            type="radio"
-                            id="sal34"
-                            name="transporte"
-                            value="Outros"
-                            onClick={() => setNone('btn')}
-                        />
-                        <label class="space-radio" for="sal23">Outros</label><br />
+                            />
+                                    Carro Próprio.</label>
+                        <label for="m13">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m13"
+                                name="transporte"
+                                value="Carro Conduzido por Familiares"
+                                onClick={() => setNone('none')}
+                                onChange={({ target: { value } }) => setLocomocao(value)}
+                            />
+                                        Carro Conduzido por Familiares
+                                    </label>
+                        <label for="m14">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m14"
+                                name="transporte"
+                                value="Moto"
+                                onClick={() => setNone('none')}
+                                onChange={({ target: { value } }) => setLocomocao(value)}
+                            />
+                                            Moto
+                                    </label>
+                        <label for="m15">
+                            <input
+                                type="radio"
+                                class="space-radio"
+                                id="m15"
+                                name="transporte"
+                                value="Transporte Público"
+                                onClick={() => setNone('none')}
+                                onChange={({ target: { value } }) => setLocomocao(value)}
+                            />
+                                        Transporte Público
+                                    </label>
+                        <label for="m16">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m16"
+                                name="transporte"
+                                value="Bicicleta"
+                                onClick={() => setNone('none')}
+                                onChange={({ target: { value } }) => setLocomocao(value)}
+                            />
+                                        Bicicleta</label>
+                        <label for="m17">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m17"
+                                name="transporte"
+                                value="taxi-uber"
+                                onClick={() => setNone('none')}
+                                onChange={({ target: { value } }) => setLocomocao(value)}
+                            />
+                                    Taxi / Uber</label>
+                        <label for="m18">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m18"
+                                name="transporte"
+                                value="Outros"
+                                onClick={() => setNone('input-global-cadastro-first-entrada')}
+                            />
+                                    Outros</label>
                         <input
                             class={none}
                             id="nome"
@@ -1518,322 +1470,307 @@ function MainCadastro() {
                             placeholder="sua resposta"
                             onChange={({ target: { value } }) => setLocomocao(value)}
                         />
-                    </div>
-                    <div class="column">
-                        <p>Descrição do Perfil:</p>
-                        <textarea
-                            class="btn"
-                            id="descricaoPerfil"
-                            name="descricaoPerfil"
-                            required="required"
-                            type="text"
-                            maxLength={200}
 
-                            placeholder="Fale um pouco de você"
-                            onChange={({ target: { value } }) => setDescriçaoPerfil(value)}
-                        />
-                    </div>
-                </div>
-                <div class="column-flex">
-
-                    <div class="column">
-                        <p>Experiência Profissional:</p>
-                        <textarea
-                            class="btn"
-                            id="experienciaprofissional"
-                            name="experienciaprofissional"
-                            required="required"
-                            type="text"
-                            maxLength={200}
-                            placeholder="Quais são suas experiências profissionais"
-                            onChange={({ target: { value } }) => setExpreriencaProfissional(value)}
-                        />
-                    </div>
-                    <div class="column">
+                        {/* Estado Civil */}
                         <p>Estado Civil: </p>
-                        <input
-                            type="radio"
-                            id="solteiro"
-                            name="relacao"
-                            value="Solteiro"
-                            onChange={({ target: { value } }) => setEstadoCivil(value)}
-                        />
-                        <label class="space-radio" for="solteiro">Solteiro</label><br />
-                        <input
-                            type="radio"
-                            id="casado"
-                            name="relacao"
-                            value="Casado"
-                            onChange={({ target: { value } }) => setEstadoCivil(value)}
-                        />
-                        <label class="space-radio" for="casado">Casado</label><br />
-                        <input
-                            type="radio"
-                            id="viuvo"
-                            name="relacao"
-                            value="Viúvo"
-                            onChange={({ target: { value } }) => setEstadoCivil(value)}
+                        <label for="solteiro">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="solteiro"
+                                name="relacao"
+                                value="Solteiro"
+                                onChange={({ target: { value } }) => setEstadoCivil(value)}
+                            />
+                                            Solteiro
+                                    </label>
+                        <label for="casado">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="casado"
+                                name="relacao"
+                                value="Casado"
+                                onChange={({ target: { value } }) => setEstadoCivil(value)} />
+                                        Casado</label>
+                        <label for="viuvo">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="viuvo"
+                                name="relacao"
+                                value="Viúvo"
+                                onChange={({ target: { value } }) => setEstadoCivil(value)}
 
-                        />
-                        <label class="space-radio" for="viuvo">Viúvo</label><br />
-                    </div>
-                </div>
-                <div class="column-flex">
+                            />
+                                    Viúvo</label>
 
-                    <div class="column">
                         <p>Você se considera : </p>
-                        <input
-                            type="radio"
-                            id="Branco"
-                            name="cor"
-                            value="Branco"
-                            onChange={({ target: { value } }) => setCorPele(value)}
-                        />
-                        <label class="space-radio" for="Branco">Branco</label><br />
-                        <input
-                            type="radio"
-                            id="Pardo"
-                            name="cor"
-                            value="Pardo"
-                            onChange={({ target: { value } }) => setCorPele(value)}
-                        />
-                        <label class="space-radio" for="Pardo">Pardo</label><br />
-                        <input
-                            type="radio"
-                            id="Preto"
-                            name="cor"
-                            value="Preto"
-                            onChange={({ target: { value } }) => setCorPele(value)}
-
-                        />
-                        <label class="space-radio" for="Preto">Preto</label><br />
-                    </div>
-                    <div class="column">
+                        <label for="Branco">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="Branco"
+                                name="cor"
+                                value="Branco"
+                                onChange={({ target: { value } }) => setCorPele(value)}
+                            />
+                                        Branco</label>
+                        <label for="Pardo">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="Pardo"
+                                name="cor"
+                                value="Pardo"
+                                onChange={({ target: { value } }) => setCorPele(value)}
+                            />
+                                        Pardo</label>
+                        <label for="Preto">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="Preto"
+                                name="cor"
+                                value="Preto"
+                                onChange={({ target: { value } }) => setCorPele(value)}
+                            />
+                                    Preto</label>
                         <p>Tem Filhos  : </p>
-                        <input
-                            type="radio"
-                            id="simFilhos"
-                            name="filhos"
-                            value={true}
-                            onChange={({ target: { value } }) => setFilhos(value)}
-                        />
-                        <label class="space-radio" for="simFilhos">Sim</label><br />
-                        <input
-                            type="radio"
-                            id="filhosnao"
-                            name="filhos"
-                            value={false}
-                            onChange={({ target: { value } }) => setFilhos(value)}
-                        />
-                        <label class="space-radio" for="filhosnao">Não</label><br />
+                        <label for="simFilhos">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="simFilhos"
+                                name="filhos"
+                                value={true}
+                                onChange={({ target: { value } }) => setFilhos(value)}
+                            />
+                                        Sim</label>
+                        <label for="filhosnao">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="filhosnao"
+                                name="filhos"
+                                value={false}
+                                onChange={({ target: { value } }) => setFilhos(value)}
+                            />
+                                    Não
+                        </label>
 
-                    </div>
-                </div>
-                <h2 class="stylesH2">Escolaridade*</h2>
-                <div class="column-flex">
-                    <div class="column">
+                        <h2 class="stylesH2">Escolaridade*</h2>
+                        <label for="m20">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m20"
+                                name="escolaridade"
+                                value="Analfabeto"
+                                onChange={({ target: { value } }) => setEscolaridade(value)}
+                            />
+                                Analfabeto
+                        </label>
+                        <label class="space-radio" for="m21">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="m21"
+                                name="escolaridade"
+                                value="Saber ler e Escrever"
+                                onChange={({ target: { value } }) => setEscolaridade(value)}
+                            />
+                        Saber ler e Escrever</label>
+                        <label for="m23">
+                            <input
+                                type="radio"
+                                class="space-radio"
+                                id="m23"
+                                name="escolaridade"
+                                value="Ensino Fundamental I (1° ao 4° Ano)"
+                                onChange={({ target: { value } }) => setEscolaridade(value)}
+                            />
+                        Ensino Fundamental I (1° ao 4° Ano)</label>
 
-                        <input
-                            type="radio"
-                            id="Analfabeto"
-                            name="escolaridade"
-                            value="Analfabeto"
-                            onChange={({ target: { value } }) => setEscolaridade(value)}
-                        />
-                        <label class="space-radio" for="sal1">{escolaridade}Analfabeto</label><br />
-                        <input
-                            type="radio"
-                            id="SaberlereEscrever"
-                            name="escolaridade"
-                            value="Saber ler e Escrever"
-                            onChange={({ target: { value } }) => setEscolaridade(value)}
-                        />
-                        <label class="space-radio" for="sal23">Saber ler e Escrever</label><br />
-                        <input
-                            type="radio"
-                            id="EnsinoFudamentalI"
-                            name="escolaridade"
-                            value="Ensino Fundamental I (1° ao 4° Ano)"
-                            onChange={({ target: { value } }) => setEscolaridade(value)}
-                        />
-                        <label class="space-radio" for="sal23">Ensino Fundamental I (1° ao 4° Ano)</label><br />
-                        <input
-                            type="radio"
-                            id="EnsinoFudamentalII"
-                            name="escolaridade"
-                            value="Ensino Fundamental II (5° ao 9° Ano)"
-                            onChange={({ target: { value } }) => setEscolaridade(value)}
-                        />
-                        <label class="space-radio" for="sal23">Ensino Fundamental II (5° ao 9° Ano)</label><br />
-                        <input
-                            type="radio"
-                            id="graduacao"
-                            name="escolaridade"
-                            value="Graduação"
-                            onChange={({ target: { value } }) => setEscolaridade(value)}
-                        />
-                        <label class="space-radio" for="sal23">Graduação</label><br />
-                        <input
-                            type="radio"
-                            id="PosGraduacao"
-                            name="escolaridade"
-                            value="Pós Graduação"
-                            onChange={({ target: { value } }) => setEscolaridade(value)}
-                        />
-                        <label class="space-radio" for="sal23">Pós Graduação</label><br />
+                        <label for="m24">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m24"
+                                name="escolaridade"
+                                value="Ensino Fundamental II (5° ao 9° Ano)"
+                                onChange={({ target: { value } }) => setEscolaridade(value)}
+                            />
+                        Ensino Fundamental II (5° ao 9° Ano)</label>
 
-                    </div>
-                    <div class="column">
-                    </div>
-                </div>
+                        <label for="m25">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m25"
+                                name="escolaridade"
+                                value="Graduação"
+                                onChange={({ target: { value } }) => setEscolaridade(value)}
+                            />
+                       Graduação</label>
+                        <label for="m26">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="m26"
+                                name="escolaridade"
+                                value="Pós Graduação"
+                                onChange={({ target: { value } }) => setEscolaridade(value)}
+                            />
+                            Pós Graduação</label>
 
-                <h2 class="stylesH2">Socio Econômico *</h2>
-                <div class="column-flex">
-                    <div class="column">
+                        <h2 className="stylesH2">Socio Econômico *</h2>
                         <p>Como você classifica a sua situação econômica ? *</p>
-                        <input
-                            type="radio"
-                            id="pessima"
-                            name="economia"
-                            value="Péssima"
-                            onChange={({ target: { value } }) => setSituacaoEconomica(value)}
-                        />
-                        <label class="space-radio" for="sal1">{situacaoEconomica}Péssima</label><br />
-                        <input
-                            type="radio"
-                            id="ruim"
-                            name="economia"
-                            value="Ruim"
-                            onChange={({ target: { value } }) => setSituacaoEconomica(value)}
-                        />
-                        <label class="space-radio" for="sal23">Ruim</label><br />
-                        <input
-                            type="radio"
-                            id="regular"
-                            name="economia"
-                            value="Regular"
-                            onChange={({ target: { value } }) => setSituacaoEconomica(value)}
-                        />
-                        <label class="space-radio" for="sal23">Regular</label><br />
-                        <input
-                            type="radio"
-                            id="boa"
-                            name="economia"
-                            value="Boa"
-                            onChange={({ target: { value } }) => setSituacaoEconomica(value)}
-                        />
-                        <label class="space-radio" for="sal23">Boa</label><br />
-                        <input
-                            type="radio"
-                            id="otima"
-                            name="economia"
-                            value="Ótima"
-                            onChange={({ target: { value } }) => setSituacaoEconomica(value)}
-                        />
-                        <label class="space-radio" for="sal23">Ótima</label><br />
+                        <label for="pessima">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="pessima"
+                                name="economia"
+                                value="Péssima"
+                                onChange={({ target: { value } }) => setSituacaoEconomica(value)}
+                            />
+                            Péssima</label>
 
-                    </div>
-                    <div class="column">
+                        <label for="ruim">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="ruim"
+                                name="economia"
+                                value="Ruim"
+                                onChange={({ target: { value } }) => setSituacaoEconomica(value)}
+                            />
+                            Ruim</label>
+
+                        <label for="regular">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="regular"
+                                name="economia"
+                                value="Regular"
+                                onChange={({ target: { value } }) => setSituacaoEconomica(value)}
+                            />
+                            Regular</label>
+                        <label for="boa">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="boa"
+                                name="economia"
+                                value="Boa"
+                                onChange={({ target: { value } }) => setSituacaoEconomica(value)}
+                            />
+                            Boa</label>
+                        <label for="otima">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="otima"
+                                name="economia"
+                                value="Ótima"
+                                onChange={({ target: { value } }) => setSituacaoEconomica(value)}
+                            />
+                            Ótima</label>
+
                         <p>É aposentado ? *</p>
-                        <input
-                            type="radio"
-                            id="sim"
-                            name="aposentado"
-                            value={true}
-                            onChange={({ target: { value } }) => setAposentado(value)}
-                        />
-                        <label class="space-radio" for="sal1">Sim</label><br />
-                        <input
-                            type="radio"
-                            id="nao"
-                            name="aposentado"
-                            value={false}
-                            onChange={({ target: { value } }) => setAposentado(value)}
-                        />
-                        <label class="space-radio" for="sal23">Não</label><br />
-                    </div>
-                </div>
+                        <label for="a1">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a1"
+                                name="aposentado"
+                                value={true}
+                                onChange={({ target: { value } }) => setAposentado(value)}
+                            />
+                                Sim</label>
+                        <label for="a2">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a2"
+                                name="aposentado"
+                                value={false}
+                                onChange={({ target: { value } }) => setAposentado(value)}
+                            />
+                                 Não</label>
 
 
-                <div class="column-flex">
-                    <div class="column">
                         <p>Esta trabalhando atualmente ? *</p>
-                        <input
-                            type="radio"
-                            id="Sim_ta"
-                            name="trabalho_a"
-                            value={true}
-                            onChange={({ target: { value } }) => setTrabalho(value)}
-                        />
-                        <label class="space-radio" for="sal1">Sim</label><br />
-                        <input
-                            type="radio"
-                            id="Nao_ta"
-                            name="trabalho_a"
-                            value={false}
-                            onChange={({ target: { value } }) => setTrabalho(value)}
-                        />
-                        <label class="space-radio" for="sal23">Não</label><br />
-                    </div>
-                    <div class="column">
-                        <p>Ultima Profissão registrada na carteira de trabalho e previdencia social - CTPS ? *</p>
-                        <input
-                            class="btn"
-                            id="ctps"
-                            name="ctps"
-                            required="required"
-                            type="text"
-                            placeholder="sua resposta"
-                            onChange={({ target: { value } }) => setCTPS(value)}
-                        />
-
-                    </div>
-                </div>
-                <div class="column-flex">
-                    <div class="column">
+                        <label for="a3">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a3"
+                                name="trabalho_a"
+                                value={true}
+                                onChange={({ target: { value } }) => setTrabalho(value)}
+                            />
+                            Sim</label>
+                        <label for="a4">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a4"
+                                name="trabalho_a"
+                                value={false}
+                                onChange={({ target: { value } }) => setTrabalho(value)}
+                            />
+                            Não</label>
                         <p>É beneficiario(a) de Algum programa de governo ? *</p>
-                        <input
-                            type="radio"
-                            id="BolsaFamilia"
-                            name="beneficiarioF"
-                            value="Bolsa Familia"
-                            onClick={() => setBeneficiarioOcult('none')}
-                            onChange={({ target: { value } }) => setBeneficiario(value)}
+                        <label for="a6">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a5"
+                                name="beneficiarioF"
+                                value="Bolsa Familia"
+                                onClick={() => setBeneficiarioOcult('none')}
+                                onChange={({ target: { value } }) => setBeneficiario(value)}
+                            />
+                            Bolsa Familia</label>
+                        <label for="a8">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="a7"
+                                name="beneficiarioF"
+                                value="Benefício de Prestação Continuada"
+                                onClick={() => setBeneficiarioOcult('none')}
+                                onChange={({ target: { value } }) => setBeneficiario(value)}
 
-
-                        />
-                        <label class="space-radio" for="sal1">Bolsa Familia</label><br />
-                        <input
-                            type="radio"
-                            id="BeneficioPC"
-                            name="beneficiarioF"
-                            value="Benefício de Prestação Continuada"
-                            onClick={() => setBeneficiarioOcult('none')}
-                            onChange={({ target: { value } }) => setBeneficiario(value)}
-
-                        />
-                        <label class="space-radio" for="sal23">Benefício de Prestação Continuada</label><br />
-                        <input
-                            type="radio"
-                            id="DFsemmiséria"
-                            name="beneficiarioF"
-                            value="DF sem miséria"
-                            onClick={() => setBeneficiarioOcult('none')}
-                            onChange={({ target: { value } }) => setBeneficiario(value)}
-
-                        />
-                        <label class="space-radio" for="sal23">DF sem miséria: </label><br />
-                        <input
-                            type="radio"
-                            id="sal34"
-                            name="beneficiarioF"
-                            value="Outros"
-                            onClick={() => setBeneficiarioOcult('btn')}
-                        />
-                        <label class="space-radio" for="sal23">Outros{beneficiario}</label><br />
+                            />
+                            Benefício de Prestação Continuada</label>
+                        <label for="a9">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a9"
+                                name="beneficiarioF"
+                                value="DF sem miséria"
+                                onClick={() => setBeneficiarioOcult('none')}
+                                onChange={({ target: { value } }) => setBeneficiario(value)}
+                            />
+                            DF sem miséria </label>
+                        <label for="a10">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                for="a10"
+                                name="beneficiarioF"
+                                value="Outros"
+                                onClick={() => setBeneficiarioOcult('input-global-cadastro-first-entrada')}
+                            />
+                            Outros:</label><br />
                         <input
                             class={beneficiarioOcult}
-                            id="nome"
+                            id="a10"
                             name="beneficiarioF"
                             required="required"
                             type="text"
@@ -1842,46 +1779,51 @@ function MainCadastro() {
 
                         />
 
-                    </div>
-                    <div class="column">
-                        <p>É atendido(a) em alguma unidade de atendimento?*{respostaAtendimento}</p>
-                        <input
-                            type="radio"
-                            id="Cras"
-                            name="atendimentoUnidade"
-                            value="Cras"
-                            onClick={() => setUnidadeAtendimento('none')}
-                            onChange={({ target: { value } }) => setRespostaAtendimento(value)}
-                        />
-                        <label class="space-radio" for="sal1">Cras</label><br />
-                        <input
-                            type="radio"
-                            id="Creas"
-                            name="atendimentoUnidade"
-                            value="Creas"
-                            onClick={() => setUnidadeAtendimento('none')}
-                            onChange={({ target: { value } }) => setRespostaAtendimento(value)}
-                        />
-                        <label class="space-radio" for="sal23">Creas</label><br />
-                        <input
-                            type="radio"
-                            id="sal34"
-                            name="atendimentoUnidade"
-                            value="Posto de Saúde"
-                            onClick={() => setUnidadeAtendimento('none')}
-                            onChange={({ target: { value } }) => setRespostaAtendimento(value)}
+                        <p>É atendido(a) em alguma unidade de atendimento?*</p>
+                        <label for="a11">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="a11"
+                                name="atendimentoUnidade"
+                                value="Cras"
+                                onClick={() => setUnidadeAtendimento('none')}
+                                onChange={({ target: { value } }) => setRespostaAtendimento(value)}
+                            />
+                        Cras</label>
+                        <label for="a12">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="a12"
+                                name="atendimentoUnidade"
+                                value="Creas"
+                                onClick={() => setUnidadeAtendimento('none')}
+                                onChange={({ target: { value } }) => setRespostaAtendimento(value)}
+                            />
+                            Creas</label>
+                        <label for="a13">
+                            <input
+                                class="space-radio"
+                                type="radio"
+                                id="a13"
+                                name="atendimentoUnidade"
+                                value="Posto de Saúde"
+                                onClick={() => setUnidadeAtendimento('none')}
+                                onChange={({ target: { value } }) => setRespostaAtendimento(value)}
 
-                        />
-                        <label class="space-radio" for="sal23">Posto de Saúde</label><br />
-
-                        <input
-                            type="radio" i
-                            id="sal34"
-                            name="atendimentoUnidade"
-                            onClick={() => setUnidadeAtendimento('btn')}
-                            value={0}
-                        />
-                        <label class="space-radio" for="sal23">Outros</label><br />
+                            />
+                            Posto de Saúde</label>
+                        <label for="a14">
+                            <input
+                                className="space-radio"
+                                type="radio" i
+                                id="a14"
+                                name="atendimentoUnidade"
+                                onClick={() => setUnidadeAtendimento('input-global-cadastro-first-entrada')}
+                                value={0}
+                            />
+                            Outros</label><br />
                         <input
                             class={unidadeAtendimento}
                             id="nome"
@@ -1893,97 +1835,120 @@ function MainCadastro() {
 
                         />
 
-                    </div>
-                </div>
-                <h2 class="stylesH2">Avaliação física *</h2>
-                <div class="column-flex">
-                    <div class="column">
+                        <h2 class="stylesH2">Avaliação física *</h2>
+
                         <p>Sobre Acessibilidade *</p>
-                        <input
-                            type="radio"
-                            id="item1Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={1}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item1Acessibilidade">{sobreAcessibilidade}Se locomove  sem dificuldade</label><br />
-                        <input
-                            type="radio"
-                            id="item2Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={2}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item2Acessibilidade">Se locomove  com dificuldade</label><br />
-                        <input
-                            type="radio"
-                            id="item3Acessibilidade"
-                            name="SobreAcessibilidade"
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            value={3}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item3Acessibilidade">Se locomove  com o uso de auxiliares de marcha (Andador, Muleta)</label><br />
-                        <input
-                            type="radio"
-                            id="item4Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={4}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item4Acessibilidade">Deficiente auditivo</label><br />
-                        <input
-                            type="radio"
-                            id="item5Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={5}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                        <label for="a15">
+                            <input
+                                type="radio"
+                                id="a15"
+                                className="space-radio"
+                                name="SobreAcessibilidade"
+                                value={1}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Se locomove  sem dificuldade</label>
+                        <label for="a16">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a16"
+                                name="SobreAcessibilidade"
+                                value={2}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Se locomove  com dificuldade</label>
 
-                        />
-                        <label for="item5Acessibilidade">Deficiente de acuidade auditiva</label><br />
-                        <input
-                            type="radio"
-                            id="item6Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={6}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item6Acessibilidade">Deficiente Intelectual</label><br />
-                        <input
-                            type="radio"
-                            id="item7Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={7}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item7Acessibilidade">Deficiente visual</label><br />
-                        <input
-                            type="radio"
-                            id="item8Acessibilidade"
-                            name="SobreAcessibilidade"
-                            value={8}
-                            onClick={() => setAcessibilidadeOcult('none')}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
-                        />
-                        <label for="item8Acessibilidade">Deficiente de acuidade visual</label><br />
-                        <input
-                            type="radio" i
-                            id="item0Acessibilidade"
-                            name="SobreAcessibilidade"
-                            onClick={() => setAcessibilidadeOcult('btn')}
-                            value={0}
-                            onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                        <label for="a17">
+                            <input
+                                type="radio"
+                                id="a17"
+                                className="space-radio"
+                                name="SobreAcessibilidade"
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                value={3}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Se locomove  com o uso de auxiliares de marcha (Andador, Muleta)</label>
+                        <label for="a18">
+                            <input
+                                type="radio"
+                                id="a18"
+                                name="SobreAcessibilidade"
+                                className="space-radio"
+                                value={4}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Deficiente auditivo</label>
+                        <label for="a19">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a19"
+                                name="SobreAcessibilidade"
+                                value={5}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
 
-                        />
-                        <label class="space-radio" for="item0Acessibilidade">Outros</label><br />
+                            />
+                        Deficiente de acuidade auditiva
+                        </label>
+                        <label for="a20">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a20"
+                                name="SobreAcessibilidade"
+                                value={6}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Deficiente Intelectual
+                        </label>
+
+                        <label for="a21">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a21"
+                                name="SobreAcessibilidade"
+                                value={7}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Deficiente visual
+                        </label>
+
+                        <label for="a22">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="a22"
+                                name="SobreAcessibilidade"
+                                value={8}
+                                onClick={() => setAcessibilidadeOcult('none')}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+                            />
+                            Deficiente de acuidade visual</label>
+
+                        <label for="a23">
+                            <input
+                                className="space-radio"
+                                type="radio" i
+                                id="a23"
+                                name="SobreAcessibilidade"
+                                onClick={() => setAcessibilidadeOcult('input-global-cadastro-first-entrada')}
+                                value={0}
+                                onChange={({ target: { value } }) => setSobreAcessibilidade(value)}
+
+                            />
+                            Outros</label>
+
                         <input
-                            class={acessibilidadeOcult}
+                            className={acessibilidadeOcult}
                             id="nome"
                             name="item8Acessibilidade"
                             type="text"
@@ -1991,135 +1956,180 @@ function MainCadastro() {
                             for="item9Acessibilidade"
                             onChange={({ target: { value } }) => setOutroAcessibilidade(value)}
                         />
-                    </div>
-                    <div class="column">
+
                         <p>Patologia Pré Existentes * </p>
-                        <input
-                            type="radio"
-                            id="item1Patologia"
-                            name="patologia"
-                            value={1}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item1Patologia">Diabetes</label><br />
-                        <input
-                            type="radio"
-                            id="item2Patologia"
-                            name="patologia"
-                            value={2}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item2Patologia">Doenças  cardiacas </label><br />
-                        <input
-                            type="radio"
-                            id="item3Patologia"
-                            name="patologia"
-                            value={3}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item3Patologia">Hipertensão arterial</label><br />
-                        <input
-                            type="radio"
-                            id="item4Patologia"
-                            name="patologia"
-                            value={4}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item4Patologia">DPOC</label><br />
-                        <input
-                            type="radio"
-                            id="item5Patologia"
-                            name="patologia"
-                            value={5}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item5Patologia">Parkison</label><br />
-                        <input
-                            type="radio"
-                            id="item6Patologia"
-                            name="patologia"
-                            value={6}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item6Patologia">Alzheimer</label><br />
-                        <input
-                            type="radio"
-                            id="item7Patologia"
-                            name="patologia"
-                            value={7}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item7Patologia">Osteoporose</label><br />
-                        <input
-                            type="radio"
-                            id="item8Patologia"
-                            name="patologia"
-                            value={8}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item8Patologia">Doenças de Derme</label><br />
-                        <input
-                            type="radio"
-                            id="item9Patologia"
-                            name="patologia"
-                            value={9}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item9Patologia">Alergias</label><br />
-                        <input
-                            type="radio"
-                            id="item10Patologia"
-                            name="patologia"
-                            value={10}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item10Patologia">Doenças de Derme</label><br />
-                        <input
-                            type="radio"
-                            id="item11Patologia"
-                            name="patologia"
-                            value={11}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item11Patologia">Depressão</label><br />
-                        <input
-                            type="radio"
-                            id="item12Patologia"
-                            name="patologia"
-                            value={12}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item12Patologia">Osteoporose</label><br />
-                        <input
-                            type="radio"
-                            id="item13Patologia"
-                            name="patologia"
-                            value={13}
-                            onClick={() => setPatologiaOcult('none')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item13Patologia">Doenças Urológicas</label><br />
-                        <input
-                            type="radio"
-                            id="item0Patologia"
-                            name="patologia"
-                            value={0}
-                            onClick={() => setPatologiaOcult('btn')}
-                            onChange={({ target: { value } }) => setPatologia(value)}
-                        />
-                        <label for="item0Patologia">Outros</label><br />
+
+                        <label for="a24">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a24"
+                                name="patologia"
+                                value={1}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Diabetes</label>
+
+                        <label for="a25">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a25"
+                                name="patologia"
+                                value={2}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                        Doenças  cardiacas </label>
+
+                        <label for="a26">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a26"
+                                name="patologia"
+                                value={3}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                        Hipertensão arterial</label>
+
+                        <label for="a27">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a27"
+                                name="patologia"
+                                value={4}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            DPOC</label>
+
+                        <label for="a28">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a28"
+                                name="patologia"
+                                value={5}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Parkison</label>
+
+                        <label for="a29">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a29"
+                                name="patologia"
+                                value={6}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Alzheimer</label>
+
+                        <label for="a30">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a30"
+                                name="patologia"
+                                value={7}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Osteoporose
+                        </label>
+
+                        <label for="a31">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a31"
+                                name="patologia"
+                                value={8}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Doenças de Derme</label>
+
+                        <label for="a32">
+                            <input
+                                type="radio"
+                                id="a32"
+                                className="space-radio"
+                                name="patologia"
+                                value={9}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Alergias</label>
+
+                        <label for="a33">
+                            <input
+                                type="radio"
+                                id="a33"
+                                className="space-radio"
+                                name="patologia"
+                                value={10}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Doenças de Derme</label>
+
+                        <label for="a34">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a34"
+                                name="patologia"
+                                value={11}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                        Depressão</label>
+
+                        <label for="a35">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a35"
+                                name="patologia"
+                                value={12}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Osteoporose
+                        </label>
+
+                        <label for="a36">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a36"
+                                name="patologia"
+                                value={13}
+                                onClick={() => setPatologiaOcult('none')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Doenças Urológicas
+                        </label>
+
+                        <label for="a37">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="a37"
+                                name="patologia"
+                                value={0}
+                                onClick={() => setPatologiaOcult('input-global-cadastro-first-entrada')}
+                                onChange={({ target: { value } }) => setPatologia(value)}
+                            />
+                            Outros
+                        </label>
                         <input
                             class={patologiaOcult}
                             id="nome"
@@ -2129,32 +2139,38 @@ function MainCadastro() {
                             placeholder="sua resposta"
                             onChange={({ target: { value } }) => setOutrosPatologia(value)}
                         />
-                    </div>
-                </div>
 
-                <h2 class="stylesH2">Autonomia e Independência * </h2>
 
-                <div class="column-flex">
-                    <div class="column">
+                        <h2 class="stylesH2">Autonomia e Independência * </h2>
+
+                        <label for="AI1">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI1"
+                                name="AI"
+                                value={1}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                        Depende de cuidadores</label>
+                        
+                        <label for="AI2">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI2"
+                                name="AI"
+                                value={2}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                            Depende de acompanhamento
+                        </label>
+
+                        <label for="AI3">
                         <input
-                            type="radio"
-                            id="AI1"
-                            name="AI"
-                            value={1}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI1">Depende de cuidadores</label><br />
-                        <input
-                            type="radio"
-                            id="AI2"
-                            name="AI"
-                            value={2}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI2">Depende de acompanhamento</label><br />
-                        <input
+                            className="space-radio"
                             type="radio"
                             id="AI3"
                             name="AI"
@@ -2162,25 +2178,34 @@ function MainCadastro() {
                             onClick={() => setAiOcult('none')}
                             onChange={({ target: { value } }) => setAir(value)}
                         />
-                        <label for="AI3">Independente</label><br />
-                        <input
-                            type="radio"
-                            id="AI4"
-                            name="AI"
-                            value={4}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI4">Limpa a casa</label><br />
-                        <input
-                            type="radio"
-                            id="AI5"
-                            name="AI"
-                            value={5}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI5">Cozinha</label><br />
+                            Independente</label>
+
+                        <label for="AI4">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI4"
+                                name="AI"
+                                value={4}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                            Limpa a casa</label>
+
+                        <label for="AI5">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI5"
+                                name="AI"
+                                value={5}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                            Cozinha
+                        </label>
+
+                        <label for="AI6">
                         <input
                             type="radio"
                             id="AI6"
@@ -2189,8 +2214,12 @@ function MainCadastro() {
                             onClick={() => setAiOcult('none')}
                             onChange={({ target: { value } }) => setAir(value)}
                         />
-                        <label for="AI6">Cuida dos netos / Parentes</label><br />
+                            Cuida dos netos / Parentes
+                        </label>
+
+                        <label for="AI7">
                         <input
+                            className="space-radio"
                             type="radio"
                             id="AI7"
                             name="AI"
@@ -2198,17 +2227,25 @@ function MainCadastro() {
                             onClick={() => setAiOcult('none')}
                             onChange={({ target: { value } }) => setAir(value)}
                         />
-                        <label for="AI7">Não pratica atividades fisicas</label><br />
-                        <input
-                            type="radio"
-                            id="AI8"
-                            name="AI"
-                            value={8}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI8">Habito de Leitura</label><br />
-                        <input
+                            Não pratica atividades fisicas
+                        </label>
+
+                        <label for="AI8">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI8"
+                                name="AI"
+                                value={8}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                                Habito de Leitura
+                        </label>
+
+                        <label for="AI9">
+                        <input  
+                            className="space-radio"
                             type="radio"
                             id="AI9"
                             name="AI"
@@ -2216,44 +2253,64 @@ function MainCadastro() {
                             onClick={() => setAiOcult('none')}
                             onChange={({ target: { value } }) => setAir(value)}
                         />
-                        <label for="AI9">Caminhada</label><br />
+                            Caminhada
+                        </label>
+
+                        <label for="AI10">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI10"
+                                name="AI"
+                                value={10}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                            Jogos
+                        </label>
+
+                        <label for="AI11">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI11"
+                                name="AI"
+                                value={11}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                                Bailes / Festas
+                        </label>
+
+                        <label for="AI12">  
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI12"
+                                name="AI"
+                                value={12}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                            Shopping
+                        </label>
+
+                        <label for="AI13">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI13"
+                                name="AI"
+                                value={13}
+                                onClick={() => setAiOcult('none')}
+                                onChange={({ target: { value } }) => setAir(value)}
+                            />
+                            Vida sexual ativa
+                        </label>
+
+                        <label for="AI14">
                         <input
-                            type="radio"
-                            id="AI10"
-                            name="AI"
-                            value={10}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI10">Jogos</label><br />
-                        <input
-                            type="radio"
-                            id="AI11"
-                            name="AI"
-                            value={11}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI11">Bailes / Festas</label><br />
-                        <input
-                            type="radio"
-                            id="AI12"
-                            name="AI"
-                            value={12}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI12">Shopping</label><br />
-                        <input
-                            type="radio"
-                            id="AI13"
-                            name="AI"
-                            value={13}
-                            onClick={() => setAiOcult('none')}
-                            onChange={({ target: { value } }) => setAir(value)}
-                        />
-                        <label for="AI13">Vida sexual ativa</label><br />
-                        <input
+                            className="space-radio"
                             type="radio"
                             id="AI14"
                             name="AI"
@@ -2261,17 +2318,24 @@ function MainCadastro() {
                             onClick={() => setAiOcult('none')}
                             onChange={({ target: { value } }) => setAir(value)}
                         />
-                        <label for="AI14">Vida sexual inativa</label><br />
-                        <input
-                            type="radio"
-                            id="AI15"
-                            name="AI"
-                            value={0}
-                            onClick={() => setAiOcult('btn')}
-                            onChange={({ target: { value } }) => setAir(value)}
+                            Vida sexual inativa
+                        </label>
+                        
+                        <label for="AI16">
+                            <input
+                                className="space-radio"
+                                type="radio"
+                                id="AI15"
+                                name="AI"
+                                value={0}
+                                onClick={() => setAiOcult('input-global-cadastro-first-entrada')}
+                                onChange={({ target: { value } }) => setAir(value)}
 
-                        />
-                        <label for="AI16">Outros</label><br />
+                            />
+                            Outros
+                        </label>
+
+
                         <input
                             class={aiOcult}
                             id="nome"
@@ -2281,52 +2345,66 @@ function MainCadastro() {
                             placeholder="sua resposta"
                             onChange={({ target: { value } }) => setOutrosAir(value)}
                         />
-                    </div>
-                    <div class="column">
-                        <p>Como ficou sabendo do Curso</p>
+
+                    <p>Como ficou sabendo do Curso</p>
+
+                        <label for="c1">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="c1"
+                                name="Saber"
+                                value="Demanda espontânea"
+                                onClick={() => setSabeCursoOcult('none')}
+                                onChange={({ target: { value } }) => setCurso(value)}
+                            />
+                        Demanda espontânea</label>
+
+                        <label for="c2">
+                            <input
+                                type="radio"
+                                className="space-radio"
+                                id="c2"
+                                name="Saber"
+                                value="Encaminhamento por algum orgão"
+                                onClick={() => setSabeCursoOcult('none')}
+                                onChange={({ target: { value } }) => setCurso(value)}
+                            />
+                            Encaminhamento por algum orgão
+                        </label>
+
+                        <label for="c3">
                         <input
                             type="radio"
-                            id="Saber1"
-                            name="Saber"
-                            value="Demanda espontânea"
-                            onClick={() => setSabeCursoOcult('none')}
-                            onChange={({ target: { value } }) => setCurso(value)}
-                        />
-                        <label for="AI9">Demanda espontânea</label><br />
-                        <input
-                            type="radio"
-                            id="Saber2"
-                            name="Saber"
-                            value="Encaminhamento por algum orgão"
-                            onClick={() => setSabeCursoOcult('none')}
-                            onChange={({ target: { value } }) => setCurso(value)}
-                        />
-                        <label for="AI10">Encaminhamento por algum orgão</label><br />
-                        <input
-                            type="radio"
-                            id="AI11"
+                            className="space-radio"
+                            id="c3"
                             name="Saber"
                             value="Informação na comunidade"
                             onClick={() => setSabeCursoOcult('none')}
                             onChange={({ target: { value } }) => setCurso(value)}
                         />
-                        <label for="AI11">Informação na comunidade</label><br />
+                            Informação na comunidade
+                        </label>
+                        <label for="c4">
+                            <input
+                                type="radio"
+                                id="c4"
+                                name="Saber"
+                                className="space-radio"
+                                onClick={() => setSabeCursoOcult('none')}
+                                onChange={({ target: { value } }) => setCurso(value)}
+                            />
+                            Mídias
+                        </label>
+                        <label for="c5">
                         <input
+                            className="space-radio"
                             type="radio"
-                            id="AI12"
+                            id="c5"
                             name="Saber"
-
-                            onClick={() => setSabeCursoOcult('none')}
-                            onChange={({ target: { value } }) => setCurso(value)}
+                            onClick={() => setSabeCursoOcult('input-global-cadastro-first-entrada')}
                         />
-                        <label for="AI12">Mídias</label><br />
-                        <input
-                            type="radio"
-                            id="AI0"
-                            name="Saber"
-                            onClick={() => setSabeCursoOcult('btn')}
-                        />
-                        <label for="AI0">outros</label><br />
+                        Outros</label>
                         <input
                             class={sabeCursoOcult}
                             id="nome"
@@ -2338,18 +2416,112 @@ function MainCadastro() {
                         />
 
 
-                    </div>
-                </div>
-                <div class="button-aluno">
 
-                    <div class="">
-                        <input class="submit-aluno-cancel" type="button" value="Cancelar" />
+                        <p>Ultima Profissão registrada na carteira de trabalho e previdencia social - CTPS ? *</p>
+                        <input
+                            class="input-global-cadastro-first-entrada"
+                            id="ctps"
+                            name="ctps"
+                            required="required"
+                            type="text"
+                            placeholder="sua resposta"
+                            onChange={({ target: { value } }) => setCTPS(value)}
+                        />
+
+
                     </div>
-                    <div class="">
-                        <input class="submit-aluno-env" type="button" value="Enviar" onClick={CriarCadastroAluno} />
+
+                    <div class="campo">
+                        <p>Descrição do Perfil:</p>
+                        <textarea
+                            class="input-global-cadastro-first-entrada"
+                            id="descricaoPerfil"
+                            name="descricaoPerfil"
+                            required="required"
+                            type="text"
+                            maxLength={200}
+
+                            placeholder="Fale um pouco de você"
+                            onChange={({ target: { value } }) => setDescriçaoPerfil(value)} />
                     </div>
+                    <p>Experiência Profissional:</p>
+                    <textarea
+                        class="input-global-cadastro-first-entrada"
+                        id="experienciaprofissional"
+                        name="experienciaprofissional"
+                        required="required"
+                        type="text"
+                        maxLength={200}
+                        placeholder="Quais são suas experiências profissionais"
+                        onChange={({ target: { value } }) => setExpreriencaProfissional(value)}
+                    />
+                    <div class="campo">
+                        <p>Em caso de emergência avisar: *</p>
+
+                        <p>nome:</p>
+                        <input
+                            className="input-global-cadastro-first-entrada"
+                            id="nome"
+                            name="nome_sos"
+                            required="required"
+                            type="text"
+                            placeholder="Nome Completo"
+                            onChange={
+                                ({ target: { value } }) =>
+                                    setNomeSOS(value)
+                            }
+
+                        />
+                    </div>
+                    <div class="campo">
+                        <p>DDD:</p>
+                        <input
+                            className="input-global-cadastro-first-entrada"
+                            id="DDD"
+                            name="ddd"
+                            required="required"
+                            type="tel"
+                            placeholder="(00)"
+                            maxLength={3}
+                            onChange={
+                                ({ target: { value } }) =>
+                                    setDddSOS(value)
+                            }
+                        />
+                    </div>
+                    <div class="campo">
+                        <p>telefone:</p>
+                        <input
+                            class="input-global-cadastro-first-entrada"
+                            id="telefone"
+                            name="telefone_sos"
+                            required="required"
+                            type="tel"
+                            placeholder="Ex.: (00) 0000-0000"
+                            maxLength={20}
+                            onChange={({ target: { value } }) => setTelefoneSOS(value)}
+                        />
+                    </div>
+                    <div class="campo">
+                        <p>Tipo Telefone:</p>
+                        <select
+                            onChange={e => SelecioneTipoTelefoneSOS(e)}
+                            class="input-global-cadastro-first-entrada select"
+                            id="telefoneSOS"
+                            name="telefoneSOS"
+                        >
+                            {
+                                addphonesos.map((address, key) =>
+                                    <option value={key}>{address}</option>)
+                            }
+                        </select>
+                    </div>
+                    <div className="campo">
+                        <input className="submit-aluno-env" type="button" value="Enviar" onClick={CriarCadastroAluno} />
+                    </div> 
                 </div>
-            </section>
+            
+            </div>
         </>
     );
 }

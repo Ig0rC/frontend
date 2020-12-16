@@ -207,7 +207,7 @@ export default function Leciona(){
                             </select>
                             <p>Horário da Aula:</p>
                             <input
-                                class="input-leciona-entrada"
+                                class="styles-select-global"
                                 type="text"
                                 onChange={({ target: { value }}) => setHorarioAula(value)}
                             />

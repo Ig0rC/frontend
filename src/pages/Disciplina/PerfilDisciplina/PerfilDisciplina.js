@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import Menu from '../../../Components/administrador/header/header';
-import { Context } from '../../../Context/DisciplinaContext';
+import { ContextDisciplina } from '../../../Context/DisciplinaContext';
 import '../../../CSS/global.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faEdit, faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
-import api from '../../../services/api'
+import api from '../../../services/api';
+import './PerfilDisciplina.css'
 
 
 
@@ -16,18 +17,25 @@ import api from '../../../services/api'
 
 export default function PerfilDisciplina() {
 
-    const { idC } = useContext(Context);
+    const { idC } = useContext(ContextDisciplina);
     const [ disciplina, setDisciplina ] = useState([]);
+    const [time, setTime] = useState([]);
 
+
+
+  
     useEffect(() => {
         (async () =>{
             const response = await api.get(`/disciplina/seleciona/${idC}`)
             setDisciplina(response.data)
+
+
+            const time = await api.get('/searchHorario');
+            setTime(time.data)
+
         })();
     }, [])
 
-    const { id } = useContext(Context);
-    console.log(id);
 
     async function AtualizarDisciplina(){
         try {
@@ -43,6 +51,7 @@ export default function PerfilDisciplina() {
     }
     const nomeDisciplina = useRef(null);
     const cargaHoraria = useRef(null);
+
     return (
         <>
             <Menu />
@@ -60,17 +69,19 @@ export default function PerfilDisciplina() {
                      <p>Nome Disciplina: </p>
                      <input
                          ref={nomeDisciplina}
-                         class="input-styles-IT"
+                         class="input-perfil-disciplina-att"
                          type="text"
                          defaultValue={disciplina.nome_disciplina}
                      />
                      <p>Carga Horária: </p>
-                     <input
-                         ref={cargaHoraria}
-                         class="input-styles-IT"
-                         type="text"
-                         defaultValue={disciplina.horas}
-                     />
+                     <select
+                        class="input-perfil-disciplina-att-select"
+                        ref={cargaHoraria}
+                    >
+                        {time.map(time => (
+                            <option >{time.horas}</option>
+                        ))}
+                    </select>
                  </div>
                 ))}      
             </section>

@@ -11,7 +11,7 @@ body{
    
 }
 
-.btn {
+.btn-main-cadastro{
     padding-left: 5px;
     width: 250px;
     height: 30px;
@@ -68,9 +68,9 @@ body{
 .espaco{
     margin-top: 30px;
 }
-.column-1 .column-2{
+.coluna-cadastro-1 .column-2{
     margin: 0 10px;
-    flex: 1;
+    
 }
 
 .button-aluno{
@@ -82,21 +82,11 @@ body{
     flex-wrap: wrap;
 }
 
-.campo {
-  
-    margin: 5px 5px;
-   
-}
 .campo p {
     color: #0060EB;
     font-weight: 500;
-    margin-bottom: 5px !important;
 }
-.column p{
-    color: #0060EB;
-    font-weight: 500;
-    margin-bottom: 5px !important;
-}
+
 
 .none{
     display:none !important;
@@ -111,7 +101,7 @@ body{
 /* Espaçamento entre os rádios */
 
 .space-radio{
-    margin-left: 3px;
+    margin-right: 10px;
 }
 
 /* Section */
@@ -152,14 +142,16 @@ body{
 
 }
 .submit-aluno-env{
-    width: 200px;
-    height: 35px;
+    width: 100%;
+    margin: 10px 0px;
+    height: 50px;
     background:    #0060EB;
     border: none;
     font-weight: 500;
     color: white;
     border-radius: 3px;
 }
+
 .submit-aluno-env:hover{
     background: green;
 }
@@ -187,5 +179,47 @@ body{
     }
     .submit-aluno-env{
         margin-top: 20px ;
+    }
+}
+
+
+/* PROFESSOR E ADMINISTRAADOR */
+
+.flex-admin-professor{
+    display: flex;
+    justify-content: center;
+}
+
+.coluna-cadastro-first-admin{
+    width: 50%;
+}
+
+.input-global-cadastro-first-entrada{
+    width: 100% !important;
+    border: 2px solid #0060EB;
+    padding: 5px 10px;
+    height: 45px;
+    border-radius: 5px;
+}
+
+.preenchimento-obrigatorio{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.preenchimento-obrigatorio p{
+    font-size: 18px;
+    margin: 5px 5px !important;
+    color:  #0060EB;
+}
+
+.preenchimento-obrigatorio label{
+    
+    font-weight: 600;
+}
+@media (max-width: 1000px){
+    .coluna-cadastro-first-admin{
+        width: 80%;
     }
 }

@@ -25,7 +25,7 @@ export default function CadastrarCargaHoraria(){
                     horas: time
                 });
                 console.log(response)
-                window.alert('ok')
+                window.alert('Cadastrado com Sucesso')
     
             } catch (error){
                 window.alert('error ao cadastrar')
@@ -44,7 +44,7 @@ export default function CadastrarCargaHoraria(){
             </div>
             <div className="cadastrar-turma-flex-80vh">  
                 <input class="input-global-css-entrada" type="text" 
-                            placeholder="05:00 = 5 horas"
+                            placeholder="05:00:00 = 5 horas"
                             onChange={ ({target: {value }}) => setTime(value)}/>
              
                 <button 

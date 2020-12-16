@@ -66,7 +66,7 @@ export default function CadastrarDisciplina() {
             <div class="cadastrar-turma-flex-80vh">
                     <p>Nome Disciplina:</p>
                     <input
-                        class="input-global-css-entrada"
+                        class="styles-select-global"
                         type="text"
                      onChange={({ target: { value }}) => setNomeDisciplina(value)}
                     />

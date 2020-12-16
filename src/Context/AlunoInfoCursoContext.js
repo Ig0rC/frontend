@@ -26,8 +26,8 @@ function AlunoInfo( { children } ){
             const idC = localStorage.getItem('idCursoAluno');
             const idT = localStorage.getItem('idInstituicaoAluno');
             if(idC && idT){
-                setIdCurso(JSON.parse(idC))
-                setIdInstituicao(JSON.parse(idT))
+                setIdCurso(`${JSON.parse(idC)}`)
+                setIdInstituicao(`${JSON.parse(idT)}`)
             }
     });
 

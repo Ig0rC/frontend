@@ -67,12 +67,12 @@ import AdministradorInativo from '../pages/Administrador/AdministradorInativo/Ad
 import AdministradorPerfil from '../pages/Administrador/AdministradorPerfil/AdministradorPerfil.js';
 import AdministradorLista from '../pages/Administrador/ListarAdministrador/ListaAdministrador.js';
 
+//Esqueci Minha senha
+
+import EsqueciMinhaSenha from '../pages/AlterarSenha/EsqueciMinhaSenha/EsqueciMinhaSenha.js'
+
 function CustomRoute({ isPrivate, ...rest}){
     const { loading, autorizacao } = useContext(Context);
-
-
-
-
     
     if(loading){
         return <h1>loading</h1>
@@ -125,6 +125,8 @@ function Routes (){
             <CustomRoute exact path='/administrador-inativos' component={AdministradorInativo}/>
             <CustomRoute exact path='/administrador-perfil' component={AdministradorPerfil}/>
             <CustomRoute exact path='/administrador-lista' component={AdministradorLista}/>
+            <CustomRoute exact path='/esqueci-minha-senha' component={EsqueciMinhaSenha}/>
+            
 
         </Switch>
   )

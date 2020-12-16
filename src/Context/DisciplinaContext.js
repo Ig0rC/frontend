@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import history from '../pages/history';
 
 
-const Context = createContext();
+const ContextDisciplina = createContext();
 
 function DisciplinaContext( { children } ){
     const [idC, setID] = useState(0);
@@ -16,18 +16,18 @@ function DisciplinaContext( { children } ){
     useEffect(() => {
         const id = localStorage.getItem('disciplina');
         if(id){
-            setID(JSON.parse(id))
+            setID(`${JSON.parse(id)}`)
         }        
     })
     return(
         <>
-            <Context.Provider value={{ SelecionaDisciplina , idC}}>
+            <ContextDisciplina.Provider value={{ SelecionaDisciplina , idC}}>
                 {children}
-            </Context.Provider>
+            </ContextDisciplina.Provider>
         </>
     )
 }
 
 
 
-export{ DisciplinaContext, Context}
+export{ DisciplinaContext, ContextDisciplina}

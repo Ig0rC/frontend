@@ -5,6 +5,7 @@ import api from '../../../services/api';
 import './PerfilCurso.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faEdit, faTrash, faSave } from '@fortawesome/free-solid-svg-icons';
+import { ContextDisciplina } from '../../../Context/DisciplinaContext';
 
 
 
@@ -14,12 +15,14 @@ export default function PerfilCurso() {
     const [curso, setCurso] = useState([]);
    
     const { idc } = useContext(Context);
+    const { SelecionaDisciplina } = useContext(ContextDisciplina);
  
-    const [ reload , setReload] = useState(true)
     const [disciplinasVinculadas, setDisciplinasVinculadas ] = useState([])
     const [ disciplinas, setDisciplinas ] = useState([]);
     const [escolhaDisciplina, setEscolhaDisciplina ] = useState(0);
     const [realoadDisciplinas, setReloadDisciplinas ] = useState(false);
+    const [time, setTime ] = useState([]);
+
 
     useEffect(() => {
         (async () => {
@@ -30,6 +33,10 @@ export default function PerfilCurso() {
             setDisciplinas(responseDisciplinas.data)
             const responseDisciplinasVinculadas = await api.get(`/disciplinacurso/${idc}`)
             setDisciplinasVinculadas(responseDisciplinasVinculadas.data);
+            
+            const time = await api.get('/searchHorario');
+            setTime(time.data)
+
         })();
     }, [idc])
 
@@ -59,7 +66,7 @@ export default function PerfilCurso() {
     async function DesvincularDisciplina(idD){
         try {
             await api.delete(`/disciplinacurso/${idD}/${idc}`)
-            alert('Deleteado')
+            alert('Excluído com sucesso')
             if(realoadDisciplinas === true ){
                 return setReloadDisciplinas(false);
             }
@@ -150,13 +157,15 @@ export default function PerfilCurso() {
                                 defaultValue={curso.nivel}
                             />
                             <p>Carga Horária: </p>
-                            <input
-                                ref={cargaHoraria}
-                                className="input-curso-entrada"
-                                type="text"
-                                defaultValue={curso.carga_horaria}
-
-                            />
+                            <select 
+                            class="input-curso-entrada"
+                            ref={cargaHoraria}
+                            > 
+                            <option defaultValue={curso.carga_horaria}>{curso.carga_horaria}</option>
+                               {time.map(time =>(
+                                   <option>{time.horas}</option>
+                               ))}   
+                          </select>
                         </div>
 
 
@@ -245,7 +254,7 @@ export default function PerfilCurso() {
                                 </a>
                             </td>
                             <td> 
-                                <a>
+                                <a onClick={() => SelecionaDisciplina(disciplinasVinculadas.id_disciplina)}>
                                     <FontAwesomeIcon icon={faEdit} size="lg" color="green" />
                                 </a>
                             </td>

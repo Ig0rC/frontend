@@ -197,12 +197,14 @@ export default function CadastrarInstituicao() {
                         <p>Número:</p>
                             <input 
                                 class="input-styles-IT" 
-                                type="text" 
+                                type="number"
+                                onInput={maxLengthCheck}
+                                maxLength={4} 
                                 onChange={ ({ target: {value}}) => setNumeroEnedereco(value)}    
                             />
                         </div>
                         <div>
-                            <p>Complemento: {Complemento}</p>
+                            <p>Complemento: </p>
                             <input class="input-styles-IT" 
                             type="text" 
                             onChange={ ({ target: {value}}) => setComplemento(value)}    
@@ -224,7 +226,7 @@ export default function CadastrarInstituicao() {
                                 class="input-styles-IT" 
                                 type="number"
                                 onInput={maxLengthCheck}
-                                maxLength={20} 
+                                maxLength={10} 
                                 onChange={({ target: {value}}) => setNumeroTelefone(value)}
                             />
                             

@@ -59,6 +59,13 @@ export default function CadastrarCursos(){
            window.alert('error: verifique os campos')
         }
     }
+
+    async function maxLengthCheck (object) {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+        }
+
      return(
     <>
     <Menu />
@@ -81,7 +88,9 @@ export default function CadastrarCursos(){
                             <p>Duração do curso em Semestres:</p>
                             <input
                                 class="input-global-css-entrada"
-                                type="text"
+                                type="number"
+                                onInput={maxLengthCheck}
+                                maxLength={2}
                                 onChange={({ target: { value }}) => setSemestre(value)}
            
                             />
@@ -101,7 +110,7 @@ export default function CadastrarCursos(){
              
                             <p>Carga Horária:</p>
                            <select 
-                            class="input-global-css-entrada styles-select-global"
+                            class="input-global-css-entrada"
                             onChange={({ target: {value }}) => setHorario(value)}
                            > 
                             <option></option>

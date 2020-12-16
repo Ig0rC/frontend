@@ -23,17 +23,13 @@ function AuthProvider( {children} ) {
     }, [])
 
         async function ValidacaoLogin(email, password){
-            console.log('entrou')
-            console.log(email)
             const envEmail = email
-            console.log(envEmail, 'ok')
             const envSenha = password
             const { data: { token, user } } = await api.post('/login',{
                email: envEmail,
                password: envSenha
             })
             
-            console.log(user[0].id_tipo_login,'ok')
             localStorage.setItem('token', JSON.stringify(token));
 
             api.defaults.headers.Authorization = `Bearer ${token}`;

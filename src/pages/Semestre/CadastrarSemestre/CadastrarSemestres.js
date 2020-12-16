@@ -26,12 +26,18 @@ function CadastrarSemestre(){
                 ano: ano
             });
             console.log(response);
-            window.alert('deu certo')
+            window.alert('Cadastrado com sucesso!')
         } catch(error){
             console.log(error)
         }
 
     }
+
+    async function maxLengthCheck (object) {
+        if (object.target.value.length > object.target.maxLength) {
+         object.target.value = object.target.value.slice(0, object.target.maxLength)
+          }
+        }
     return(
         <>
         <Menu />
@@ -45,9 +51,10 @@ function CadastrarSemestre(){
                     <p>Ano</p>
                     <input 
                             class="input-global-css-entrada"
-                            type='text' 
-                            maxLength={10} 
-                            placeholder="Ex: 2020"
+                            type='number' 
+                            onInput={maxLengthCheck}
+                            maxLength={4} 
+                            placeholder="Ex: 2019"
                             onChange={ ( { target: { value }}) => setAno(value)}
                             />
            
@@ -55,8 +62,10 @@ function CadastrarSemestre(){
                     <p>Semestre</p>
                     <input 
                             class="input-global-css-entrada" 
-                            type='text' 
-                            maxLength={10} 
+                            type='number' 
+                            onInput={maxLengthCheck}
+                            maxLength={2} 
+                            
                             placeholder="Ex: 2"
                             onChange={ ( { target: { value }}) => setSemestre(value)}
                     />

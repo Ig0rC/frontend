@@ -4,14 +4,14 @@ import api from '../../../services/api';
 import './BuscarDisciplina.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { Context } from '../../../Context/DisciplinaContext';
+import { ContextDisciplina } from '../../../Context/DisciplinaContext';
 
 
 
 export default function BuscarDisciplinas(){
 
 
-    const { SelecionaDisciplina, id } = useContext(Context)
+    const { SelecionaDisciplina, id } = useContext(ContextDisciplina)
 
     const [ i, setI] = useState(0);
     const [page, setPage] = useState(1);

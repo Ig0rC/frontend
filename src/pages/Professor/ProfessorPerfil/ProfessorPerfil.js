@@ -21,7 +21,6 @@ export default function ProfessorPerfil() {
 
     const [nascimentoData, setNascimentoData] = React.useState(new Date(''));
     const { id } = useContext(Context)
-    console.debug('id', id)
     const [professorPerfil, setProfessorPerfil] = useState([]);
 
     useEffect(() => {
@@ -29,7 +28,6 @@ export default function ProfessorPerfil() {
             console.log(id, 'ok')
             const response = await api.get(`/professor/selecionar/${id}`);
             setProfessorPerfil(response.data)
-            console.log('ok', response.data)
         })();
     }, [id])
 
@@ -134,7 +132,7 @@ export default function ProfessorPerfil() {
                         />
                         <label>Naturalidade:</label>
                         <select
-                            className="input-styles-IT text-aling-center-cadastrar-curso"
+                            className="input-styles-aluno-perfil"
                             ref={naturalidade}
                         >
                             <option value={professor.naturalidade === 'Brasileiro' ? "Brasileiro" : "Estrangeiro"}>
@@ -148,7 +146,7 @@ export default function ProfessorPerfil() {
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <Grid container justify="space-around">
                                 <KeyboardDatePicker
-                                    className="input-data"
+                                    className="input-styles-aluno-perfil"
                                     margin="normal"
                                     id="date-picker-dialog"
                                     format="dd/MM/yyyy"

@@ -70,6 +70,7 @@ import AdministradorLista from '../pages/Administrador/ListarAdministrador/Lista
 //Esqueci Minha senha
 
 import EsqueciMinhaSenha from '../pages/AlterarSenha/EsqueciMinhaSenha/EsqueciMinhaSenha.js'
+import AlterarMinhaSenha from '../pages/AlterarSenha/AlterarLogin/AlterarSenha.js'
 
 function CustomRoute({ isPrivate, ...rest}){
     const { loading, autorizacao } = useContext(Context);
@@ -126,7 +127,8 @@ function Routes (){
             <CustomRoute exact path='/administrador-perfil' component={AdministradorPerfil}/>
             <CustomRoute exact path='/administrador-lista' component={AdministradorLista}/>
             <CustomRoute exact path='/esqueci-minha-senha' component={EsqueciMinhaSenha}/>
-            
+            <CustomRoute exact path='/alterar-minha-login' component={AlterarMinhaSenha}/>
+
 
         </Switch>
   )

@@ -36,8 +36,11 @@ export default function EsqueciMinhaSenha(){
 
     }
     useEffect(() => {
-        alert(consult)
-        Navegar(consult, cpfNew);
+        if(consult === 'CPF não encotrado, por favor, cadastre-se'){
+            alert('CPF não encotrado, por favor, cadastre-se')
+        }else{
+            Navegar(consult, cpfNew);
+        }
     }, [consult])
 
 

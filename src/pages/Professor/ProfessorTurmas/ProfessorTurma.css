@@ -1,0 +1,38 @@
+.section-mobile-professor-turma{
+    padding: 20px 20px !important;
+}
+.section-mobile-professor-turma p{
+    margin: 5px 0px !important;
+}
+
+.div-mobile-professor-turma-border{
+    display: none;
+    border: 3px solid #0060EB;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.option-professor-turma{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    flex-wrap: wrap;
+    margin: 0px 30px !important;
+
+}
+.option-professor-turma div{
+    margin: 0px 30px !important;
+}
+.option-professor-turma a{
+    padding: 10px;
+    cursor: pointer;
+}
+@media (max-width: 650px){
+    .div-mobile-professor-turma-border{
+        display: block;
+    }
+    .section-destkop-professor-turma{
+        display: none
+    }
+    
+}

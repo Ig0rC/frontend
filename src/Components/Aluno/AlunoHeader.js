@@ -1,6 +1,7 @@
 import React, { useContext} from 'react';
 import { Context } from '../../Context/AuthContext';
 import './HeaderAluno.css'
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 
 
@@ -11,38 +12,24 @@ export default function HeaderAluno() {
 
     return (
         <>
-            <header class="header-menu">
-                <div class="flex-menu">
-                    <div class='logo'>
-                        <h1>SEJUS-DF</h1>
-                    </div>
-                    <div class='list-menu'>
-                        <ul class='c-dropdown'>
-                            <li class="c-dropdown_item">
-                                <a class="c-dropdown_menu-link">Home</a>
-                            </li>
-                            <li class="c-dropdown_item hover-item-first">
-                                    <a  href="/aluno-cursos" className="c-dropdown_submenu-link a-decoration-aluno-header">
-                                                   Cursos
-                                    </a>
-                            </li>
-                            <li class="c-dropdown_item hover-item-first">
-                                <a  href="/minhas-notas-aluno" className="c-dropdown_submenu-link a-decoration-aluno-header">
-                                    Minha Notas
-                                </a>
-                            </li>
-                            <li class="c-dropdown_item hover-item-first">
-                                <a  href="/minhas-faltas-aluno" className="c-dropdown_submenu-link a-decoration-aluno-header">
-                                    Minha Faltas
-                                </a>
-                            </li>
-                            <li class="c-dropdown_item hover-item-first">
-                                <a onClick={logout}> Sair</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </header>
+          <Navbar collapseOnSelect expand="md" bg="primary">
+            <Navbar.Brand href="#home">SEJUS-DF</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                  
+                </Nav>
+                <Nav>
+                <Nav.Link href="/alunohome">Home</Nav.Link>
+                <Nav.Link href="/aluno-cursos">Cursos</Nav.Link>
+                <Nav.Link href="/minhas-notas-aluno">Minhas Notas</Nav.Link>
+                <Nav.Link href="/minhas-faltas-aluno">Minhas Faltas</Nav.Link>
+                  
+                <Nav.Link  onClick={logout} >Sair</Nav.Link>
+                </Nav>
+
+            </Navbar.Collapse>
+            </Navbar>
         </>
     )
 }

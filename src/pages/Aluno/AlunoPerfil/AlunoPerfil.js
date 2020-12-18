@@ -32,7 +32,7 @@ export default function AlunoPerfil() {
         (async () => {
             const response = await api.get(`alunos/selecionar/${id}`)
             setDadosAluno(response.data)
-            console.log(response.data)
+
             const responseCE = await api.get(`/aluno/contato/emergencial/buscar/${id}`)
             setCE(responseCE.data);
 
@@ -63,7 +63,6 @@ export default function AlunoPerfil() {
 
 
     async function AtualizarDadosAluno(idrg, idendereco, idtelefone, idlogin) {
-        alert(idlogin)
         try {   
             const response = await api.put(`/aluno/perfil/atualizar/dados/${id}/${idrg}/${idendereco}/${idtelefone}/${idlogin}`,{      
             nome: nome.current.value,
@@ -87,12 +86,9 @@ export default function AlunoPerfil() {
             email: email.current.value
         });
         alert('Atualizado com Sucesso!')
-        console.log(response.data)
-
         } catch (error) {
             console.log(error)
 
-            
         } 
     }
 

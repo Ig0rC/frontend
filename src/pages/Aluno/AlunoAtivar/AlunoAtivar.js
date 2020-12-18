@@ -199,6 +199,19 @@ export default function AlunoAtivar() {
                     </div>
                 </div>
             ))}
+              <div class="bg-footer">     
+                    <div class="flex-next-prev-list">
+                        <button 
+                            onClick={prevPage}
+                            class="back-button-list-all btn-list-color-voltar">
+                            Voltar
+                        </button>
+                        <button onClick={nextPage}
+                        class="back-button-list-all btn-list-color-proximo">
+                            Próximo
+                        </button>
+                    </div>
+                </div>
 
             </section>
             

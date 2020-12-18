@@ -17,13 +17,12 @@ function AlterarSenhaC ( { children } ){
 
     useEffect(() => {
         if(validation === true){
-            history.push('/')
-            alert(dados)
+            history.push('/alterar-minha-login')
         }
     }, [validation])
     
     return(
-        <AlterarSenhaContext.Provider value={{ Navegar, validation}}>
+        <AlterarSenhaContext.Provider value={{ Navegar, validation, dados}}>
             {children}
         </AlterarSenhaContext.Provider>
     )

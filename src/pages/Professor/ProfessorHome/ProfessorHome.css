@@ -1,0 +1,17 @@
+.section-professor-home-perfil{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div-professor-home-perfil{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 10px;
+}
+.div-professor-home-perfil label {
+    text-align: start !important;
+}

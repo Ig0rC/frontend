@@ -26,21 +26,37 @@ export default function AlunoNotas() {
     const classes = useStyles();
     
     const [ notas, setNotas ] = useState([]);
+    const [nomeCurso, setNomeCurso ] = useState('');
 
     useEffect(() =>{
         (async () => {
             const response = await api.get(`/aluno/minha/nota/cursos`)
-            setNotas(response.data)
-            console.log(response.data)
+            setNotas(response.data);
+
+
         })();
     }, [])
+
+    useEffect(() => {
+        notas.map(nota => (
+            setNomeCurso(nota.nome_curso)
+        ))
+    }, [notas]);
 
     return (
         <>
         <Menu />
+            <div className="flex-list-all-bg">
+                  <div className="flex-pesq-list-all">
+                      <div className="tamanho-pesq-atributos">
+                          <p className="titulo-aluno-list-all">{nomeCurso}</p>
+                      </div>
+                  </div>
+            </div>
         <div class="container-aluno-notas-acordeao">
             {notas.map(nota => (
                 <div className={classes.root}>
+                
                 <Accordion>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}

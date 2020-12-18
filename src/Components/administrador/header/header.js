@@ -37,9 +37,9 @@ export default function MenuAdm() {
                             <NavDropdown.Divider />
                         <NavDropdown.Item href="/instituicao">Instituição</NavDropdown.Item>
                             <NavDropdown.Divider />
-                        <NavDropdown.Item href="/cadastrar-turma">Curso</NavDropdown.Item>
+                        <NavDropdown.Item href="/cadastrarcursos">Curso</NavDropdown.Item>
                             <NavDropdown.Divider />
-                        <NavDropdown.Item href="/cadastrarcursos">Turma</NavDropdown.Item>
+                        <NavDropdown.Item href="/cadastrar-turma">Turma</NavDropdown.Item>
                             <NavDropdown.Divider />
                         <NavDropdown.Item href="/cadastrar-semestre">Semestre</NavDropdown.Item>
                             <NavDropdown.Divider />
@@ -62,7 +62,7 @@ export default function MenuAdm() {
                             <NavDropdown.Divider />
                         <NavDropdown.Item href="/buscar-professores">Professores</NavDropdown.Item>
                     </NavDropdown>
-                <Nav.Link  onClick={logout} href="#features">Sair</Nav.Link>
+                <Nav.Link  onClick={logout} >Sair</Nav.Link>
                 </Nav>
 
             </Navbar.Collapse>

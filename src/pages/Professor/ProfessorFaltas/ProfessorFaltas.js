@@ -2,8 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Menu from '../../../Components/Professor/header/headerProfessor';
 import { Context } from '../../../Context/ProfessorNotaContext';
 import api from '../../../services/api';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './ProfessorFaltas.css'
 
 
 
@@ -49,34 +48,35 @@ export default function ProfessorFaltas(){
         <>
         <Menu />
         <div class="cadastrar-curso-a-instituicao-titulo">
-        <h1>Sistema de Gerenciamento da Turma</h1>
+        <h1>Lançamento de Faltas</h1>
         </div>
-        {aluno.map(aluno => (
-             <div className="Professor-notas-Alunos">
-             <div className="tabela-professor-nota">
-                 <div>
-                     <p>CPF: {aluno.cpf_aluno}</p>
-                     <p>Nome: {aluno.nome}</p>
-                     <p>Semestre: {semestreC}</p>
-                     <p>Ano: {anoC}</p>
-                 </div>
-                 <div className="inputs-professor-notas">
-                     <p>Faltas: </p>
-                    
-                     <input 
-                        defaultValue={aluno.quantidade}
-                        onChange={
-                            ( { target: {value} } ) => setFaltas(value)
-                        }
-                        //setando valor na variavel CPF
-                        onSelect={() => setCPF(aluno.cpf_aluno)}
-                        className="input-nota-entrada" type="number" 
-                    />
-                 </div>
-             </div> 
-         </div>
-        ))}
-       
+        <section className="section-professor-faltas-Alunos">
+            {aluno.map(aluno => (
+                <div className="div-professor-faltas-Alunos">
+                <div className="tabela-professor-faltas-aluno">
+                    <div>
+                        <p><strong>CPF: </strong>{aluno.cpf_aluno}</p>
+                        <p><strong>Nome: </strong> {aluno.nome}</p>
+                        <p><strong>Semestre:</strong> {semestreC}</p>
+                        <p><strong>Ano: </strong>{anoC}</p>
+                    </div>
+                    <div className="inputs-professor-notas">
+                        <p>Faltas: </p>
+                        
+                        <input 
+                            defaultValue={aluno.quantidade}
+                            onChange={
+                                ( { target: {value} } ) => setFaltas(value)
+                            }
+                            //setando valor na variavel CPF
+                            onSelect={() => setCPF(aluno.cpf_aluno)}
+                            className="input-nota-entrada-professor-faltas" type="number" 
+                        />
+                    </div>
+                </div> 
+            </div>
+            ))}
+        </section>
         </>
     )
 }

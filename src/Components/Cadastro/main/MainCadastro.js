@@ -9,7 +9,9 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-import '../../../CSS/global.css'
+import '../../../CSS/global.css';
+import history from '../../../pages/history';
+
 
 
 
@@ -259,9 +261,7 @@ function MainCadastro() {
             !UF === false &&
             !email === false
         ) {
-            console.log('entrou')
-
-            await api.post('/cadastro', {
+            const result = await api.post('/cadastro', {
                 cpf: cpfPessoa,
                 nome: nome,
                 nome_social: nomeSocial,
@@ -287,8 +287,13 @@ function MainCadastro() {
                 email: email,
                 senhaemail: senha
             });
-            return window.alert('Cadastrado com Sucesso!')
-
+        
+            const response = result.data;
+            window.alert(response)
+            if(response === 'Cadastrado com Sucesso!'){
+                return history.push('/login')
+ 
+            }
         }
         else if (cpf.isValid(cpfPessoa) === false) {
             alert('CPF inválido')
@@ -337,9 +342,6 @@ function MainCadastro() {
         }
     }
     async function CriarCadastroAluno() {
-        console.debug('filhos', !filhos === false)
-
-
         const validarSenha = senha === confirmaSenha;
         if (validarSenha === false || senha === '') {
             return alert("Senhas não se coincidem")
@@ -392,7 +394,7 @@ function MainCadastro() {
             !aiR === false &&
             !sobreAcessibilidade === false
         ) {
-            await api.post('/cadastro', {
+            const result = await api.post('/cadastro', {
                 cpf: cpfPessoa,
                 nome: nome,
                 nome_social: nomeSocial,
@@ -444,7 +446,9 @@ function MainCadastro() {
                 dado_acessibilidade: outroAcessibildiade
 
             });
-            return window.alert('Cadastrado com Sucesso!')
+            const response = result.data;
+            window.alert(response)
+            history.push('/login')
         }
         else if (cpf.isValid(cpfPessoa) === false) {
             alert('CPF inválido')
@@ -589,9 +593,7 @@ function MainCadastro() {
     }
 
 
-    useEffect(() => {
-        console.log(date)
-    }, [date])
+   
 
     if (loading) {
         return (
@@ -650,7 +652,7 @@ function MainCadastro() {
                                 type="number"
                                 placeholder="Ex.: 00000000000"
                                 onInput={maxLengthCheck}
-                                maxLength={19}
+                                maxLength={11}
                                 onChange={({ target: { value } }) => setCPF(value)}
                             />
                         </div>
@@ -766,7 +768,7 @@ function MainCadastro() {
                                 name="number"
                                 type="number"
                                 required="required"
-                                maxLength={20}
+                                maxLength={3}
                                 onInput={maxLengthCheck}
                                 placeholder="09"
                                 onChange={({ target: { value } }) => setNumeroCasa(value)}

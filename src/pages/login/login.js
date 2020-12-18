@@ -43,14 +43,15 @@ function Login() {
                             id="password" 
                             name="password"
                             onChange={( {target: {value}}) => setPassword(value)}
-                            placeholder="senha" 
+                            placeholder="senha"
+                            maxLength={10} 
                             type="password" />
                     </div>
                     <div class="button-left">
                         <button onClick={() => ValidacaoLogin(email, password)}>Entrar</button>
                     </div>
                     <div class="info">
-                        <a href="#">Esqueci minha senha</a>
+                        <a href="/esqueci-minha-senha">Esqueci minha senha</a>
                         <a href="/">Cadastrar</a>
                     </div>
                 </div>

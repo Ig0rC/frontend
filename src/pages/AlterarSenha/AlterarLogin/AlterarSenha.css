@@ -1,0 +1,58 @@
+.esqueci-minha-senha-cpf-div{
+    margin: 10px 5px;
+
+   
+}
+.alterar-minha-senha-div{
+    width: 300px;
+}
+.alterar-minha-senha-div h1{
+    color: white;
+    margin-bottom: 20px !important;
+    text-align: center;
+}
+
+@media (max-width: 350px){
+    .alterar-minha-senha-div{
+        width: 100%;
+        margin: 0px 10px;
+    }
+    .alterar-minha-senha-div h1{
+        font-size: 25px !important;
+    }
+}
+
+.alterar-minha-senha-div p{
+    color: white;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+    text-align: start;
+    font-weight: 600;
+}
+
+.container-alterar-minha-senha{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0060EB;
+}
+.input-esqueci-minha-senha{
+    border: 2px solid white;
+    padding: 10px 5px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.button-esqueci-minha-senha{
+    margin: 35px 0px;
+    padding: 10px 0px;
+    width: 100%;
+    background-color: #31AB52;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    border: 2px solid #31AB52;
+    border-radius: 5px;
+}

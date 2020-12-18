@@ -1,0 +1,43 @@
+.aluno-home-section{
+    display: flex;
+    padding: 20px 20px;
+    justify-content: center;
+}
+
+.input-styles-aluno-perfil{
+    border: 2px solid #0060EB;
+    width: 350px;
+    border-radius: 5px;
+    height: 43px;
+    margin-bottom: 15px;
+
+}
+.div-save-dados-perfil-aluno{
+    text-align: center;
+}
+.div-aluno-home {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-home-aluno-section{
+    text-align: center;
+    margin: 10px 10px;
+}
+
+@media (max-width: 390px){
+    .input-styles-aluno-perfil{
+        width: 280px;
+      
+    }
+    .aluno-home-section{
+    
+        justify-content: start;
+    }
+}
+
+@media (max-width: 307px){
+    .input-styles-aluno-perfil{
+        width: 100%;
+    }
+}

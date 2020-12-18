@@ -70,7 +70,14 @@ import AdministradorLista from '../pages/Administrador/ListarAdministrador/Lista
 //Esqueci Minha senha
 
 import EsqueciMinhaSenha from '../pages/AlterarSenha/EsqueciMinhaSenha/EsqueciMinhaSenha.js'
-import AlterarMinhaSenha from '../pages/AlterarSenha/AlterarLogin/AlterarSenha.js'
+import AlterarMinhaSenha from '../pages/AlterarSenha/AlterarLogin/AlterarSenha.js';
+
+//Lançar Notas do Administrador
+import LacarNotasAdministrador from '../pages/Administrador/LançarNotas/LancarNotas.js'
+
+//Buscar Leciona
+import BuscarLeciona from '../pages/Leciona/BuscarLeciona/BuscarLeciona.js';
+import PerfiLeciona from '../pages/Leciona/PerfilLeciona/PerfilLeciona';
 
 function CustomRoute({ isPrivate, ...rest}){
     const { loading, autorizacao } = useContext(Context);
@@ -92,44 +99,45 @@ function Routes (){
         <Switch>
             <CustomRoute exact path='/' component={Cadastro} />
             <CustomRoute exact path='/login' component={Login} />
-            <CustomRoute exact path='/homealuno' component={InicialAluno} />
-            <CustomRoute exact path='/instituicao' component={Instituicao} />
+            <CustomRoute isPrivate exact path='/homealuno' component={InicialAluno} />
+            <CustomRoute isPrivate exact path='/instituicao' component={Instituicao} />
             <CustomRoute isPrivate exact path='/pesqinstituicao' component={BuscarInstituicao} />
-            <CustomRoute exact path='/perfilinstituicao' component={InstituicaoPerfil} />
-            <CustomRoute exact path='/pesquisacursos' component={BuscarCurso} />
-            <CustomRoute exact path='/cadastrarcursos' component={CadastrarCursos} />
-            <CustomRoute exact path='/alunohome' component={AlunosHome} />
-            <CustomRoute exact path='/professorhome' component={ProfessorHome} />
-            <CustomRoute exact path='/alunos' component={ListarAlunos} />
-            <CustomRoute exact path='/cadastrar-semestre' component={CadastrarSemestres} />
-            <CustomRoute exact path='/cadastrar-horario' component={CadastrarHorario} />
-            <CustomRoute exact path='/cadastrar-turma' component={CadastrarTurma} />
-            <CustomRoute exact path='/buscar-turma' component={BuscarTurmas} />
-            <CustomRoute exact path='/cadastrar-disciplinas' component={CadastrarDisciplina} />
-            <CustomRoute exact path='/buscar-disciplinas' component={BuscarDisciplina} />
-            <CustomRoute exact path='/leciona' component={Leciona} />
-            <CustomRoute exact path='/professor-turmas' component={ProfessorTurmas} />
-            <CustomRoute exact path='/professor-turma-notas' component={ProfessorNotas} />
-            <CustomRoute exact path='/perfil-curso' component={PerfilCurso} />
-            <CustomRoute exact path='/perfil-turma' component={PerfilTurma} />
-            <CustomRoute exact path='/perfil-disciplina' component={PerfilDisciplina} />
-            <CustomRoute exact path='/ativar-aluno' component={AtivarAlunos} /> 
-            <CustomRoute exact path='/perfil-aluno' component={PerfilAluno} />
-            <CustomRoute exact path='/buscar-professores' component={BuscarProfessores} />
-            <CustomRoute exact path='/perfil-professor' component={ProfessorPerfil} />
-            <CustomRoute exact path='/ativar-professor' component={AtivarProfessor} />
-            <CustomRoute exact path='/aluno-cursos' component={AlunoCursos} />
-            <CustomRoute exact path='/aluno-info-curso' component={AlunosInfo} />  
-            <CustomRoute exact path='/professor-falta-turma' component={ProfessorFaltas} />
-            <CustomRoute exact path='/minhas-notas-aluno' component={MinhasNotasAluno}/>
-            <CustomRoute exact path='/minhas-faltas-aluno' component={MinhaFaltas}/>
-            <CustomRoute exact path='/administrador-inativos' component={AdministradorInativo}/>
-            <CustomRoute exact path='/administrador-perfil' component={AdministradorPerfil}/>
-            <CustomRoute exact path='/administrador-lista' component={AdministradorLista}/>
-            <CustomRoute exact path='/esqueci-minha-senha' component={EsqueciMinhaSenha}/>
-            <CustomRoute exact path='/alterar-minha-login' component={AlterarMinhaSenha}/>
-
-
+            <CustomRoute isPrivate exact path='/perfilinstituicao' component={InstituicaoPerfil} />
+            <CustomRoute isPrivate exact path='/pesquisacursos' component={BuscarCurso} />
+            <CustomRoute isPrivate exact path='/cadastrarcursos' component={CadastrarCursos} />
+            <CustomRoute isPrivateexact path='/alunohome' component={AlunosHome} />
+            <CustomRoute isPrivate exact path='/professorhome' component={ProfessorHome} />
+            <CustomRoute isPrivate exact path='/alunos' component={ListarAlunos} />
+            <CustomRoute isPrivate exact path='/cadastrar-semestre' component={CadastrarSemestres} />
+            <CustomRoute isPrivate exact path='/cadastrar-horario' component={CadastrarHorario} />
+            <CustomRoute isPrivate exact path='/cadastrar-turma' component={CadastrarTurma} />
+            <CustomRoute isPrivate exact path='/buscar-turma' component={BuscarTurmas} />
+            <CustomRoute isPrivate exact path='/cadastrar-disciplinas' component={CadastrarDisciplina} />
+            <CustomRoute isPrivate exact path='/buscar-disciplinas' component={BuscarDisciplina} />
+            <CustomRoute isPrivate exact path='/leciona' component={Leciona} />
+            <CustomRoute isPrivate exact path='/professor-turmas' component={ProfessorTurmas} />
+            <CustomRoute isPrivate exact path='/professor-turma-notas' component={ProfessorNotas} />
+            <CustomRoute isPrivate exact path='/perfil-curso' component={PerfilCurso} />
+            <CustomRoute isPrivate exact path='/perfil-turma' component={PerfilTurma} />
+            <CustomRoute isPrivate exact path='/perfil-disciplina' component={PerfilDisciplina} />
+            <CustomRoute isPrivate exact path='/ativar-aluno' component={AtivarAlunos} /> 
+            <CustomRoute isPrivate exact path='/perfil-aluno' component={PerfilAluno} />
+            <CustomRoute isPrivate exact path='/buscar-professores' component={BuscarProfessores} />
+            <CustomRoute isPrivate exact path='/perfil-professor' component={ProfessorPerfil} />
+            <CustomRoute isPrivate exact path='/ativar-professor' component={AtivarProfessor} />
+            <CustomRoute isPrivate exact path='/aluno-cursos' component={AlunoCursos} />
+            <CustomRoute isPrivate exact path='/aluno-info-curso' component={AlunosInfo} />  
+            <CustomRoute isPrivate exact path='/professor-falta-turma' component={ProfessorFaltas} />
+            <CustomRoute isPrivate exact path='/minhas-notas-aluno' component={MinhasNotasAluno}/>
+            <CustomRoute isPrivate exact path='/minhas-faltas-aluno' component={MinhaFaltas}/>
+            <CustomRoute isPrivate exact path='/administrador-inativos' component={AdministradorInativo}/>
+            <CustomRoute isPrivate exact path='/administrador-perfil' component={AdministradorPerfil}/>
+            <CustomRoute isPrivate exact path='/administrador-lista' component={AdministradorLista}/>
+            <CustomRoute isPrivate exact path='/esqueci-minha-senha' component={EsqueciMinhaSenha}/>
+            <CustomRoute isPrivate exact path='/alterar-minha-login' component={AlterarMinhaSenha}/>
+            <CustomRoute isPrivate exact path='/lancar-notas-administrador' component={LacarNotasAdministrador}/>
+            <CustomRoute isPrivate exact path='/buscar-leciona-professores' component={BuscarLeciona}/>
+            <CustomRoute isPrivate exact path='/buscar-leciona-professores-perfil' component={PerfiLeciona}/>
         </Switch>
   )
 }

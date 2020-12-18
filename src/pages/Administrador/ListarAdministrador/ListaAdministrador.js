@@ -67,20 +67,7 @@ export default function ListaAdministrador() {
                             </tr>
                         ))}
                     </table>
-                    <div className="bg-footer">
-                        <div className="flex-next-prev-list">
-                            <button
-                                // onClick={prevDisciplina}
-                                className="back-button-list-all btn-list-color-voltar">
-                                Voltar
-                            </button>
-                            <button
-                                //   onClick={nextDisciplina} 
-                                className="back-button-list-all btn-list-color-proximo">
-                                Próximo
-                            </button>
-                        </div>
-                    </div>
+
                 </div>
 
             </section>
@@ -111,23 +98,6 @@ export default function ListaAdministrador() {
                         </div>
                     </div>
                 ))}
-
-                <div className="mobile-teste-global">
-                    <div class="bg-footer">
-                        <div class="flex-next-prev-list">
-                            <button
-                                // onClick={prevDisciplina}
-                                className="back-button-list-all btn-list-color-voltar">
-                                Voltar
-                        </button>
-                            <button
-                                //   onClick={nextDisciplina} 
-                                className="back-button-list-all btn-list-color-proximo">
-                                Próximo
-                        </button>
-                        </div>
-                    </div>
-                </div>
 
             </section>
 

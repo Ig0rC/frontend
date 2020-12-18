@@ -15,13 +15,20 @@ export default function AdministradorInativo(){
 
     const { SelecionarAdministrador  } = useContext(AdministradorContext);
     const [ administrador, setAdministrador ] = useState([]);
+    const [reload , setReload ] = useState(false);
+
     
     useEffect(() => {
         (async ()=> {
             const response = await api.get('/administrador');
             setAdministrador(response.data)
+            if(reload === false){
+                setReload(true)
+            }else{
+                setReload(false)
+            }
         })();
-    }, [])
+    }, [reload])
 
     // async function ativar(cpf){}
     const ativar = async (cpf) =>{ 
@@ -87,21 +94,6 @@ export default function AdministradorInativo(){
                             </tr>
                         ))} 
                 </table> 
-                <div class="bg-footer">
-                    
-                    <div class="flex-next-prev-list">
-                        <button 
-                            // onClick={prevPage}
-                            class="back-button-list-all btn-list-color-voltar">
-                            Voltar
-                        </button>
-                        <button 
-                            // onClick={nextPage}
-                            class="back-button-list-all btn-list-color-proximo">
-                            Próximo
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <section className="diplay-none-mobile">
@@ -131,23 +123,6 @@ export default function AdministradorInativo(){
                         </div>
                     </div>
                 ))}
-
-                <div className="mobile-teste-global">
-                    <div class="bg-footer">
-                        <div class="flex-next-prev-list">
-                            <button
-                                // onClick={prevDisciplina}
-                                class="back-button-list-all btn-list-color-voltar">
-                                Voltar
-                        </button>
-                            <button
-                                //   onClick={nextDisciplina} 
-                                class="back-button-list-all btn-list-color-proximo">
-                                Próximo
-                        </button>
-                        </div>
-                    </div>
-                </div>
 
             </section>
           

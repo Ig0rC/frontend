@@ -1,0 +1,25 @@
+.mobile-section-lancar-notas{
+    display: none;
+    padding: 20px;
+}
+.mobile-div-lancar-notas{
+    border: 2px solid #0060EB;
+    padding: 10px;
+    margin: 10px 0px;
+}
+.option-lancar-notas{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    text-align: center;
+
+}
+.option-lancar-notas div{
+    margin: 0px 10px;
+}
+
+@media (max-width: 650px){
+    .mobile-section-lancar-notas{
+        display: block;
+    }
+}

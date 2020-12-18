@@ -64,8 +64,8 @@ export default function PerfilDisciplina() {
                 {disciplina.map(disciplina => (
                      <div key={disciplina.id_disciplina}class="perfil-curso-div-center">
                      <p>Código do Curso:
-                        <strong>{disciplina.id_disciplina}</strong> 
                      </p>
+                     <input className="input-perfil-disciplina-att"type="number" readOnly value={disciplina.id_disciplina}/>
                      <p>Nome Disciplina: </p>
                      <input
                          ref={nomeDisciplina}

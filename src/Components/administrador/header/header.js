@@ -24,7 +24,6 @@ export default function MenuAdm() {
                   
                 </Nav>
                 <Nav>
-                <Nav.Link href="/home">Home</Nav.Link>
                     <NavDropdown title="Ativar" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="/ativar-professor">Professores</NavDropdown.Item>
                                 <NavDropdown.Divider />
@@ -61,7 +60,11 @@ export default function MenuAdm() {
                         <NavDropdown.Item href="/alunos">Alunos</NavDropdown.Item>
                             <NavDropdown.Divider />
                         <NavDropdown.Item href="/buscar-professores">Professores</NavDropdown.Item>
-                    </NavDropdown>
+                            <NavDropdown.Divider />
+                        <NavDropdown.Item href="/buscar-leciona-professores">Leciona</NavDropdown.Item>
+                     </NavDropdown>
+                    <Nav.Link href="/lancar-notas-administrador">Lançamento</Nav.Link>
+                    
                 <Nav.Link  onClick={logout} >Sair</Nav.Link>
                 </Nav>
 

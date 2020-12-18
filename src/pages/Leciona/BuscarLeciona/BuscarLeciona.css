@@ -1,0 +1,28 @@
+.section-buscar-leciona{
+    padding: 20px;
+}
+
+.div-buscar-leciona{
+    display: none;
+    padding: 20px;
+    border: 3px solid #0060EB;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.div-buscar-leciona p{
+    margin: 10px 0px !important;
+}
+
+.option-buscar-leciona{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center;
+    
+}
+
+@media (max-width: 650px ){
+    .div-buscar-leciona{
+        display: block
+    }
+}

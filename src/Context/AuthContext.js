@@ -53,6 +53,11 @@ function AuthProvider( {children} ) {
         function logout(){
             setAutorizacao(false)
             localStorage.removeItem('token')
+            localStorage.removeItem('ProfessorOuAdministrador')
+            localStorage.removeItem('turma')
+            localStorage.removeItem('semestreProfessor')
+            localStorage.removeItem('anoProfessor')
+            localStorage.removeItem('disciplinaProfessor')
             api.defaults.headers.Authorization = undefined;
             history.push('/login')
         }

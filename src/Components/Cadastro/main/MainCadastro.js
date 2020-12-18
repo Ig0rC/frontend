@@ -289,7 +289,7 @@ function MainCadastro() {
             });
         
             const response = result.data;
-            window.alert(response)
+            alert('Cadastrado com sucesso!')
             if(response === 'Cadastrado com Sucesso!'){
                 return history.push('/login')
  
@@ -943,13 +943,6 @@ function MainCadastro() {
                                 />
 
                             </div>
-                            <div class="">
-                                <input
-                                    class="submit-cancel"
-                                    type="button"
-                                    value="Cancelar"
-                                />
-                            </div>
                         </div>
 
 
@@ -1136,7 +1129,7 @@ function MainCadastro() {
                     </div>
 
                     <div class="campo">
-                        <p>Naturalidade2</p>
+                        <p>Naturalidade</p>
                         <select
                             onChange={e => SelecioneNaturalidade(e)}
                             class="input-global-cadastro-first-entrada select"
@@ -2498,9 +2491,10 @@ function MainCadastro() {
                             id="telefone"
                             name="telefone_sos"
                             required="required"
-                            type="tel"
-                            placeholder="Ex.: (00) 0000-0000"
-                            maxLength={20}
+                            type="number"
+                            onInput={maxLengthCheck}
+                            placeholder="0000-0000"
+                            maxLength={11}
                             onChange={({ target: { value } }) => setTelefoneSOS(value)}
                         />
                     </div>
